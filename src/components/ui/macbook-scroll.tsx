@@ -360,11 +360,13 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       />
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src="lockscreen-wallpaper-new.mp4"
+        src={assetPath("/lockscreen-wallpaper-current.mp4")}
+        poster={assetPath("/lockscreen-wallpaper-poster.jpg")}
         autoPlay
         muted
         loop
         playsInline
+        preload="metadata"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,48,0.28),rgba(8,20,48,0.03)_30%,rgba(0,0,0,0.30)_100%)]" />
 
@@ -380,7 +382,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       <div className="absolute bottom-[5%] left-1/2 flex -translate-x-1/2 flex-col items-center text-center drop-shadow-[0_1px_8px_rgba(5,20,50,0.32)]">
         <div className="relative h-[clamp(28px,5.8vw,56px)] w-[clamp(28px,5.8vw,56px)] overflow-hidden rounded-full border border-white/45 bg-white/20 shadow-[0_4px_14px_rgba(5,20,50,0.24)]">
           <Image
-            src={assetPath("/profile-avatar.png")}
+            src={assetPath("/profile-avatar-small.jpg")}
             alt="Zirui Kong profile photo"
             fill
             sizes="56px"
@@ -400,7 +402,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
 
 const PeerlistBadge = () => (
   <StickerWithHoverCard
-    src={assetPath("/ohio-sticker.png")}
+    src={assetPath("/ohio-sticker-small.png")}
     alt="Ohio mascot sticker"
     width={92}
     height={92}
@@ -415,7 +417,7 @@ const PeerlistBadge = () => (
 
 const GeorgiaSticker = () => (
   <StickerWithHoverCard
-    src={assetPath("/georgia-sticker.png")}
+    src={assetPath("/georgia-sticker-small.png")}
     alt="Georgia logo sticker"
     width={118}
     height={103}
@@ -430,7 +432,7 @@ const GeorgiaSticker = () => (
 
 const HandshakeSticker = () => (
   <StickerWithHoverCard
-    src={assetPath("/zirui-sticker.png")}
+    src={assetPath("/zirui-sticker-small.png")}
     alt="Arsenal handshake sticker"
     width={82}
     height={82}
@@ -445,7 +447,7 @@ const HandshakeSticker = () => (
 
 const MessiSticker = () => (
   <StickerWithHoverCard
-    src={assetPath("/messi-sticker.png")}
+    src={assetPath("/messi-sticker-small.png")}
     alt="Messi world cup sticker"
     width={104}
     height={128}
@@ -460,7 +462,7 @@ const MessiSticker = () => (
 
 const BearSticker = () => (
   <StickerWithHoverCard
-    src={assetPath("/bear-sticker.png")}
+    src={assetPath("/bear-sticker-small.png")}
     alt="Bear sweater sticker"
     width={92}
     height={126}
