@@ -445,7 +445,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       />
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src={assetPath("/cosmic-girl-black-hole-portal-wallpaperwaves-com.mp4")}
+        src={assetPath("/isagi-blue-lock-aura-wallpaperwaves-com.mp4")}
         autoPlay
         muted
         loop
