@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, type Variants } from "motion/react";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 type RecordItem = {
   id: string;
@@ -68,7 +69,21 @@ export function RecordsWall() {
   };
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-black text-white">
+    <main className="relative min-h-dvh overflow-hidden bg-[#06111f] text-white">
+      <BackgroundGradientAnimation
+        containerClassName="pointer-events-none absolute inset-0 z-0"
+        gradientBackgroundStart="rgb(3, 12, 28)"
+        gradientBackgroundEnd="rgb(5, 31, 48)"
+        firstColor="0, 110, 255"
+        secondColor="0, 225, 255"
+        thirdColor="38, 255, 214"
+        fourthColor="40, 72, 190"
+        fifthColor="180, 80, 255"
+        pointerColor="0, 220, 255"
+        size="96%"
+        blendingValue="screen"
+        interactive={false}
+      />
       <section className="relative flex min-h-dvh items-center justify-center px-4">
         <motion.div
           className="relative h-[420px] w-[min(92vw,760px)] overflow-visible md:h-[560px]"
@@ -133,7 +148,6 @@ export function RecordsWall() {
                           <div className="absolute inset-y-0 left-0 w-px bg-white/24" />
                         </>
                       )}
-                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,rgba(255,255,255,0.16),transparent_24%,transparent_66%,rgba(255,255,255,0.05))]" />
                     </div>
 
                     <div className="pointer-events-none absolute -left-[5px] top-[4px] h-[calc(100%-8px)] w-[8px] rounded-l-[4px] bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(0,0,0,0.7))]" />
