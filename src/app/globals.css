@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes first {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(10%, -8%) scale(1.08);
+  }
+}
+
+.animate-first {
+  animation: first 10s ease-in-out infinite alternate;
+}
+
+@keyframes second {
+  0%,
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+
+  50% {
+    transform: rotate(180deg) translate(8%, 10%);
+  }
+}
+
+.animate-second {
+  animation: second 12s ease-in-out infinite alternate;
+}
+
+@keyframes third {
+  0%,
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+
+  50% {
+    transform: rotate(-160deg) translate(-10%, 6%);
+  }
+}
+
+.animate-third {
+  animation: third 14s ease-in-out infinite alternate;
+}
+
+@keyframes fourth {
+  0%,
+  100% {
+    transform: translate(-4%, 4%);
+  }
+
+  50% {
+    transform: translate(8%, -10%);
+  }
+}
+
+.animate-fourth {
+  animation: fourth 11s ease-in-out infinite alternate;
+}
+
+@keyframes fifth {
+  0%,
+  100% {
+    transform: rotate(0deg) translate(0, 0);
+  }
+
+  50% {
+    transform: rotate(110deg) translate(10%, -8%);
+  }
+}
+
+.animate-fifth {
+  animation: fifth 13s ease-in-out infinite alternate;
+}
+
+/* From Uiverse.io by vinodjangid07 */
+#checkboxInput {
+  display: none;
+}
+
+.toggleSwitch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 42px;
+  height: 21px;
+  background-color: rgb(199, 199, 199);
+  border-radius: 10.5px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+.toggleSwitch::after {
+  content: "";
+  position: absolute;
+  height: 21px;
+  width: 21px;
+  left: 0;
+  background: conic-gradient(
+    rgb(104, 104, 104),
+    white,
+    rgb(104, 104, 104),
+    white,
+    rgb(104, 104, 104)
+  );
+  border-radius: 50%;
+  transition-duration: 0.3s;
+  box-shadow: 3px 1px 5px rgba(8, 8, 8, 0.308);
+}
+
+#checkboxInput:checked + .toggleSwitch::after {
+  transform: translateX(100%);
+  transition-duration: 0.3s;
+}
+
+#checkboxInput:checked + .toggleSwitch {
+  background-color: rgb(0, 0, 0);
+  transition-duration: 0.3s;
+}
