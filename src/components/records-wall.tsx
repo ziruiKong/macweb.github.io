@@ -11,6 +11,7 @@ type RecordItem = {
   mood: string;
   gradient: string;
   accent: string;
+  coverSrc?: string;
 };
 
 const RECORDS: RecordItem[] = [
@@ -21,6 +22,7 @@ const RECORDS: RecordItem[] = [
     mood: "city lights / late work",
     gradient: "linear-gradient(135deg,#0f172a 0%,#2563eb 48%,#67e8f9 100%)",
     accent: "#67e8f9",
+    coverSrc: "/record-cover-1.webp",
   },
   {
     title: "Buckeye Theory",
@@ -104,27 +106,15 @@ export function RecordsWall() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(34,211,238,0.22),transparent_28%),radial-gradient(circle_at_18%_72%,rgba(124,58,237,0.24),transparent_30%),linear-gradient(180deg,#02040a,#07111f_52%,#02040a)]" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/20" />
 
-      <section className="relative flex min-h-dvh flex-col items-center justify-center px-5 py-16">
-        <div className="mb-8 text-center">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-cyan-200/80">
-            Zirui Kong
-          </p>
-          <h1 className="mt-3 text-4xl font-black tracking-normal text-white md:text-7xl">
-            Records Wall
-          </h1>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-white/58 md:text-base">
-            A personal wall of albums, memories, places, and sounds.
-          </p>
-        </div>
-
+      <section className="relative flex min-h-dvh items-center justify-center px-5 py-16">
         <motion.div
-          className="relative h-[390px] w-[min(92vw,620px)] overflow-visible md:h-[520px]"
+          className="relative h-[360px] w-[min(92vw,620px)] overflow-visible md:h-[470px]"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           onMouseLeave={() => setActiveIndex(null)}
         >
-          <div className="absolute bottom-0 left-1/2 h-[300px] w-[270px] -translate-x-1/2 md:h-[430px] md:w-[360px]">
+          <div className="absolute left-1/2 top-1/2 h-[250px] w-[270px] -translate-x-1/2 -translate-y-1/2 md:h-[340px] md:w-[360px]">
             {RECORDS.map((record, index) => {
               const current = activeIndex === index;
               const shouldShift = activeIndex !== null && index > activeIndex;
@@ -134,7 +124,7 @@ export function RecordsWall() {
               return (
                 <motion.article
                   key={record.title}
-                  className="group absolute bottom-0 h-[300px] w-[210px] touch-manipulation outline-none md:h-[430px] md:w-[300px]"
+                  className="group absolute bottom-0 h-[250px] w-[250px] touch-manipulation outline-none md:h-[340px] md:w-[340px]"
                   style={{ left, zIndex: current ? 50 : 10 + index }}
                   variants={cardVariants}
                   custom={entranceOffset}
@@ -155,7 +145,7 @@ export function RecordsWall() {
                     transition={spring}
                   >
                     <motion.div
-                      className="absolute top-7 left-[42%] h-[210px] w-[210px] rounded-full bg-black shadow-[0_28px_70px_rgba(0,0,0,0.45)] md:top-12 md:h-[300px] md:w-[300px]"
+                      className="absolute left-[42%] top-5 h-[210px] w-[210px] rounded-full bg-black shadow-[0_28px_70px_rgba(0,0,0,0.45)] md:top-5 md:h-[300px] md:w-[300px]"
                       animate={{
                         x: current ? 92 : 18,
                         rotate: current ? 24 : 0,
@@ -170,29 +160,40 @@ export function RecordsWall() {
                       <div className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#03060d]" />
                     </motion.div>
 
-                    <div
-                      className="relative z-10 flex h-full w-full flex-col justify-between overflow-hidden rounded-[8px] border border-white/14 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.42)]"
-                      style={{ background: record.gradient }}
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.26),transparent_24%,transparent_64%,rgba(255,255,255,0.16))]" />
-                      <div className="absolute inset-x-5 top-20 h-px bg-white/30" />
-                      <div className="relative">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-white/65">
-                          {record.year}
-                        </p>
-                        <h2 className="mt-3 text-2xl font-black leading-none md:text-4xl">
-                          {record.title}
-                        </h2>
+                    {record.coverSrc ? (
+                      <div className="relative z-10 h-full w-full overflow-hidden rounded-[8px] border border-white/14 bg-black shadow-[0_24px_80px_rgba(0,0,0,0.42)]">
+                        <img
+                          src={record.coverSrc}
+                          alt={`${record.title} cover`}
+                          className="h-full w-full object-cover"
+                        />
+                        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.18),transparent_28%,transparent_68%,rgba(255,255,255,0.08))]" />
                       </div>
-                      <div className="relative">
-                        <p className="text-xs font-semibold text-white/88 md:text-sm">
-                          {record.artist}
-                        </p>
-                        <p className="mt-1 text-[11px] leading-4 text-white/62 md:text-xs">
-                          {record.mood}
-                        </p>
+                    ) : (
+                      <div
+                        className="relative z-10 flex h-full w-full flex-col justify-between overflow-hidden rounded-[8px] border border-white/14 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.42)]"
+                        style={{ background: record.gradient }}
+                      >
+                        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.26),transparent_24%,transparent_64%,rgba(255,255,255,0.16))]" />
+                        <div className="absolute inset-x-5 top-20 h-px bg-white/30" />
+                        <div className="relative">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-white/65">
+                            {record.year}
+                          </p>
+                          <h2 className="mt-3 text-2xl font-black leading-none md:text-4xl">
+                            {record.title}
+                          </h2>
+                        </div>
+                        <div className="relative">
+                          <p className="text-xs font-semibold text-white/88 md:text-sm">
+                            {record.artist}
+                          </p>
+                          <p className="mt-1 text-[11px] leading-4 text-white/62 md:text-xs">
+                            {record.mood}
+                          </p>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div
                       className={cn(
