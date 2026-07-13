@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
+const assetPath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 type MacbookScrollProps = {
   title?: React.ReactNode;
   badge?: React.ReactNode;
@@ -378,7 +380,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       <div className="absolute bottom-[5%] left-1/2 flex -translate-x-1/2 flex-col items-center text-center drop-shadow-[0_1px_8px_rgba(5,20,50,0.32)]">
         <div className="relative h-[clamp(28px,5.8vw,56px)] w-[clamp(28px,5.8vw,56px)] overflow-hidden rounded-full border border-white/45 bg-white/20 shadow-[0_4px_14px_rgba(5,20,50,0.24)]">
           <Image
-            src="/profile-avatar.png"
+            src={assetPath("/profile-avatar.png")}
             alt="Zirui Kong profile photo"
             fill
             sizes="56px"
@@ -398,7 +400,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
 
 const PeerlistBadge = () => (
   <StickerWithHoverCard
-    src="/ohio-sticker.png"
+    src={assetPath("/ohio-sticker.png")}
     alt="Ohio mascot sticker"
     width={92}
     height={92}
@@ -413,7 +415,7 @@ const PeerlistBadge = () => (
 
 const GeorgiaSticker = () => (
   <StickerWithHoverCard
-    src="/georgia-sticker.png"
+    src={assetPath("/georgia-sticker.png")}
     alt="Georgia logo sticker"
     width={118}
     height={103}
@@ -428,7 +430,7 @@ const GeorgiaSticker = () => (
 
 const HandshakeSticker = () => (
   <StickerWithHoverCard
-    src="/zirui-sticker.png"
+    src={assetPath("/zirui-sticker.png")}
     alt="Arsenal handshake sticker"
     width={82}
     height={82}
@@ -443,7 +445,7 @@ const HandshakeSticker = () => (
 
 const MessiSticker = () => (
   <StickerWithHoverCard
-    src="/messi-sticker.png"
+    src={assetPath("/messi-sticker.png")}
     alt="Messi world cup sticker"
     width={104}
     height={128}
@@ -458,7 +460,7 @@ const MessiSticker = () => (
 
 const BearSticker = () => (
   <StickerWithHoverCard
-    src="/bear-sticker.png"
+    src={assetPath("/bear-sticker.png")}
     alt="Bear sweater sticker"
     width={92}
     height={126}
