@@ -204,17 +204,19 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
           className="grid h-full place-items-center px-4 py-8"
           style={{ opacity: hardwareOpacity }}
         >
-          <div className="relative h-[940px] w-[1040px] origin-center -translate-y-20 scale-[0.36] sm:-translate-y-44 sm:scale-[0.52] md:-translate-y-52 md:scale-[0.62] xl:scale-[0.7]">
-            <Screen
-              panelRef={screenPanelRef}
-              contentOpacity={screenContentOpacity}
-              screenOff={screenOff}
-            />
-            <Hinge />
-            <Base
-              onPowerToggle={() => setScreenOff((current) => !current)}
-              screenOff={screenOff}
-            />
+          <div className="relative h-[420px] w-full sm:h-[620px] md:h-[720px]">
+            <div className="absolute left-1/2 top-1/2 h-[940px] w-[1040px] origin-center -translate-x-1/2 -translate-y-[46%] scale-[0.36] sm:-translate-y-[54%] sm:scale-[0.52] md:-translate-y-[58%] md:scale-[0.62] xl:scale-[0.7]">
+              <Screen
+                panelRef={screenPanelRef}
+                contentOpacity={screenContentOpacity}
+                screenOff={screenOff}
+              />
+              <Hinge />
+              <Base
+                onPowerToggle={() => setScreenOff((current) => !current)}
+                screenOff={screenOff}
+              />
+            </div>
           </div>
         </div>
 
