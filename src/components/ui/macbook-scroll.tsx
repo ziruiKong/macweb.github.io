@@ -155,6 +155,11 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
   const panelRotate = lerp(-9, 0, expand);
   const panelLift = lerp(0, -28, expand);
   const isFullscreen = expand > 0.985;
+  const openHomepage = () => {
+    if (!isFullscreen) return;
+
+    window.location.href = "https://ziruikong.github.io/index.html";
+  };
 
   return (
     <section
@@ -223,6 +228,17 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
         <div
           className="fixed z-40 overflow-hidden bg-[#10131d] will-change-transform"
           data-animated-panel
+          data-cursor-target={isFullscreen ? true : undefined}
+          role={isFullscreen ? "link" : undefined}
+          tabIndex={isFullscreen ? 0 : -1}
+          aria-label={isFullscreen ? "Enter homepage" : undefined}
+          onClick={openHomepage}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              openHomepage();
+            }
+          }}
           style={{
             left: isFullscreen ? -4 : panelLeft,
             top: isFullscreen ? -4 : panelTop,
