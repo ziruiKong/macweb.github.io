@@ -316,28 +316,16 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <>
-      <div
-        className={[
-          "pointer-events-none fixed left-0 top-0 z-[120] hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/80 mix-blend-screen shadow-[0_0_22px_rgba(34,211,238,0.48)] transition-[opacity,transform,width,height,border-color] duration-150 ease-out md:block",
-          cursor.visible ? "opacity-100" : "opacity-0",
-          cursor.active ? "h-14 w-14 border-cyan-100/95" : "",
-        ].join(" ")}
-        style={{
-          transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 1.08 : 1})`,
-        }}
-      />
-      <div
-        className={[
-          "pointer-events-none fixed left-0 top-0 z-[121] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-[opacity,transform] duration-75 ease-out md:block",
-          cursor.visible ? "opacity-100" : "opacity-0",
-          cursor.active ? "scale-125 bg-cyan-100" : "",
-        ].join(" ")}
-        style={{
-          transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 1.35 : 1})`,
-        }}
-      />
-    </>
+    <div
+      className={[
+        "pointer-events-none fixed left-0 top-0 z-[121] hidden h-2.5 w-2.5 rounded-full bg-white shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-[opacity,transform,background-color] duration-100 ease-out md:block",
+        cursor.visible ? "opacity-100" : "opacity-0",
+        cursor.active ? "bg-cyan-100" : "",
+      ].join(" ")}
+      style={{
+        transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 2.15 : 1})`,
+      }}
+    />
   );
 };
 
