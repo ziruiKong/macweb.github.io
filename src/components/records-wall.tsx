@@ -6,39 +6,17 @@ import { BackgroundGradientAnimation } from "@/components/ui/background-gradient
 
 type RecordItem = {
   id: string;
-  coverSrc?: string;
-  gradient: string;
+  coverSrc: string;
 };
 
 const RECORDS: RecordItem[] = [
   {
     id: "cover-1",
     coverSrc: "/record-cover-1.webp",
-    gradient: "linear-gradient(135deg,#050505,#111827)",
   },
   {
     id: "cover-2",
-    gradient: "linear-gradient(135deg,#050505 0%,#101820 54%,#0f172a 100%)",
-  },
-  {
-    id: "cover-3",
-    gradient: "linear-gradient(135deg,#060606 0%,#121212 50%,#1f2937 100%)",
-  },
-  {
-    id: "cover-4",
-    gradient: "linear-gradient(135deg,#050505 0%,#111111 45%,#172554 100%)",
-  },
-  {
-    id: "cover-5",
-    gradient: "linear-gradient(135deg,#080808 0%,#1a1111 48%,#3f1212 100%)",
-  },
-  {
-    id: "cover-6",
-    gradient: "linear-gradient(135deg,#040404 0%,#111827 45%,#312e81 100%)",
-  },
-  {
-    id: "cover-7",
-    gradient: "linear-gradient(135deg,#030303 0%,#101010 44%,#134e4a 100%)",
+    coverSrc: "/record-cover-2.webp",
   },
 ];
 
@@ -132,22 +110,12 @@ export function RecordsWall() {
                       transformOrigin: "left center",
                     }}
                   >
-                    <div
-                      className="relative h-full w-full overflow-hidden rounded-[7px] border border-white/12 bg-black shadow-[0_34px_90px_rgba(0,0,0,0.62)]"
-                      style={{ background: record.gradient }}
-                    >
-                      {record.coverSrc ? (
-                        <img
-                          src={record.coverSrc}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <>
-                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_22%,rgba(255,255,255,0.16),transparent_24%),linear-gradient(120deg,rgba(255,255,255,0.06),transparent_28%,transparent_68%,rgba(255,255,255,0.04))]" />
-                          <div className="absolute inset-y-0 left-0 w-px bg-white/24" />
-                        </>
-                      )}
+                    <div className="relative h-full w-full overflow-hidden rounded-[7px] border border-white/12 bg-black shadow-[0_34px_90px_rgba(0,0,0,0.62)]">
+                      <img
+                        src={record.coverSrc}
+                        alt=""
+                        className="h-full w-full object-cover"
+                      />
                     </div>
 
                     <div className="pointer-events-none absolute -left-[5px] top-[4px] h-[calc(100%-8px)] w-[8px] rounded-l-[4px] bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(0,0,0,0.7))]" />
