@@ -18,6 +18,14 @@ const RECORDS: RecordItem[] = [
     id: "cover-2",
     coverSrc: "/record-cover-2.webp",
   },
+  {
+    id: "cover-3",
+    coverSrc: "/record-cover-3.jpg",
+  },
+  {
+    id: "cover-4",
+    coverSrc: "/record-cover-4.webp",
+  },
 ];
 
 const CARD_SPACING = 40;
