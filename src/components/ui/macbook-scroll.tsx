@@ -204,7 +204,7 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
           className="grid h-full place-items-center px-4 py-8"
           style={{ opacity: hardwareOpacity }}
         >
-          <div className="relative h-[940px] w-[1040px] max-w-[98vw] origin-center -translate-y-52 scale-[0.56] sm:scale-[0.62] xl:scale-[0.7]">
+          <div className="relative h-[940px] w-[1040px] origin-center -translate-y-20 scale-[0.36] sm:-translate-y-44 sm:scale-[0.52] md:-translate-y-52 md:scale-[0.62] xl:scale-[0.7]">
             <Screen
               panelRef={screenPanelRef}
               contentOpacity={screenContentOpacity}
