@@ -4,8 +4,8 @@ const isGithubPages = process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: isGithubPages ? "/mac-web" : undefined,
-  assetPrefix: isGithubPages ? "/mac-web/" : undefined,
+  basePath: isGithubPages ? "/macweb.github.io" : undefined,
+  assetPrefix: isGithubPages ? "/macweb.github.io/" : undefined,
   images: {
     unoptimized: true,
   },
