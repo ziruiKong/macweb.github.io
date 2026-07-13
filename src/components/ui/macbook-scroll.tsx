@@ -360,13 +360,11 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       />
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src={assetPath("/lockscreen-wallpaper-current.mp4")}
-        poster={assetPath("/lockscreen-wallpaper-poster.jpg")}
+        src={assetPath("/cosmic-girl-black-hole-portal-wallpaperwaves-com.mp4")}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,48,0.28),rgba(8,20,48,0.03)_30%,rgba(0,0,0,0.30)_100%)]" />
 
