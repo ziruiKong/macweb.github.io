@@ -318,9 +318,8 @@ const CustomCursor = () => {
   return (
     <div
       className={[
-        "pointer-events-none fixed left-0 top-0 z-[121] hidden h-2.5 w-2.5 rounded-full bg-white shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-[opacity,transform,background-color] duration-100 ease-out md:block",
+        "pointer-events-none fixed left-0 top-0 z-[121] hidden h-2.5 w-2.5 rounded-full bg-white mix-blend-difference shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-[opacity,transform] duration-100 ease-out md:block",
         cursor.visible ? "opacity-100" : "opacity-0",
-        cursor.active ? "bg-cyan-100" : "",
       ].join(" ")}
       style={{
         transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 2.15 : 1})`,

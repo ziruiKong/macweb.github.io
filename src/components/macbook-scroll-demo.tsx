@@ -7,7 +7,7 @@ export default function MacbookScrollDemo() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setIsLoading(false), 1800);
+    const timeout = window.setTimeout(() => setIsLoading(false), 3000);
 
     return () => window.clearTimeout(timeout);
   }, []);
