@@ -358,7 +358,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       />
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src="/lockscreen-wallpaper-new.mp4"
+        src="lockscreen-wallpaper-new.mp4"
         autoPlay
         muted
         loop
