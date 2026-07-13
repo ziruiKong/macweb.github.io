@@ -2,89 +2,55 @@
 
 import { useState } from "react";
 import { motion, type Variants } from "motion/react";
-import { cn } from "@/lib/utils";
 
 type RecordItem = {
-  title: string;
-  artist: string;
-  year: string;
-  mood: string;
-  gradient: string;
-  accent: string;
+  id: string;
   coverSrc?: string;
+  gradient: string;
 };
 
 const RECORDS: RecordItem[] = [
   {
-    title: "Midnight Data",
-    artist: "Zirui Kong",
-    year: "2026",
-    mood: "city lights / late work",
-    gradient: "linear-gradient(135deg,#0f172a 0%,#2563eb 48%,#67e8f9 100%)",
-    accent: "#67e8f9",
+    id: "cover-1",
     coverSrc: "/record-cover-1.webp",
+    gradient: "linear-gradient(135deg,#050505,#111827)",
   },
   {
-    title: "Buckeye Theory",
-    artist: "Columbus Session",
-    year: "2024",
-    mood: "campus / economics / growth",
-    gradient: "linear-gradient(135deg,#111827 0%,#b91c1c 52%,#f8fafc 100%)",
-    accent: "#ef4444",
+    id: "cover-2",
+    gradient: "linear-gradient(135deg,#050505 0%,#101820 54%,#0f172a 100%)",
   },
   {
-    title: "North Star",
-    artist: "Columbia Chapter",
-    year: "2026",
-    mood: "new city / new questions",
-    gradient: "linear-gradient(135deg,#020617 0%,#0ea5e9 45%,#e0f2fe 100%)",
-    accent: "#38bdf8",
+    id: "cover-3",
+    gradient: "linear-gradient(135deg,#060606 0%,#121212 50%,#1f2937 100%)",
   },
   {
-    title: "Mandarin Flow",
-    artist: "Rap Notes",
-    year: "2025",
-    mood: "identity / rhythm / words",
-    gradient: "linear-gradient(135deg,#18181b 0%,#7c3aed 50%,#f0abfc 100%)",
-    accent: "#c084fc",
+    id: "cover-4",
+    gradient: "linear-gradient(135deg,#050505 0%,#111111 45%,#172554 100%)",
   },
   {
-    title: "Final Whistle",
-    artist: "Football Memory",
-    year: "2022",
-    mood: "focus / patience / greatness",
-    gradient: "linear-gradient(135deg,#111827 0%,#16a34a 48%,#fde68a 100%)",
-    accent: "#facc15",
+    id: "cover-5",
+    gradient: "linear-gradient(135deg,#080808 0%,#1a1111 48%,#3f1212 100%)",
   },
   {
-    title: "Handshake Club",
-    artist: "North London",
-    year: "1886",
-    mood: "trust / unity / belief",
-    gradient: "linear-gradient(135deg,#1f0303 0%,#dc2626 46%,#fef2f2 100%)",
-    accent: "#f87171",
+    id: "cover-6",
+    gradient: "linear-gradient(135deg,#040404 0%,#111827 45%,#312e81 100%)",
   },
   {
-    title: "Soft Launch",
-    artist: "Personal Archive",
-    year: "Now",
-    mood: "portfolio / small rituals",
-    gradient: "linear-gradient(135deg,#030712 0%,#14b8a6 45%,#ccfbf1 100%)",
-    accent: "#2dd4bf",
+    id: "cover-7",
+    gradient: "linear-gradient(135deg,#030303 0%,#101010 44%,#134e4a 100%)",
   },
 ];
 
-const CARD_SPACING = 34;
+const CARD_SPACING = 40;
 
 const spring = {
   type: "spring" as const,
-  visualDuration: 0.5,
-  bounce: 0.2,
+  visualDuration: 0.55,
+  bounce: 0.18,
 };
 
 export function RecordsWall() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const isActive = activeIndex !== null;
 
   const containerVariants: Variants = {
     hidden: {},
@@ -102,19 +68,17 @@ export function RecordsWall() {
   };
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-[#03060d] text-white">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(34,211,238,0.22),transparent_28%),radial-gradient(circle_at_18%_72%,rgba(124,58,237,0.24),transparent_30%),linear-gradient(180deg,#02040a,#07111f_52%,#02040a)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/20" />
-
-      <section className="relative flex min-h-dvh items-center justify-center px-5 py-16">
+    <main className="relative min-h-dvh overflow-hidden bg-black text-white">
+      <section className="relative flex min-h-dvh items-center justify-center px-4">
         <motion.div
-          className="relative h-[360px] w-[min(92vw,620px)] overflow-visible md:h-[470px]"
+          className="relative h-[420px] w-[min(92vw,760px)] overflow-visible md:h-[560px]"
+          style={{ perspective: "1400px" }}
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           onMouseLeave={() => setActiveIndex(null)}
         >
-          <div className="absolute left-1/2 top-1/2 h-[250px] w-[270px] -translate-x-1/2 -translate-y-1/2 md:h-[340px] md:w-[360px]">
+          <div className="absolute left-1/2 top-1/2 h-[280px] w-[300px] -translate-x-1/2 -translate-y-1/2 md:h-[390px] md:w-[430px]">
             {RECORDS.map((record, index) => {
               const current = activeIndex === index;
               const shouldShift = activeIndex !== null && index > activeIndex;
@@ -123,9 +87,13 @@ export function RecordsWall() {
 
               return (
                 <motion.article
-                  key={record.title}
-                  className="group absolute bottom-0 h-[250px] w-[250px] touch-manipulation outline-none md:h-[340px] md:w-[340px]"
-                  style={{ left, zIndex: current ? 50 : 10 + index }}
+                  key={record.id}
+                  className="absolute bottom-0 h-[280px] w-[280px] touch-manipulation outline-none md:h-[390px] md:w-[390px]"
+                  style={{
+                    left,
+                    zIndex: current ? 50 : 10 + index,
+                    transformStyle: "preserve-3d",
+                  }}
                   variants={cardVariants}
                   custom={entranceOffset}
                   onMouseEnter={() => setActiveIndex(index)}
@@ -138,69 +106,37 @@ export function RecordsWall() {
                   <motion.div
                     className="relative h-full w-full"
                     animate={{
-                      x: shouldShift ? 74 : current ? -16 : 0,
-                      y: current ? -18 : 0,
-                      rotate: current ? -2 : index * 0.65,
+                      x: shouldShift ? 84 : current ? 28 : 0,
+                      y: current ? -12 : 0,
+                      rotateY: current ? -18 : -36,
+                      rotateZ: current ? 0 : index * 0.18,
                     }}
                     transition={spring}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transformOrigin: "left center",
+                    }}
                   >
-                    <motion.div
-                      className="absolute left-[42%] top-5 h-[210px] w-[210px] rounded-full bg-black shadow-[0_28px_70px_rgba(0,0,0,0.45)] md:top-5 md:h-[300px] md:w-[300px]"
-                      animate={{
-                        x: current ? 92 : 18,
-                        rotate: current ? 24 : 0,
-                      }}
-                      transition={spring}
+                    <div
+                      className="relative h-full w-full overflow-hidden rounded-[7px] border border-white/12 bg-black shadow-[0_34px_90px_rgba(0,0,0,0.62)]"
+                      style={{ background: record.gradient }}
                     >
-                      <div className="absolute inset-3 rounded-full border border-white/8 bg-[repeating-radial-gradient(circle,rgba(255,255,255,0.12)_0_1px,transparent_1px_7px)]" />
-                      <div
-                        className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 md:h-24 md:w-24"
-                        style={{ background: record.accent }}
-                      />
-                      <div className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#03060d]" />
-                    </motion.div>
-
-                    {record.coverSrc ? (
-                      <div className="relative z-10 h-full w-full overflow-hidden rounded-[8px] border border-white/14 bg-black shadow-[0_24px_80px_rgba(0,0,0,0.42)]">
+                      {record.coverSrc ? (
                         <img
                           src={record.coverSrc}
-                          alt={`${record.title} cover`}
+                          alt=""
                           className="h-full w-full object-cover"
                         />
-                        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.18),transparent_28%,transparent_68%,rgba(255,255,255,0.08))]" />
-                      </div>
-                    ) : (
-                      <div
-                        className="relative z-10 flex h-full w-full flex-col justify-between overflow-hidden rounded-[8px] border border-white/14 p-5 shadow-[0_24px_80px_rgba(0,0,0,0.42)]"
-                        style={{ background: record.gradient }}
-                      >
-                        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.26),transparent_24%,transparent_64%,rgba(255,255,255,0.16))]" />
-                        <div className="absolute inset-x-5 top-20 h-px bg-white/30" />
-                        <div className="relative">
-                          <p className="text-[10px] font-bold uppercase tracking-[0.26em] text-white/65">
-                            {record.year}
-                          </p>
-                          <h2 className="mt-3 text-2xl font-black leading-none md:text-4xl">
-                            {record.title}
-                          </h2>
-                        </div>
-                        <div className="relative">
-                          <p className="text-xs font-semibold text-white/88 md:text-sm">
-                            {record.artist}
-                          </p>
-                          <p className="mt-1 text-[11px] leading-4 text-white/62 md:text-xs">
-                            {record.mood}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-
-                    <div
-                      className={cn(
-                        "pointer-events-none absolute -bottom-10 left-4 right-4 h-12 rounded-full bg-black/40 blur-xl transition-opacity duration-300",
-                        current ? "opacity-70" : "opacity-30",
+                      ) : (
+                        <>
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_35%_22%,rgba(255,255,255,0.16),transparent_24%),linear-gradient(120deg,rgba(255,255,255,0.06),transparent_28%,transparent_68%,rgba(255,255,255,0.04))]" />
+                          <div className="absolute inset-y-0 left-0 w-px bg-white/24" />
+                        </>
                       )}
-                    />
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,rgba(255,255,255,0.16),transparent_24%,transparent_66%,rgba(255,255,255,0.05))]" />
+                    </div>
+
+                    <div className="pointer-events-none absolute -left-[5px] top-[4px] h-[calc(100%-8px)] w-[8px] rounded-l-[4px] bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(0,0,0,0.7))]" />
                   </motion.div>
                 </motion.article>
               );
