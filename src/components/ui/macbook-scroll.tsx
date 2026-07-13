@@ -378,7 +378,7 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
       </div>
 
       <div className="absolute bottom-[5%] left-1/2 flex -translate-x-1/2 flex-col items-center text-center drop-shadow-[0_1px_8px_rgba(5,20,50,0.32)]">
-        <div className="relative h-[clamp(28px,5.8vw,56px)] w-[clamp(28px,5.8vw,56px)] overflow-hidden rounded-full border border-white/45 bg-white/20 shadow-[0_4px_14px_rgba(5,20,50,0.24)]">
+        <div className="relative h-[clamp(28px,5.8vw,56px)] w-[clamp(28px,5.8vw,56px)] overflow-hidden rounded-full bg-white/20 shadow-[0_4px_14px_rgba(5,20,50,0.24)]">
           <Image
             src={assetPath("/profile-avatar-small.jpg")}
             alt="Zirui Kong profile photo"
@@ -389,9 +389,6 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
         </div>
         <div className="mt-2 text-[clamp(8px,1.5vw,14px)] font-semibold text-white/92">
           Zirui Kong
-        </div>
-        <div className="mt-1 text-[clamp(6px,1vw,10px)] font-medium text-white/66">
-          Touch ID or Enter Password
         </div>
       </div>
     </div>
