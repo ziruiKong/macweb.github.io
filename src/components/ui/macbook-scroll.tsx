@@ -20,7 +20,7 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
   const rafRef = useRef<number | null>(null);
   const [progress, setProgress] = useState(0);
   const [screenOff, setScreenOff] = useState(false);
-  const [nightMode, setNightMode] = useState(false);
+  const [nightMode, setNightMode] = useState(true);
   const [viewport, setViewport] = useState({ width: 1440, height: 900 });
   const [screenRect, setScreenRect] = useState({
     left: 320,
