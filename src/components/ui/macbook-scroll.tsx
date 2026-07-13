@@ -159,8 +159,13 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
   return (
     <section
       ref={sectionRef}
-      className={nightMode ? "relative h-[240vh] bg-[#06111f]" : "relative h-[240vh] bg-white"}
+      className={
+        nightMode
+          ? "cursor-magnetic-zone relative h-[240vh] bg-[#06111f]"
+          : "cursor-magnetic-zone relative h-[240vh] bg-white"
+      }
     >
+      <CustomCursor />
       <div
         className={[
           "fixed top-5 right-5 z-30 transition duration-200",
@@ -173,7 +178,12 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
           checked={nightMode}
           onChange={(event) => setNightMode(event.target.checked)}
         />
-        <label className="toggleSwitch" htmlFor="checkboxInput" aria-label="Toggle night background" />
+        <label
+          className="toggleSwitch"
+          htmlFor="checkboxInput"
+          aria-label="Toggle night background"
+          data-cursor-target
+        />
       </div>
       <div className="sticky top-0 h-screen overflow-hidden">
         <BackgroundGradientAnimation
@@ -244,6 +254,92 @@ const lerp = (from: number, to: number, progress: number) =>
 
 const smootherstep = (value: number) =>
   value * value * value * (value * (value * 6 - 15) + 10);
+
+const CustomCursor = () => {
+  const [cursor, setCursor] = useState({
+    x: -80,
+    y: -80,
+    visible: false,
+    active: false,
+  });
+  const pointedElementRef = useRef<Element | null>(null);
+
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    const targetSelector = [
+      ".cursor-magnetic-zone [data-cursor-target]",
+      ".cursor-magnetic-zone button",
+      ".cursor-magnetic-zone .toggleSwitch",
+      ".cursor-magnetic-zone [data-key]",
+    ].join(", ");
+
+    const clearPointedElement = () => {
+      pointedElementRef.current?.classList.remove("cursor-pointed");
+      pointedElementRef.current = null;
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const target = event.target instanceof Element
+        ? event.target.closest(targetSelector)
+        : null;
+
+      if (target !== pointedElementRef.current) {
+        clearPointedElement();
+        pointedElementRef.current = target;
+        pointedElementRef.current?.classList.add("cursor-pointed");
+      }
+
+      setCursor({
+        x: event.clientX,
+        y: event.clientY,
+        visible: true,
+        active: Boolean(target),
+      });
+    };
+
+    const handlePointerLeave = () => {
+      clearPointedElement();
+      setCursor((current) => ({ ...current, visible: false, active: false }));
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerleave", handlePointerLeave);
+    window.addEventListener("blur", handlePointerLeave);
+
+    return () => {
+      clearPointedElement();
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("blur", handlePointerLeave);
+    };
+  }, []);
+
+  return (
+    <>
+      <div
+        className={[
+          "pointer-events-none fixed left-0 top-0 z-[120] hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/80 mix-blend-screen shadow-[0_0_22px_rgba(34,211,238,0.48)] transition-[opacity,transform,width,height,border-color] duration-150 ease-out md:block",
+          cursor.visible ? "opacity-100" : "opacity-0",
+          cursor.active ? "h-14 w-14 border-cyan-100/95" : "",
+        ].join(" ")}
+        style={{
+          transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 1.08 : 1})`,
+        }}
+      />
+      <div
+        className={[
+          "pointer-events-none fixed left-0 top-0 z-[121] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-[opacity,transform] duration-75 ease-out md:block",
+          cursor.visible ? "opacity-100" : "opacity-0",
+          cursor.active ? "scale-125 bg-cyan-100" : "",
+        ].join(" ")}
+        style={{
+          transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 1.35 : 1})`,
+        }}
+      />
+    </>
+  );
+};
 
 const Hinge = () => (
   <div
@@ -493,7 +589,11 @@ const StickerWithHoverCard = ({
   subtitle: string;
   description: string;
 }) => (
-  <div className={`group absolute z-30 hover:z-[90] ${containerClassName}`}>
+  <div
+    className={`group absolute z-30 hover:z-[90] ${containerClassName}`}
+    data-cursor-target
+    data-sticker
+  >
     <Image
       src={src}
       alt={alt}
