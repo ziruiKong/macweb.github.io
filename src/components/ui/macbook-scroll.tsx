@@ -129,6 +129,8 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
   const detach = smootherstep(clamp((progress - 0.08) / 0.22));
   const expand = smootherstep(clamp((progress - 0.26) / 0.42));
   const hardwareOpacity = clamp(1 - smootherstep(clamp((progress - 0.5) / 0.3)));
+  const screenContentOpacity = progress < 0.08 ? 1 : 0;
+  const floatingContentOpacity = smootherstep(clamp((progress - 0.09) / 0.14));
   const detachedWidth = Math.min(
     Math.max(screenRect.width * 1.08, screenRect.height * 1.6),
     viewport.width * 0.84,
@@ -211,6 +213,7 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
             <div className="absolute left-1/2 top-1/2 h-[940px] w-[1040px] origin-center -translate-x-1/2 -translate-y-[52%] scale-[0.36] sm:-translate-y-[60%] sm:scale-[0.52] md:-translate-y-[64%] md:scale-[0.62] xl:scale-[0.7]">
               <Screen
                 panelRef={screenPanelRef}
+                contentOpacity={screenContentOpacity}
                 screenOff={screenOff}
               />
               <Hinge />
@@ -242,6 +245,7 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
             width: isFullscreen ? "calc(100vw + 8px)" : panelWidth,
             height: isFullscreen ? "calc(100dvh + 8px)" : panelHeight,
             borderRadius: isFullscreen ? 0 : panelRadius,
+            opacity: floatingContentOpacity,
             pointerEvents: isFullscreen ? "auto" : "none",
             transform: isFullscreen
               ? "none"
@@ -351,9 +355,11 @@ const Hinge = () => (
 
 const Screen = ({
   panelRef,
+  contentOpacity,
   screenOff,
 }: {
   panelRef: React.RefObject<HTMLDivElement | null>;
+  contentOpacity: number;
   screenOff: boolean;
 }) => {
   return (
@@ -370,7 +376,7 @@ const Screen = ({
         className="relative h-full w-full overflow-hidden rounded-[13px] border border-white/5 bg-[#10131d] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]"
       >
         <div className="pointer-events-none absolute inset-0 z-10 rounded-[13px] bg-[linear-gradient(105deg,rgba(255,255,255,0.12),transparent_24%,transparent_72%,rgba(255,255,255,0.05))]" />
-        <div className="h-full w-full">
+        <div className="h-full w-full" style={{ opacity: contentOpacity }}>
           <LockScreenMock screenOff={screenOff} />
         </div>
       </div>
