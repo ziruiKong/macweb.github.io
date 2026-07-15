@@ -480,13 +480,13 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
           screenOff ? "opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
       />
-      <video
+      <Image
         className="absolute inset-0 h-full w-full object-cover"
-        src={assetPath("/isagi-blue-lock-aura-wallpaperwaves-com.mp4")}
-        autoPlay
-        muted
-        loop
-        playsInline
+        src={assetPath("/macos-sonoma-wallpaper.jpeg")}
+        alt=""
+        fill
+        priority
+        sizes="100vw"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,48,0.28),rgba(8,20,48,0.03)_30%,rgba(0,0,0,0.30)_100%)]" />
 
