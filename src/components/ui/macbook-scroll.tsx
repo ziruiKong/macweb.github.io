@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { LeftSiteRail } from "@/components/hero/left-site-rail";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const assetPath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
@@ -171,6 +172,7 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
       }
     >
       <CustomCursor />
+      <LeftSiteRail hidden={progress > 0.02 || screenOff} />
       <div
         className={[
           "fixed top-5 right-5 z-30 transition duration-200",
