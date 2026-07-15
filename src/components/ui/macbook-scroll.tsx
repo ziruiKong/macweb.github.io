@@ -274,16 +274,20 @@ const smootherstep = (value: number) =>
   value * value * value * (value * (value * 6 - 15) + 10);
 
 const CustomCursor = () => {
-  const [cursor, setCursor] = useState({
+  const cursorElementRef = useRef<HTMLDivElement | null>(null);
+  const pointedElementRef = useRef<Element | null>(null);
+  const cursorFrameRef = useRef<number | null>(null);
+  const cursorStateRef = useRef({
     x: -80,
     y: -80,
-    visible: false,
-    active: false,
+    scale: 1,
   });
-  const pointedElementRef = useRef<Element | null>(null);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
+
+    const cursorElement = cursorElementRef.current;
+    if (!cursorElement) return;
 
     const targetSelector = [
       ".cursor-magnetic-zone [data-cursor-target]",
@@ -292,12 +296,25 @@ const CustomCursor = () => {
       ".cursor-magnetic-zone [data-key]",
     ].join(", ");
 
+    const renderCursor = () => {
+      cursorFrameRef.current = null;
+      const { x, y, scale } = cursorStateRef.current;
+      cursorElement.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) scale(${scale})`;
+    };
+
+    const scheduleCursorRender = () => {
+      if (cursorFrameRef.current !== null) return;
+      cursorFrameRef.current = window.requestAnimationFrame(renderCursor);
+    };
+
     const clearPointedElement = () => {
       pointedElementRef.current?.classList.remove("cursor-pointed");
       pointedElementRef.current = null;
     };
 
     const handlePointerMove = (event: PointerEvent) => {
+      const coalescedEvents = event.getCoalescedEvents?.() ?? [event];
+      const latestEvent = coalescedEvents[coalescedEvents.length - 1] ?? event;
       const target = event.target instanceof Element
         ? event.target.closest(targetSelector)
         : null;
@@ -308,25 +325,31 @@ const CustomCursor = () => {
         pointedElementRef.current?.classList.add("cursor-pointed");
       }
 
-      setCursor({
-        x: event.clientX,
-        y: event.clientY,
-        visible: true,
-        active: Boolean(target),
-      });
+      cursorStateRef.current = {
+        x: latestEvent.clientX,
+        y: latestEvent.clientY,
+        scale: target ? 2.15 : 1,
+      };
+      cursorElement.style.opacity = "1";
+      scheduleCursorRender();
     };
 
     const handlePointerLeave = () => {
       clearPointedElement();
-      setCursor((current) => ({ ...current, visible: false, active: false }));
+      cursorElement.style.opacity = "0";
+      cursorStateRef.current.scale = 1;
+      scheduleCursorRender();
     };
 
-    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("pointerleave", handlePointerLeave);
     window.addEventListener("blur", handlePointerLeave);
 
     return () => {
       clearPointedElement();
+      if (cursorFrameRef.current !== null) {
+        window.cancelAnimationFrame(cursorFrameRef.current);
+      }
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("pointerleave", handlePointerLeave);
       window.removeEventListener("blur", handlePointerLeave);
@@ -335,12 +358,10 @@ const CustomCursor = () => {
 
   return (
     <div
-      className={[
-        "pointer-events-none fixed left-0 top-0 z-[121] hidden h-2.5 w-2.5 rounded-full bg-white mix-blend-difference shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-[opacity,transform] duration-100 ease-out md:block",
-        cursor.visible ? "opacity-100" : "opacity-0",
-      ].join(" ")}
+      ref={cursorElementRef}
+      className="pointer-events-none fixed left-0 top-0 z-[121] hidden h-2.5 w-2.5 rounded-full bg-white opacity-0 mix-blend-difference shadow-[0_0_14px_rgba(255,255,255,0.9)] transition-opacity duration-100 ease-out will-change-transform md:block"
       style={{
-        transform: `translate3d(${cursor.x}px, ${cursor.y}px, 0) translate(-50%, -50%) scale(${cursor.active ? 2.15 : 1})`,
+        transform: "translate3d(-80px, -80px, 0) translate(-50%, -50%)",
       }}
     />
   );
