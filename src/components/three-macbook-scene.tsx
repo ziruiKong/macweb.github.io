@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 
 const assetPath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
@@ -20,6 +21,14 @@ const keyRows = [
   { count: 11, z: 0.41, xStep: 0.32, width: 0.26 },
   { count: 10, z: 0.64, xStep: 0.34, width: 0.27 },
 ];
+
+const roundedBox = (
+  width: number,
+  height: number,
+  depth: number,
+  radius: number,
+  segments = 5,
+) => new RoundedBoxGeometry(width, height, depth, segments, radius);
 
 export default function ThreeMacbookScene() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,11 +60,18 @@ export default function ThreeMacbookScene() {
     scene.add(model);
 
     const silver = new THREE.MeshPhysicalMaterial({
-      color: 0xdfe6ee,
+      color: 0xe2e8ee,
       metalness: 0.72,
-      roughness: 0.28,
-      clearcoat: 0.55,
-      clearcoatRoughness: 0.2,
+      roughness: 0.24,
+      clearcoat: 0.72,
+      clearcoatRoughness: 0.16,
+    });
+    const silverDark = new THREE.MeshPhysicalMaterial({
+      color: 0xcbd3dc,
+      metalness: 0.72,
+      roughness: 0.3,
+      clearcoat: 0.46,
+      clearcoatRoughness: 0.22,
     });
     const dark = new THREE.MeshStandardMaterial({
       color: 0x050507,
@@ -68,27 +84,40 @@ export default function ThreeMacbookScene() {
       metalness: 0.08,
     });
 
-    const base = new THREE.Mesh(new THREE.BoxGeometry(5.6, 0.18, 3.45), silver);
+    const base = new THREE.Mesh(roundedBox(5.7, 0.2, 3.52, 0.18, 8), silver);
     base.position.set(0, 0, 0.42);
     base.castShadow = true;
     base.receiveShadow = true;
     model.add(base);
 
-    const frontLip = new THREE.Mesh(new THREE.BoxGeometry(5.15, 0.12, 0.12), silver);
-    frontLip.position.set(0, -0.08, 2.18);
+    const frontLip = new THREE.Mesh(roundedBox(5.18, 0.08, 0.12, 0.055, 5), silverDark);
+    frontLip.position.set(0, -0.09, 2.18);
     frontLip.castShadow = true;
     model.add(frontLip);
 
-    const trackpad = new THREE.Mesh(
-      new THREE.BoxGeometry(1.65, 0.018, 0.92),
+    const keyboardWell = new THREE.Mesh(
+      roundedBox(4.72, 0.024, 1.42, 0.1, 6),
       new THREE.MeshPhysicalMaterial({
-        color: 0xe9eef4,
-        metalness: 0.35,
-        roughness: 0.22,
-        clearcoat: 0.7,
+        color: 0xd7dde4,
+        metalness: 0.5,
+        roughness: 0.34,
+        clearcoat: 0.36,
       }),
     );
-    trackpad.position.set(0, 0.11, 1.15);
+    keyboardWell.position.set(0, 0.115, 0.18);
+    keyboardWell.receiveShadow = true;
+    model.add(keyboardWell);
+
+    const trackpad = new THREE.Mesh(
+      roundedBox(1.68, 0.024, 0.94, 0.08, 6),
+      new THREE.MeshPhysicalMaterial({
+        color: 0xe6ecf2,
+        metalness: 0.35,
+        roughness: 0.22,
+        clearcoat: 0.82,
+      }),
+    );
+    trackpad.position.set(0, 0.128, 1.18);
     trackpad.receiveShadow = true;
     model.add(trackpad);
 
@@ -97,14 +126,22 @@ export default function ThreeMacbookScene() {
     screenGroup.rotation.x = -1.02;
     model.add(screenGroup);
 
-    const screenShell = new THREE.Mesh(new THREE.BoxGeometry(5.52, 0.16, 3.3), dark);
-    screenShell.castShadow = true;
-    screenShell.receiveShadow = true;
-    screenGroup.add(screenShell);
+    const screenLid = new THREE.Mesh(roundedBox(5.58, 0.15, 3.32, 0.16, 9), silver);
+    screenLid.castShadow = true;
+    screenLid.receiveShadow = true;
+    screenGroup.add(screenLid);
 
-    const screenBezel = new THREE.Mesh(new THREE.BoxGeometry(5.22, 0.04, 2.95), blackPlastic);
-    screenBezel.position.set(0, -0.085, 0.02);
+    const screenBezel = new THREE.Mesh(roundedBox(5.26, 0.046, 2.98, 0.13, 8), blackPlastic);
+    screenBezel.position.set(0, -0.092, 0.02);
     screenGroup.add(screenBezel);
+
+    const webcam = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.035, 0.035, 0.012, 24),
+      new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.38 }),
+    );
+    webcam.rotation.x = Math.PI / 2;
+    webcam.position.set(0, -0.121, -1.33);
+    screenGroup.add(webcam);
 
     const textureLoader = new THREE.TextureLoader();
     const screenTexture = textureLoader.load(assetPath("/glacial-blue-wallpaper-1920.webp"));
@@ -131,25 +168,43 @@ export default function ThreeMacbookScene() {
     screenGloss.rotation.x = -Math.PI / 2;
     screenGroup.add(screenGloss);
 
-    const keyGeometry = new THREE.BoxGeometry(1, 0.06, 0.16);
-    const keyMeshes: THREE.Mesh[] = [];
+    const keyGeometry = roundedBox(1, 0.055, 0.165, 0.035, 4);
     keyRows.forEach((row) => {
       const startX = -((row.count - 1) * row.xStep) / 2;
       for (let index = 0; index < row.count; index += 1) {
         const key = new THREE.Mesh(keyGeometry, blackPlastic);
         key.scale.set(row.width, 1, 1);
-        key.position.set(startX + index * row.xStep, 0.14, row.z);
+        key.position.set(startX + index * row.xStep, 0.165, row.z);
         key.castShadow = true;
         key.receiveShadow = true;
-        keyMeshes.push(key);
         model.add(key);
       }
     });
 
-    const spaceKey = new THREE.Mesh(new THREE.BoxGeometry(1.55, 0.06, 0.16), blackPlastic);
-    spaceKey.position.set(0, 0.145, 0.88);
+    const spaceKey = new THREE.Mesh(roundedBox(1.55, 0.055, 0.165, 0.035, 4), blackPlastic);
+    spaceKey.position.set(0, 0.168, 0.88);
     spaceKey.castShadow = true;
     model.add(spaceKey);
+
+    const speakerDotMaterial = new THREE.MeshStandardMaterial({
+      color: 0x718092,
+      metalness: 0.15,
+      roughness: 0.7,
+    });
+    const speakerDotGeometry = new THREE.CylinderGeometry(0.012, 0.012, 0.01, 12);
+    const addSpeakerGrid = (side: "left" | "right") => {
+      const xStart = side === "left" ? -2.45 : 2.0;
+      for (let col = 0; col < 9; col += 1) {
+        for (let row = 0; row < 15; row += 1) {
+          const dot = new THREE.Mesh(speakerDotGeometry, speakerDotMaterial);
+          dot.position.set(xStart + col * 0.05, 0.142, -0.34 + row * 0.08);
+          dot.rotation.x = Math.PI / 2;
+          model.add(dot);
+        }
+      }
+    };
+    addSpeakerGrid("left");
+    addSpeakerGrid("right");
 
     const touchId = new THREE.Mesh(
       new THREE.CylinderGeometry(0.12, 0.12, 0.035, 36),
@@ -185,11 +240,20 @@ export default function ThreeMacbookScene() {
     makeSticker("/messi-sticker-small.png", 1.58, 1.52, 0.56, 0.2);
     makeSticker("/bear-sticker-small.png", 2.24, 1.45, 0.52, -0.08);
 
-    const hinge = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 4.7, 36), dark);
+    const hinge = new THREE.Mesh(new THREE.CylinderGeometry(0.085, 0.085, 4.78, 48), dark);
     hinge.rotation.z = Math.PI / 2;
     hinge.position.set(0, 0.2, -1.25);
     hinge.castShadow = true;
     model.add(hinge);
+
+    const hingeCapLeft = new THREE.Mesh(new THREE.CylinderGeometry(0.088, 0.088, 0.28, 32), silverDark);
+    hingeCapLeft.rotation.z = Math.PI / 2;
+    hingeCapLeft.position.set(-2.55, 0.2, -1.25);
+    model.add(hingeCapLeft);
+
+    const hingeCapRight = hingeCapLeft.clone();
+    hingeCapRight.position.x = 2.55;
+    model.add(hingeCapRight);
 
     const floor = new THREE.Mesh(
       new THREE.PlaneGeometry(18, 18),
