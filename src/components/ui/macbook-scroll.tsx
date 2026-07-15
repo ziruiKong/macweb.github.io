@@ -16,9 +16,16 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
   void props;
   const sectionRef = useRef<HTMLElement>(null);
   const screenPanelRef = useRef<HTMLDivElement>(null);
+  const macbookModelRef = useRef<HTMLDivElement>(null);
   const targetProgressRef = useRef(0);
   const currentProgressRef = useRef(0);
   const rafRef = useRef<number | null>(null);
+  const dragStateRef = useRef({
+    active: false,
+    pointerId: -1,
+    startX: 0,
+    startY: 0,
+  });
   const [progress, setProgress] = useState(0);
   const [screenOff, setScreenOff] = useState(false);
   const [nightMode, setNightMode] = useState(true);
@@ -161,6 +168,65 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
 
     window.location.href = "https://ziruikong.github.io/index.html";
   };
+  const setMacbookTilt = useCallback((rotateX: number, rotateY: number) => {
+    const model = macbookModelRef.current;
+    if (!model) return;
+
+    model.style.setProperty("--macbook-tilt-x", `${rotateX}deg`);
+    model.style.setProperty("--macbook-tilt-y", `${rotateY}deg`);
+  }, []);
+  const resetMacbookTilt = useCallback(() => {
+    dragStateRef.current.active = false;
+    macbookModelRef.current?.classList.remove("macbook-3d-model--dragging");
+    setMacbookTilt(0, 0);
+  }, [setMacbookTilt]);
+  const handleMacbookPointerDown = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (progress > 0.02 || screenOff) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+
+      const target = event.target instanceof Element ? event.target : null;
+      if (
+        target?.closest(
+          "button, input, label, a, [data-key], [data-sticker], .toggleSwitch",
+        )
+      ) {
+        return;
+      }
+
+      dragStateRef.current = {
+        active: true,
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+      };
+      event.currentTarget.setPointerCapture(event.pointerId);
+      event.currentTarget.classList.add("macbook-3d-model--dragging");
+    },
+    [progress, screenOff],
+  );
+  const handleMacbookPointerMove = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      const dragState = dragStateRef.current;
+      if (!dragState.active || dragState.pointerId !== event.pointerId) return;
+
+      const deltaX = event.clientX - dragState.startX;
+      const deltaY = event.clientY - dragState.startY;
+      const rotateY = clamp(deltaX / 18, -16, 16);
+      const rotateX = clamp(-deltaY / 22, -8, 10);
+      setMacbookTilt(rotateX, rotateY);
+    },
+    [setMacbookTilt],
+  );
+  const handleMacbookPointerUp = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (dragStateRef.current.pointerId === event.pointerId) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+        resetMacbookTilt();
+      }
+    },
+    [resetMacbookTilt],
+  );
 
   return (
     <section
@@ -213,16 +279,26 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
         >
           <div className="relative h-[420px] w-full sm:h-[620px] md:h-[720px]">
             <div className="absolute left-1/2 top-1/2 h-[940px] w-[1040px] origin-center -translate-x-1/2 -translate-y-[52%] scale-[0.36] sm:-translate-y-[60%] sm:scale-[0.52] md:-translate-y-[64%] md:scale-[0.62] xl:scale-[0.7]">
-              <Screen
-                panelRef={screenPanelRef}
-                contentOpacity={screenContentOpacity}
-                screenOff={screenOff}
-              />
-              <Hinge />
-              <Base
-                onPowerToggle={() => setScreenOff((current) => !current)}
-                screenOff={screenOff}
-              />
+              <div
+                ref={macbookModelRef}
+                className="macbook-3d-model relative h-full w-full"
+                data-cursor-target
+                onPointerDown={handleMacbookPointerDown}
+                onPointerMove={handleMacbookPointerMove}
+                onPointerUp={handleMacbookPointerUp}
+                onPointerCancel={handleMacbookPointerUp}
+              >
+                <Screen
+                  panelRef={screenPanelRef}
+                  contentOpacity={screenContentOpacity}
+                  screenOff={screenOff}
+                />
+                <Hinge />
+                <Base
+                  onPowerToggle={() => setScreenOff((current) => !current)}
+                  screenOff={screenOff}
+                />
+              </div>
             </div>
           </div>
         </div>
