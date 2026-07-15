@@ -40,6 +40,529 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.hero-ambient-layer {
+  --hero-parallax-x: 0;
+  --hero-parallax-y: 0;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  transition: opacity 220ms ease;
+}
+
+.hero-scene-glow {
+  position: absolute;
+  inset: -12%;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 50% 43%, rgba(35, 94, 255, 0.5), transparent 27%),
+    radial-gradient(circle at 16% 72%, rgba(48, 213, 255, 0.28), transparent 29%),
+    radial-gradient(circle at 74% 78%, rgba(65, 241, 203, 0.25), transparent 27%),
+    radial-gradient(circle at 50% 100%, rgba(13, 31, 76, 0.55), transparent 42%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 38%, rgba(0, 0, 0, 0.34));
+  filter: blur(10px);
+}
+
+.hero-scene-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.028;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 82%);
+}
+
+.hero-ambient-item {
+  position: absolute;
+  z-index: 3;
+  transform:
+    translate3d(
+      calc(var(--hero-parallax-x) * var(--hero-card-px) * 1px),
+      calc(var(--hero-parallax-y) * var(--hero-card-py) * 1px),
+      0
+    )
+    rotate(calc(var(--hero-parallax-x) * var(--hero-card-pr) * 1deg));
+  animation: hero-card-enter 880ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--hero-enter-delay);
+  will-change: transform;
+}
+
+.hero-ambient-float {
+  will-change: transform;
+}
+
+.hero-float-slow {
+  animation: hero-card-float-a 7.2s ease-in-out infinite;
+}
+
+.hero-float-medium {
+  animation: hero-card-float-b 6.1s ease-in-out infinite;
+}
+
+.hero-float-long {
+  animation: hero-card-float-c 8.4s ease-in-out infinite;
+}
+
+.hero-float-delay-1 {
+  animation-delay: -1.4s;
+}
+
+.hero-float-delay-2 {
+  animation-delay: -2.6s;
+}
+
+.hero-float-delay-3 {
+  animation-delay: -3.8s;
+}
+
+.hero-floating-card {
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(120, 205, 255, 0.28);
+  border-radius: 26px;
+  background: rgba(7, 22, 42, 0.52);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 25px 60px rgba(0, 0, 0, 0.28),
+    0 0 40px rgba(38, 139, 255, 0.08);
+  backdrop-filter: blur(22px) saturate(125%);
+  color: white;
+  transform: rotate(var(--hero-card-rotate, 0deg)) translateZ(0);
+  transition:
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    transform 300ms ease;
+}
+
+.hero-floating-card::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(130, 220, 255, 0.42),
+    rgba(75, 120, 255, 0.1),
+    rgba(130, 255, 235, 0.18)
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.72;
+}
+
+.hero-floating-card::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.11), transparent 33%, transparent 72%, rgba(125, 211, 252, 0.08));
+  opacity: 0.65;
+}
+
+.hero-floating-card__content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-floating-card:hover {
+  border-color: rgba(148, 218, 255, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 28px 70px rgba(0, 0, 0, 0.31),
+    0 0 52px rgba(38, 139, 255, 0.14);
+  transform: rotate(var(--hero-card-rotate, 0deg)) translateY(-4px) scale(1.015);
+}
+
+.hero-icon-button,
+.hero-play-button {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.9);
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.hero-icon-button {
+  height: 28px;
+  width: 28px;
+}
+
+.hero-play-button {
+  height: 46px;
+  width: 46px;
+  border: 1px solid rgba(96, 190, 255, 0.52);
+  border-radius: 999px;
+  background: rgba(25, 99, 197, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 24px rgba(56, 189, 248, 0.32);
+}
+
+.hero-icon-button:hover,
+.hero-play-button:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.hero-album-cover {
+  height: 72px;
+  width: 72px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background:
+    linear-gradient(150deg, rgba(8, 13, 31, 0.05), rgba(37, 99, 235, 0.22)),
+    url("/lockscreen-wallpaper-poster.jpg") center / cover;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.hero-weather-orb {
+  height: 92px;
+  width: 92px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(125, 211, 252, 0.8), transparent 18%),
+    radial-gradient(circle at 35% 42%, rgba(21, 94, 217, 0.72), transparent 45%),
+    radial-gradient(circle at 72% 58%, rgba(2, 8, 23, 0.9), transparent 55%),
+    linear-gradient(135deg, #3bb8ff, #0f2f8f 54%, #020817);
+  box-shadow:
+    inset -18px -16px 26px rgba(0, 0, 0, 0.38),
+    inset 10px 8px 20px rgba(125, 211, 252, 0.16),
+    0 0 38px rgba(56, 189, 248, 0.2);
+}
+
+.hero-folder-icon {
+  position: relative;
+  height: 52px;
+  width: 118px;
+  border-radius: 10px 14px 14px 14px;
+  background: linear-gradient(135deg, rgba(30, 144, 255, 0.64), rgba(31, 74, 180, 0.34));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 14px 34px rgba(15, 23, 42, 0.24);
+}
+
+.hero-folder-icon::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: -12px;
+  height: 22px;
+  width: 44px;
+  border-radius: 10px 10px 4px 4px;
+  background: rgba(50, 166, 255, 0.58);
+}
+
+.hero-card--music {
+  height: 180px;
+  width: 300px;
+  --hero-card-rotate: -3deg;
+}
+
+.hero-card--profile {
+  height: 170px;
+  width: 320px;
+  --hero-card-rotate: 1.5deg;
+}
+
+.hero-card--todo {
+  height: 250px;
+  width: 250px;
+  --hero-card-rotate: -4deg;
+}
+
+.hero-card--calendar {
+  height: 330px;
+  width: 280px;
+  --hero-card-rotate: 5deg;
+}
+
+.hero-card--weather {
+  height: 190px;
+  width: 290px;
+  --hero-card-rotate: 2deg;
+}
+
+.hero-card--focus {
+  height: 130px;
+  width: 280px;
+  --hero-card-rotate: 5deg;
+}
+
+.hero-card--folder {
+  height: 260px;
+  width: 250px;
+  border-color: rgba(120, 205, 255, 0.2);
+  opacity: 0.56;
+  --hero-card-rotate: 7deg;
+  filter: blur(0.4px);
+}
+
+.hero-ambient-item--music {
+  left: max(56px, calc(50% - 720px));
+  top: 9%;
+}
+
+.hero-ambient-item--profile {
+  left: max(68px, calc(50% - 690px));
+  top: 37%;
+}
+
+.hero-ambient-item--todo {
+  left: max(96px, calc(50% - 590px));
+  top: 63%;
+}
+
+.hero-ambient-item--calendar {
+  right: max(56px, calc(50% - 720px));
+  top: 12%;
+}
+
+.hero-ambient-item--weather {
+  right: max(90px, calc(50% - 610px));
+  top: 52%;
+}
+
+.hero-ambient-item--focus {
+  right: max(110px, calc(50% - 620px));
+  bottom: 7%;
+}
+
+.hero-ambient-item--folder {
+  z-index: 2;
+  right: max(215px, calc(50% - 500px));
+  top: 11%;
+}
+
+@media (max-width: 1439px) {
+  .hero-card--music,
+  .hero-card--profile,
+  .hero-card--todo,
+  .hero-card--calendar,
+  .hero-card--weather,
+  .hero-card--focus,
+  .hero-card--folder {
+    scale: 0.9;
+  }
+
+  .hero-ambient-item--music {
+    left: 42px;
+    top: 10%;
+  }
+
+  .hero-ambient-item--profile {
+    left: 46px;
+    top: 39%;
+  }
+
+  .hero-ambient-item--todo {
+    left: 82px;
+    top: 66%;
+  }
+
+  .hero-ambient-item--calendar {
+    right: 38px;
+    top: 13%;
+  }
+
+  .hero-ambient-item--weather {
+    right: 62px;
+    top: 54%;
+  }
+
+  .hero-ambient-item--focus {
+    display: none;
+  }
+
+  .hero-ambient-item--folder {
+    right: 238px;
+    top: 12%;
+  }
+}
+
+@media (max-width: 1099px) {
+  .hero-ambient-item--todo,
+  .hero-ambient-item--weather,
+  .hero-ambient-item--focus {
+    display: none;
+  }
+
+  .hero-card--music,
+  .hero-card--profile,
+  .hero-card--calendar,
+  .hero-card--folder {
+    scale: 0.74;
+  }
+
+  .hero-ambient-item--music {
+    left: 12px;
+    top: 8%;
+  }
+
+  .hero-ambient-item--profile {
+    left: 8px;
+    top: 63%;
+  }
+
+  .hero-ambient-item--calendar {
+    right: -18px;
+    top: 11%;
+  }
+
+  .hero-ambient-item--folder {
+    right: 11%;
+    top: 20%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-ambient-layer {
+    --hero-parallax-x: 0 !important;
+    --hero-parallax-y: 0 !important;
+  }
+
+  .hero-scene-glow {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(35, 94, 255, 0.42), transparent 30%),
+      radial-gradient(circle at 18% 70%, rgba(48, 213, 255, 0.22), transparent 34%),
+      radial-gradient(circle at 83% 78%, rgba(65, 241, 203, 0.16), transparent 34%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.12), transparent 38%, rgba(0, 0, 0, 0.38));
+    filter: blur(8px);
+  }
+
+  .hero-scene-noise {
+    opacity: 0.018;
+  }
+
+  .hero-ambient-item--todo,
+  .hero-ambient-item--calendar,
+  .hero-ambient-item--weather,
+  .hero-ambient-item--focus,
+  .hero-ambient-item--folder {
+    display: none;
+  }
+
+  .hero-ambient-item {
+    transform: none;
+  }
+
+  .hero-ambient-float {
+    animation: none;
+  }
+
+  .hero-floating-card {
+    border-radius: 20px;
+    backdrop-filter: blur(14px) saturate(115%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 18px 45px rgba(0, 0, 0, 0.22),
+      0 0 30px rgba(38, 139, 255, 0.06);
+  }
+
+  .hero-card--music {
+    height: 142px;
+    width: min(292px, calc(100vw - 32px));
+    scale: 0.82;
+    --hero-card-rotate: -2deg;
+  }
+
+  .hero-card--profile {
+    height: 138px;
+    width: min(300px, calc(100vw - 40px));
+    scale: 0.78;
+    --hero-card-rotate: 1deg;
+  }
+
+  .hero-ambient-item--music {
+    left: 3%;
+    top: 10%;
+  }
+
+  .hero-ambient-item--profile {
+    left: auto;
+    right: -2%;
+    top: 71%;
+  }
+
+  .hero-card--music .hero-floating-card__content,
+  .hero-card--profile .hero-floating-card__content {
+    transform-origin: top left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-ambient-item,
+  .hero-ambient-float {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-floating-card,
+  .hero-icon-button,
+  .hero-play-button {
+    transition-duration: 120ms;
+  }
+}
+
+@keyframes hero-card-enter {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 18px, 0) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes hero-card-float-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes hero-card-float-b {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@keyframes hero-card-float-c {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
 .site-loader-screen {
   position: fixed;
   inset: 0;

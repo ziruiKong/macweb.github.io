@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { HeroAmbientCards } from "@/components/hero/HeroAmbientCards";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const assetPath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
@@ -205,8 +206,9 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
           blendingValue="screen"
           interactive={false}
         />
+        <HeroAmbientCards opacity={hardwareOpacity} />
         <div
-          className="grid h-full place-items-center px-4 py-8"
+          className="relative z-20 grid h-full place-items-center px-4 py-8"
           style={{ opacity: hardwareOpacity }}
         >
           <div className="relative h-[420px] w-full sm:h-[620px] md:h-[720px]">
