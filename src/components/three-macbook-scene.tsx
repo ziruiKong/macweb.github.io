@@ -38,10 +38,11 @@ export default function ThreeMacbookScene() {
     if (!container) return;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x061425, 8, 18);
+    scene.fog = new THREE.Fog(0x061425, 10, 20);
 
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 2.55, 7.6);
+    camera.position.set(0, 2.35, 8.6);
+    camera.lookAt(0, 0.72, 0.15);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -56,7 +57,8 @@ export default function ThreeMacbookScene() {
     container.appendChild(renderer.domElement);
 
     const model = new THREE.Group();
-    model.rotation.x = -0.08;
+    model.position.set(0, -0.72, 0.1);
+    model.rotation.x = -0.02;
     scene.add(model);
 
     const silver = new THREE.MeshPhysicalMaterial({
@@ -122,17 +124,18 @@ export default function ThreeMacbookScene() {
     model.add(trackpad);
 
     const screenGroup = new THREE.Group();
-    screenGroup.position.set(0, 0.18, -1.22);
-    screenGroup.rotation.x = -1.02;
+    screenGroup.position.set(0, 0.08, -1.28);
+    screenGroup.rotation.x = -0.33;
     model.add(screenGroup);
 
-    const screenLid = new THREE.Mesh(roundedBox(5.58, 0.15, 3.32, 0.16, 9), silver);
+    const screenLid = new THREE.Mesh(roundedBox(5.58, 3.32, 0.16, 0.16, 9), silver);
+    screenLid.position.set(0, 1.66, -0.08);
     screenLid.castShadow = true;
     screenLid.receiveShadow = true;
     screenGroup.add(screenLid);
 
-    const screenBezel = new THREE.Mesh(roundedBox(5.26, 0.046, 2.98, 0.13, 8), blackPlastic);
-    screenBezel.position.set(0, -0.092, 0.02);
+    const screenBezel = new THREE.Mesh(roundedBox(5.26, 2.98, 0.045, 0.13, 8), blackPlastic);
+    screenBezel.position.set(0, 1.66, 0.022);
     screenGroup.add(screenBezel);
 
     const webcam = new THREE.Mesh(
@@ -140,7 +143,7 @@ export default function ThreeMacbookScene() {
       new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.38 }),
     );
     webcam.rotation.x = Math.PI / 2;
-    webcam.position.set(0, -0.121, -1.33);
+    webcam.position.set(0, 2.94, 0.052);
     screenGroup.add(webcam);
 
     const textureLoader = new THREE.TextureLoader();
@@ -150,8 +153,7 @@ export default function ThreeMacbookScene() {
       new THREE.PlaneGeometry(4.82, 2.72),
       new THREE.MeshBasicMaterial({ map: screenTexture }),
     );
-    screenImage.position.set(0, -0.111, 0.025);
-    screenImage.rotation.x = -Math.PI / 2;
+    screenImage.position.set(0, 1.65, 0.052);
     screenGroup.add(screenImage);
 
     const screenGloss = new THREE.Mesh(
@@ -164,8 +166,7 @@ export default function ThreeMacbookScene() {
         depthWrite: false,
       }),
     );
-    screenGloss.position.set(0, -0.113, 0.029);
-    screenGloss.rotation.x = -Math.PI / 2;
+    screenGloss.position.set(0, 1.65, 0.056);
     screenGroup.add(screenGloss);
 
     const keyGeometry = roundedBox(1, 0.055, 0.165, 0.035, 4);
@@ -287,8 +288,8 @@ export default function ThreeMacbookScene() {
       x: 0,
       y: 0,
     };
-    const targetRotation = { x: -0.08, y: -0.34 };
-    const currentRotation = { x: -0.08, y: -0.34 };
+    const targetRotation = { x: -0.02, y: -0.18 };
+    const currentRotation = { x: -0.02, y: -0.18 };
 
     const handlePointerDown = (event: PointerEvent) => {
       drag.active = true;
@@ -306,7 +307,7 @@ export default function ThreeMacbookScene() {
       drag.x = event.clientX;
       drag.y = event.clientY;
       targetRotation.y += deltaX * 0.008;
-      targetRotation.x = THREE.MathUtils.clamp(targetRotation.x + deltaY * 0.004, -0.42, 0.28);
+      targetRotation.x = THREE.MathUtils.clamp(targetRotation.x + deltaY * 0.0035, -0.22, 0.18);
     };
 
     const handlePointerUp = (event: PointerEvent) => {
