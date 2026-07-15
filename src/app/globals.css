@@ -40,6 +40,32 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.hero-liquid-effect {
+  pointer-events: none;
+  position: absolute;
+  inset: -2%;
+  z-index: 5;
+  overflow: hidden;
+  opacity: 0.24;
+  mix-blend-mode: screen;
+  filter: saturate(118%) contrast(106%) blur(0.2px);
+}
+
+.hero-liquid-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 42%, transparent 0 30%, rgba(3, 12, 28, 0.26) 62%, rgba(3, 12, 28, 0.58)),
+    linear-gradient(180deg, rgba(3, 12, 28, 0.18), rgba(3, 12, 28, 0.42));
+}
+
+.hero-liquid-canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .hero-ambient-layer {
   --hero-parallax-x: 0;
   --hero-parallax-y: 0;
@@ -427,6 +453,11 @@ body::-webkit-scrollbar {
 }
 
 @media (max-width: 767px) {
+  .hero-liquid-effect {
+    opacity: 0.16;
+    filter: saturate(108%) contrast(102%);
+  }
+
   .hero-ambient-layer {
     --hero-parallax-x: 0 !important;
     --hero-parallax-y: 0 !important;
@@ -502,6 +533,10 @@ body::-webkit-scrollbar {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-liquid-effect {
+    display: none;
+  }
+
   .hero-ambient-item,
   .hero-ambient-float {
     animation-duration: 1ms !important;
