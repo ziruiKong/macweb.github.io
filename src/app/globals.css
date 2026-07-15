@@ -95,6 +95,81 @@ body::-webkit-scrollbar {
   z-index: 1;
 }
 
+.three-mac-page {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #020714;
+  color: white;
+}
+
+.three-mac-background {
+  position: absolute;
+  inset: -12%;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(0, 119, 255, 0.36), transparent 32%),
+    radial-gradient(circle at 18% 76%, rgba(34, 211, 238, 0.28), transparent 28%),
+    radial-gradient(circle at 78% 74%, rgba(45, 212, 191, 0.18), transparent 26%),
+    linear-gradient(135deg, #020714, #061b31 48%, #020714);
+  filter: blur(4px);
+}
+
+.three-mac-background::after {
+  content: "";
+  position: absolute;
+  inset: 8%;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 76%);
+}
+
+.three-mac-canvas-shell {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  touch-action: none;
+}
+
+.three-mac-canvas-shell canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.three-mac-canvas-shell canvas.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.three-mac-back {
+  position: fixed;
+  left: 24px;
+  top: 22px;
+  z-index: 2;
+  border: 1px solid rgba(160, 222, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(3, 13, 27, 0.28);
+  padding: 9px 13px;
+  color: rgba(238, 252, 255, 0.82);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background 180ms ease;
+}
+
+.three-mac-back:hover {
+  border-color: rgba(160, 222, 255, 0.42);
+  background: rgba(3, 13, 27, 0.42);
+  color: white;
+}
+
 .site-loader-screen {
   position: fixed;
   inset: 0;
