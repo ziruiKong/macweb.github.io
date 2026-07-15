@@ -172,7 +172,7 @@ export const MacbookScroll = (props: MacbookScrollProps) => {
       }
     >
       <CustomCursor />
-      <LeftSiteRail hidden={progress > 0.02 || screenOff} />
+      <LeftSiteRail hidden={progress > 0.02 || screenOff} nightMode={nightMode} />
       <div
         className={[
           "fixed top-5 right-5 z-30 transition duration-200",

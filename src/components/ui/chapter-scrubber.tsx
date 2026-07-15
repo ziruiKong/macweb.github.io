@@ -83,8 +83,8 @@ const Tick = React.memo(function Tick({
       aria-hidden="true"
       style={{ width, opacity, scaleY }}
       className={cn(
-        "block h-[2px] rounded-full",
-        isCurrent ? "bg-cyan-100" : "bg-white",
+        "chapter-scrubber-tick block h-[2px] rounded-full",
+        isCurrent && "chapter-scrubber-tick--current",
       )}
     />
   );
@@ -339,4 +339,3 @@ export function ChapterScrubber({
     </div>
   );
 }
-

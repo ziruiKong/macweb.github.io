@@ -35,7 +35,13 @@ const SITE_CHAPTERS: Chapter[] = [
   },
 ];
 
-export const LeftSiteRail = ({ hidden }: { hidden: boolean }) => {
+export const LeftSiteRail = ({
+  hidden,
+  nightMode,
+}: {
+  hidden: boolean;
+  nightMode: boolean;
+}) => {
   const handleSelect = (chapter: Chapter) => {
     if (chapter.id === "records") {
       window.location.href = "/records";
@@ -58,9 +64,11 @@ export const LeftSiteRail = ({ hidden }: { hidden: boolean }) => {
         rowHeight={13}
         radius={3.8}
         onSelect={handleSelect}
-        className="liquid-glass-rail"
+        className={[
+          "liquid-glass-rail",
+          nightMode ? "liquid-glass-rail--dark" : "liquid-glass-rail--light",
+        ].join(" ")}
       />
     </div>
   );
 };
-
