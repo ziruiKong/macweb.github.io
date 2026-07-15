@@ -480,14 +480,26 @@ const LockScreenMock = ({ screenOff }: { screenOff: boolean }) => {
           screenOff ? "opacity-100" : "pointer-events-none opacity-0",
         ].join(" ")}
       />
-      <Image
-        className="absolute inset-0 h-full w-full object-cover"
-        src={assetPath("/macos-sonoma-wallpaper.jpeg")}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-      />
+      <picture className="absolute inset-0 block h-full w-full">
+        <source
+          srcSet={assetPath("/glacial-blue-wallpaper-1280.webp")}
+          media="(max-width: 767px)"
+          type="image/webp"
+        />
+        <source
+          srcSet={assetPath("/glacial-blue-wallpaper-1920.webp")}
+          media="(max-width: 1439px)"
+          type="image/webp"
+        />
+        <source srcSet={assetPath("/glacial-blue-wallpaper-2560.webp")} type="image/webp" />
+        <img
+          className="h-full w-full object-cover"
+          src={assetPath("/glacial-blue-wallpaper-1920.webp")}
+          alt=""
+          decoding="async"
+          fetchPriority="high"
+        />
+      </picture>
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,20,48,0.28),rgba(8,20,48,0.03)_30%,rgba(0,0,0,0.30)_100%)]" />
 
       <div className="absolute left-1/2 top-[9%] -translate-x-1/2 text-center drop-shadow-[0_2px_10px_rgba(11,34,76,0.24)]">
