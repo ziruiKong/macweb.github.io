@@ -40,43 +40,6 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.macbook-3d-model {
-  --macbook-tilt-x: 0deg;
-  --macbook-tilt-y: 0deg;
-  transform:
-    perspective(1600px)
-    rotateX(var(--macbook-tilt-x))
-    rotateY(var(--macbook-tilt-y));
-  transform-origin: center 58%;
-  transform-style: preserve-3d;
-  transition:
-    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 220ms ease;
-  will-change: transform;
-}
-
-.macbook-3d-model--dragging {
-  filter: drop-shadow(0 34px 54px rgba(4, 20, 38, 0.18));
-  touch-action: none;
-  transition: filter 160ms ease;
-}
-
-.macbook-3d-model [data-screen] {
-  transform:
-    perspective(950px)
-    rotateX(-23deg)
-    scaleY(0.62)
-    translateZ(34px) !important;
-}
-
-.macbook-3d-model [data-hinge] {
-  transform: translateX(-50%) translateZ(12px);
-}
-
-.macbook-3d-model [data-base] {
-  transform: translateZ(0);
-}
-
 .liquid-glass-rail {
   --rail-tick-color: rgba(238, 252, 255, 0.9);
   --rail-current-color: rgba(183, 245, 255, 0.98);
@@ -130,13 +93,6 @@ body::-webkit-scrollbar {
 .liquid-glass-card > * {
   position: relative;
   z-index: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .macbook-3d-model {
-    transform: none !important;
-    transition: none;
-  }
 }
 
 .site-loader-screen {
