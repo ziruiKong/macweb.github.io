@@ -164,10 +164,12 @@
   /* sections */
   section.block{padding:16px 0 8px}
   #about{flex:none;padding:24px 0 26px}
-  #education{flex:none;display:flex;flex-direction:column;padding-top:36px}
+  #education{flex:none;display:flex;flex-direction:column;padding-top:24px}
   .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
   .sec-head h2{font-size:26px;font-weight:700;letter-spacing:0.02em;margin:0;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
   .sec-head .rule{flex:1;height:1px;background:var(--line)}
+  .edu-sec-head{align-items:center}
+  .edu-sec-head h2{color:#fff;background:#38bdf8;padding:5px 12px;line-height:1.25}
   .card{background:transparent;border:0;border-radius:0;padding:0}
   .card p{margin:0 0 20px;color:#334155}
   .card p{font-size:15px;line-height:1.6;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-weight:300}
@@ -249,7 +251,9 @@
     .avatar-link{width:52px;height:52px}
     .card p{font-size:14.5px;line-height:1.65}
     #about{padding-top:16px}
-    #education{padding-top:110px;padding-bottom:0}
+    #education{padding-top:34px;padding-bottom:0}
+    .edu-sec-head{margin-bottom:14px}
+    .edu-sec-head h2{font-size:22px}
     footer{padding:0 16px}
     .share-row{gap:12px}
     .updated{font-size:11px}
@@ -333,6 +337,7 @@
   </section>
 
   <section class="block" id="education">
+    <div class="sec-head edu-sec-head"><h2>EDUCATION</h2><div class="rule"></div></div>
     <div class="chart-card" id="eduChart">
       <svg class="tl-chart" viewBox="0 64 900 78" font-family="Jost, sans-serif" aria-label="Education timeline from 2022 to 2028">
         <defs>
