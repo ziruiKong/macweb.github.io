@@ -243,18 +243,19 @@
     .contact-grid{grid-template-columns:1fr}
   }
   @media (max-width:600px){
+    body{padding-bottom:0}
     h1{font-size:38px}
     .name-row{gap:12px;flex-wrap:nowrap}
     .avatar-link{width:52px;height:52px}
     .card p{font-size:14.5px;line-height:1.65}
     #about{padding-top:16px}
-    #education{padding-top:28px}
+    #education{padding-top:28px;padding-bottom:0}
     footer{padding:0 16px}
     .share-row{gap:12px}
     .updated{font-size:11px}
     .chart-card{
       display:block;width:calc(100% + 48px);margin-left:-24px;margin-right:-24px;
-      padding:10px 24px;border-radius:0
+      padding:10px 24px 54px;border-radius:0
     }
     .tl-chart{display:none}
     .edu-mobile{display:flex;flex-direction:column;gap:8px;width:100%}
@@ -282,6 +283,7 @@
       <li><a href="research.html">Research</a></li>
       <li><a href="datasets.html">Datasets</a></li>
       <li><a href="interests.html">Interests</a></li>
+      <li><a href="design.html">Design</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
@@ -295,6 +297,7 @@
     <li><a href="research.html">Research</a></li>
     <li><a href="datasets.html">Datasets</a></li>
     <li><a href="interests.html">Interests</a></li>
+    <li><a href="design.html">Design</a></li>
   </ul>
 </div>
 
