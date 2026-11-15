@@ -184,7 +184,7 @@
   }
   .tl-tip.show{opacity:1}
   .tl-tip strong{display:block;font-size:13px;margin-bottom:1px}
-  .tl-tip .d{color:#cbd5e1}
+  .tl-tip .d{display:block;color:#cbd5e1}
 
   .timeline{position:relative;margin-top:6px;padding-left:26px}
   .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
@@ -247,12 +247,16 @@
     .tl-chart{display:none}
     .edu-mobile{display:flex;flex-direction:column;gap:8px;width:100%}
     .edu-mobile-item{display:grid;grid-template-columns:26px minmax(0,1fr);align-items:center;gap:10px;
-      padding:10px 11px;background:rgba(255,255,255,.94);border-radius:10px}
+      padding:10px 11px;background:rgba(255,255,255,.94);border-radius:10px;cursor:pointer;
+      transition:box-shadow .16s ease,transform .16s ease}
+    .edu-mobile-item:hover,.edu-mobile-item:focus-visible,.edu-mobile-item[aria-expanded="true"]{
+      outline:none;box-shadow:0 0 0 2px rgba(14,165,233,.35);transform:translateY(-1px)
+    }
     .edu-mobile-logo{width:24px;height:24px;object-fit:contain;display:block}
     .edu-mobile-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
     .edu-mobile-code{font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:700;line-height:1.2}
     .edu-mobile-date{flex:none;color:#475569;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
-    .edu-mobile-degree{margin-top:3px;color:#64748b;font-size:11.5px;line-height:1.3}
+    .tl-tip{width:min(92%,360px);white-space:normal;font-size:12px;padding:9px 11px}
   }
 </style>
 </head>
@@ -332,17 +336,17 @@
         </defs>
         <line x1="8" y1="114" x2="892" y2="114" stroke="#ffffff"/>
 
-        <g class="tl-bar" data-title="The Ohio State University" data-sub="B.A. Economics · Aug 2022 – May 2025">
+        <g class="tl-bar" data-title="The Ohio State University" data-sub="College of Arts and Sciences · B.A. Economics · Aug 2022 – May 2025">
           <rect x="8" y="72" width="442" height="28" rx="14" fill="#ffffff"/>
           <image href="assets/school-osu.png" x="16" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
           <text x="229" y="90" font-size="12.5" font-weight="600" fill="#0f172a" text-anchor="middle">CAS</text>
         </g>
-        <g class="tl-bar" data-title="PKU GSM" data-sub="Visiting Student · Sep 2025 – Jan 2026">
+        <g class="tl-bar" data-title="Peking University" data-sub="Guanghua School of Management · Visiting Student · Sep 2025 – Jan 2026">
           <rect x="492.4" y="72" width="76" height="28" rx="14" fill="#ffffff"/>
           <image href="assets/school-pku.png" x="498.4" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
           <text x="526" y="90" font-size="11" font-weight="600" fill="#0f172a">GSM</text>
         </g>
-        <g class="tl-bar" data-title="COLUMBIA GSAS" data-sub="M.A. QMSS · Sep 2026 – Feb 2028">
+        <g class="tl-bar" data-title="Columbia University" data-sub="Graduate School of Arts and Sciences · M.A. QMSS · Sep 2026 – Feb 2028">
           <rect x="664.3" y="72" width="227.7" height="28" rx="14" fill="#ffffff"/>
           <image href="assets/school-columbia.png" x="672.3" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
           <text x="778.2" y="90" font-size="12.5" font-weight="600" fill="#0f172a" text-anchor="middle">GSAS</text>
@@ -356,25 +360,28 @@
         </g>
       </svg>
       <div class="edu-mobile" aria-label="Education timeline from 2022 to 2028">
-        <div class="edu-mobile-item">
+        <div class="edu-mobile-item" role="button" tabindex="0" aria-expanded="false"
+          data-title="The Ohio State University"
+          data-sub="College of Arts and Sciences · B.A. Economics · Aug 2022 – May 2025">
           <img class="edu-mobile-logo" src="assets/school-osu.png" alt="The Ohio State University">
           <div>
             <div class="edu-mobile-head"><span class="edu-mobile-code">CAS</span><span class="edu-mobile-date">AUG 2022 – MAY 2025</span></div>
-            <div class="edu-mobile-degree">B.A. Economics</div>
           </div>
         </div>
-        <div class="edu-mobile-item">
+        <div class="edu-mobile-item" role="button" tabindex="0" aria-expanded="false"
+          data-title="Peking University"
+          data-sub="Guanghua School of Management · Visiting Student · Sep 2025 – Jan 2026">
           <img class="edu-mobile-logo" src="assets/school-pku.png" alt="Peking University">
           <div>
             <div class="edu-mobile-head"><span class="edu-mobile-code">GSM</span><span class="edu-mobile-date">SEP 2025 – JAN 2026</span></div>
-            <div class="edu-mobile-degree">Visiting Student</div>
           </div>
         </div>
-        <div class="edu-mobile-item">
+        <div class="edu-mobile-item" role="button" tabindex="0" aria-expanded="false"
+          data-title="Columbia University"
+          data-sub="Graduate School of Arts and Sciences · M.A. QMSS · Sep 2026 – Feb 2028">
           <img class="edu-mobile-logo" src="assets/school-columbia.png" alt="Columbia University">
           <div>
             <div class="edu-mobile-head"><span class="edu-mobile-code">GSAS</span><span class="edu-mobile-date">SEP 2026 – FEB 2028</span></div>
-            <div class="edu-mobile-degree">M.A. Quantitative Methods in the Social Sciences</div>
           </div>
         </div>
       </div>
@@ -443,6 +450,37 @@
           tip.classList.add('show');
         });
         bar.addEventListener('mouseleave', function(){ tip.classList.remove('show'); });
+      });
+
+      var mobileItems = document.querySelectorAll('.edu-mobile-item');
+      mobileItems.forEach(function(item){
+        function toggleMobileTip(e){
+          if (e) e.preventDefault();
+          var wasOpen = item.getAttribute('aria-expanded') === 'true';
+          mobileItems.forEach(function(other){ other.setAttribute('aria-expanded', 'false'); });
+          if (wasOpen) {
+            tip.classList.remove('show');
+            return;
+          }
+          var r = chart.getBoundingClientRect();
+          var ir = item.getBoundingClientRect();
+          tip.innerHTML = '<strong>' + item.getAttribute('data-title') + '</strong><span class="d">' + item.getAttribute('data-sub') + '</span>';
+          tip.style.left = (ir.left - r.left + ir.width / 2) + 'px';
+          tip.style.top = (ir.top - r.top - 8) + 'px';
+          tip.classList.add('show');
+          item.setAttribute('aria-expanded', 'true');
+        }
+        item.addEventListener('click', toggleMobileTip);
+        item.addEventListener('keydown', function(e){
+          if (e.key === 'Enter' || e.key === ' ') toggleMobileTip(e);
+        });
+      });
+
+      document.addEventListener('click', function(e){
+        if (!e.target.closest('.edu-mobile-item')) {
+          mobileItems.forEach(function(item){ item.setAttribute('aria-expanded', 'false'); });
+          tip.classList.remove('show');
+        }
       });
     }
   })();
