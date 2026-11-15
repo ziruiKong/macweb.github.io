@@ -141,98 +141,45 @@
   <section class="block">
     <div class="sec-head"><h2>Design System</h2><div class="rule"></div></div>
     <div class="dataset-note">
-      <p>A concise reference for the visual language, typography, layout, components, and interaction rules used across this website.</p>
+      <p>A high-level guide to the visual language and experience principles used across this website.</p>
     </div>
   </section>
 
   <section class="block">
-    <div class="sec-head"><h2>Brand</h2><div class="rule"></div></div>
+    <div class="sec-head"><h2>Visual Language</h2><div class="rule"></div></div>
     <div class="spec-grid">
       <div class="spec-card">
-        <h3>Wordmark</h3>
-        <p>The KZR elephant mark is the primary identity. It appears in the navigation and uses the site's signature sky blue.</p>
+        <h3>Identity</h3>
+        <p>The KZR elephant mark is the primary identity, with a white-background favicon for clear browser recognition.</p>
       </div>
       <div class="spec-card">
-        <h3>Voice</h3>
-        <p>Academic first, direct, and restrained. Personal interests are present, but never compete with research content.</p>
+        <h3>Palette</h3>
+        <p>Deep ink, muted slate, signature sky blue, soft gray, and white create the site's restrained academic tone.</p>
       </div>
       <div class="spec-card">
-        <h3>Favicon</h3>
-        <p>The complete KZR mark sits on a white square with safe margins so the identity stays legible in browser tabs.</p>
+        <h3>Typography</h3>
+        <p>Jost handles navigation, labels, and headings; EB Garamond carries longer body text and academic prose.</p>
       </div>
     </div>
   </section>
 
   <section class="block">
-    <div class="sec-head"><h2>Color</h2><div class="rule"></div></div>
-    <div class="swatches">
-      <div class="swatch" style="--sw:#0f172a"><strong>Ink</strong>#0F172A</div>
-      <div class="swatch" style="--sw:#64748b"><strong>Muted</strong>#64748B</div>
-      <div class="swatch" style="--sw:#38bdf8"><strong>Sky</strong>#38BDF8</div>
-      <div class="swatch" style="--sw:#e6ebf2"><strong>Line</strong>#E6EBF2</div>
-      <div class="swatch" style="--sw:#f7f9fc"><strong>Soft</strong>#F7F9FC</div>
-      <div class="swatch" style="--sw:#ffffff"><strong>White</strong>#FFFFFF</div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="sec-head"><h2>Typography</h2><div class="rule"></div></div>
-    <div class="spec-card">
-      <div class="type-row">
-        <div class="type-label">Jost · navigation, headings, labels</div>
-        <div class="type-display">Zirui Kong · KZR</div>
-      </div>
-      <div class="type-row">
-        <div class="type-label">EB Garamond · body text</div>
-        <div class="type-body">Clear academic prose with generous line height and restrained emphasis.</div>
-      </div>
-      <div class="type-row">
-        <div class="type-label">Scale</div>
-        <p>Body 14-17px · UI labels 11-13px · desktop section labels 26px · line height 1.6-1.7.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="sec-head"><h2>Layout &amp; Components</h2><div class="rule"></div></div>
+    <div class="sec-head"><h2>Core Components</h2><div class="rule"></div></div>
     <ul class="spec-list">
-      <li>Sticky 44px global navigation and a fixed 44px footer on every page.</li>
-      <li>Content is centered with a 980px reading width; the homepage uses a 1080px maximum frame.</li>
-      <li>Sky-blue section labels use white text and a thin horizontal rule.</li>
-      <li>Research entries use flat cells and accordion disclosure; information stays compact until requested.</li>
-      <li>Interests use translucent glass panels with soft borders, subtle blur, and a light blue-white gradient.</li>
-      <li>Links use the same sky-blue underline treatment throughout the site.</li>
+      <li>Global sticky navigation and fixed footer, identical on every page.</li>
+      <li>Sky-blue section labels with white text and a thin rule.</li>
+      <li>Flat accordion cells for research and a compact dropdown for mobile navigation.</li>
+      <li>Translucent glass cards for interests and rounded mobile education cards with detail popovers.</li>
     </ul>
   </section>
 
   <section class="block">
-    <div class="sec-head"><h2>Responsive Rules</h2><div class="rule"></div></div>
+    <div class="sec-head"><h2>Experience Principles</h2><div class="rule"></div></div>
     <ul class="spec-list">
-      <li>Below 833px, desktop navigation becomes a compact dropdown menu.</li>
-      <li>Below 820px, homepage content switches from one-screen centering to natural vertical scrolling.</li>
-      <li>Below 600px, the education timeline becomes stacked cards with tap-to-open detail cards.</li>
-      <li>The mobile education background spans the viewport and continues behind the fixed footer without a white gap.</li>
-      <li>All breakpoints must preserve zero horizontal overflow.</li>
-    </ul>
-  </section>
-
-  <section class="block">
-    <div class="sec-head"><h2>Interaction &amp; Accessibility</h2><div class="rule"></div></div>
-    <ul class="spec-list">
-      <li>Interactive cards support pointer, keyboard focus, Enter, and Space.</li>
-      <li>Hover states remain subtle; active states use sky-blue outlines or text rather than heavy fills.</li>
-      <li>Tooltips and detail cards use dark ink backgrounds with high-contrast text.</li>
-      <li>Decorative lines and spacing support hierarchy without adding unnecessary containers.</li>
-    </ul>
-  </section>
-
-  <section class="block">
-    <div class="sec-head"><h2>Content Principles</h2><div class="rule"></div></div>
-    <ul class="spec-list">
-      <li>Prefer clear claims and concise descriptions over dense, repetitive paragraphs.</li>
-      <li>Keep navigation global and identical across all pages.</li>
-      <li>Dates and degree details remain factual; no metrics or affiliations are invented.</li>
-      <li>Use the same wording for research directions across Research and Interests.</li>
+      <li>Academic content comes first; personal interests support the person behind the research without competing with it.</li>
+      <li>Keep hierarchy obvious through spacing, concise copy, and restrained decorative elements.</li>
+      <li>Support mobile, keyboard, and desktop use while preserving zero horizontal overflow.</li>
+      <li>Keep all factual details consistent and avoid inventing claims, metrics, or affiliations.</li>
     </ul>
   </section>
 </main>

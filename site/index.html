@@ -260,13 +260,13 @@
     .tl-chart{display:none}
     .edu-mobile{display:flex;flex-direction:column;gap:8px;width:100%}
     .edu-mobile-item{display:grid;grid-template-columns:26px minmax(0,1fr);align-items:center;gap:10px;
-      padding:10px 11px;background:rgba(255,255,255,.94);border-radius:10px;cursor:pointer;
+      min-height:48px;padding:9px 11px;background:rgba(255,255,255,.94);border-radius:10px;cursor:pointer;
       transition:box-shadow .16s ease,transform .16s ease}
     .edu-mobile-item:hover,.edu-mobile-item:focus-visible,.edu-mobile-item[aria-expanded="true"]{
       outline:none;box-shadow:0 0 0 2px rgba(14,165,233,.35);transform:translateY(-1px)
     }
     .edu-mobile-logo{width:24px;height:24px;object-fit:contain;display:block}
-    .edu-mobile-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+    .edu-mobile-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:20px}
     .edu-mobile-code{font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:700;line-height:1.2}
     .edu-mobile-date{flex:none;color:#475569;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
     .tl-tip{width:min(92%,360px);white-space:normal;font-size:12px;padding:9px 11px}
