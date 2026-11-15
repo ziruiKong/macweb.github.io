@@ -61,7 +61,20 @@
   .sec-head h2{margin:0;padding:5px 12px;background:#38bdf8;color:#fff;line-height:1.25;
     font-size:26px;font-weight:700;letter-spacing:.02em;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
   .rule{flex:1;height:1px;background:var(--line)}
-  .topic-note{background:var(--soft);border:1px solid var(--line);padding:20px 22px;color:#334155}
+  .topic-note{
+    position:relative;padding:20px 22px;color:#334155;
+    background:linear-gradient(135deg,rgba(255,255,255,.74),rgba(236,248,255,.46));
+    border:1px solid rgba(56,189,248,.2);
+    box-shadow:0 14px 34px rgba(56,189,248,.09),inset 0 1px 0 rgba(255,255,255,.9);
+    -webkit-backdrop-filter:blur(16px) saturate(155%);
+    backdrop-filter:blur(16px) saturate(155%);
+    overflow:hidden;
+  }
+  .topic-note::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(115deg,rgba(255,255,255,.46),transparent 42%,rgba(125,211,252,.08));
+  }
+  .topic-note p{position:relative}
   .topic-note p{margin:0;font-size:15px;line-height:1.7}
   .interest-themes{margin:2px 0 0;color:#475569;font-size:14px;line-height:1.7}
 
