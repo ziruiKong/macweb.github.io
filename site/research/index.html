@@ -85,10 +85,12 @@
   .alphabet-row::-webkit-scrollbar{display:none}
   .alphabet-row button{flex:none;min-width:24px;height:28px;padding:0 5px;border:0;border-radius:999px;background:transparent;color:var(--muted);
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:600;line-height:1;cursor:pointer;transition:background .16s ease,color .16s ease}
+  .alphabet-row button.available{color:#38bdf8}
+  .alphabet-row button:disabled{color:#cbd5e1;cursor:default;opacity:.72}
   .alphabet-row button:hover{background:rgba(56,189,248,.12);color:var(--accent)}
+  .alphabet-row button:disabled:hover{background:transparent;color:#cbd5e1}
   .alphabet-row button.active{background:#38bdf8;color:#fff}
   .alphabet-row button[data-letter="all"]{padding:0 10px;margin-right:5px}
-  .filter-status{margin:0;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px}
   .filterable-section[hidden]{display:none}
 
   .project{background:transparent;border:0;border-radius:0;margin-bottom:0;overflow:visible}
@@ -167,7 +169,6 @@
       <button type="button" data-letter="all" class="active">ALL</button>
       <button type="button" data-letter="A">A</button><button type="button" data-letter="B">B</button><button type="button" data-letter="C">C</button><button type="button" data-letter="D">D</button><button type="button" data-letter="E">E</button><button type="button" data-letter="F">F</button><button type="button" data-letter="G">G</button><button type="button" data-letter="H">H</button><button type="button" data-letter="I">I</button><button type="button" data-letter="J">J</button><button type="button" data-letter="K">K</button><button type="button" data-letter="L">L</button><button type="button" data-letter="M">M</button><button type="button" data-letter="N">N</button><button type="button" data-letter="O">O</button><button type="button" data-letter="P">P</button><button type="button" data-letter="Q">Q</button><button type="button" data-letter="R">R</button><button type="button" data-letter="S">S</button><button type="button" data-letter="T">T</button><button type="button" data-letter="U">U</button><button type="button" data-letter="V">V</button><button type="button" data-letter="W">W</button><button type="button" data-letter="X">X</button><button type="button" data-letter="Y">Y</button><button type="button" data-letter="Z">Z</button>
     </div>
-    <p class="filter-status" id="filterStatus" role="status">Showing all projects</p>
   </section>
 
   <section class="block thesis-section filterable-section">
@@ -374,11 +375,21 @@
 
     var alphabetButtons = document.querySelectorAll("#alphabetFilter button");
     var filterableSections = document.querySelectorAll(".filterable-section");
-    var filterStatus = document.getElementById("filterStatus");
 
     document.querySelectorAll(".project").forEach(function (project) {
       var title = project.querySelector("h3");
       project.dataset.letter = title ? title.textContent.trim().charAt(0).toUpperCase() : "";
+    });
+
+    var availableLetters = new Set(
+      Array.from(document.querySelectorAll(".project")).map(function (project) { return project.dataset.letter; })
+    );
+    alphabetButtons.forEach(function (button) {
+      var letter = button.getAttribute("data-letter");
+      if (letter === "all") return;
+      var available = availableLetters.has(letter);
+      button.disabled = !available;
+      button.classList.toggle("available", available);
     });
 
     alphabetButtons.forEach(function (button) {
@@ -396,9 +407,6 @@
           section.hidden = projects.length > 0 && visibleCount === 0;
         });
 
-        filterStatus.textContent = letter === "all"
-          ? "Showing all projects"
-          : (document.querySelector(".project:not([hidden])") ? "Showing projects starting with " + letter : "No projects starting with " + letter);
       });
     });
   })();
