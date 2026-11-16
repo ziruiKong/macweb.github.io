@@ -241,13 +241,10 @@ html[data-theme="dark"] .updated {
 }
 
 .back-to-top svg {
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+  stroke: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

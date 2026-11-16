@@ -64,7 +64,7 @@
     backToTop.type = "button";
     backToTop.className = "back-to-top";
     backToTop.setAttribute("aria-label", "Back to top");
-    backToTop.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 14l7-7 7 7M12 7v11"/></svg>';
+    backToTop.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 4.5 11.5H9V20h6v-8.5h4.5L12 4Z"/></svg>';
     document.body.appendChild(backToTop);
 
     function updateBackToTop() {
