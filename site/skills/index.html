@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Skills — Zirui Kong</title>
+<meta name="description" content="Skills created by Zirui Kong and skills selected for future research workflows.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-kzr.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="assets/theme.js"></script>
+<style>
+  :root{--ink:#0f172a;--muted:#64748b;--line:#e6ebf2;--accent:#2563eb;--soft:#f7f9fc}
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:#fff;color:var(--ink);
+    font-family:"EB Garamond",Georgia,"Times New Roman",serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:44px;
+  }
+  a{color:inherit}
+  .nav{
+    position:sticky;top:0;z-index:100;height:44px;background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:1280px;height:44px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+  .nav-logo img{height:26px;width:auto;display:block}
+  .nav-links{display:flex;list-style:none;height:44px;align-items:center;flex:1;justify-content:center;gap:38px;padding:0;margin:0}
+  .nav-links a{
+    color:#0f172a;font-size:15px;font-weight:500;text-decoration:none;height:44px;display:flex;align-items:center;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;transition:color .2s;
+  }
+  .nav-links a:hover,.nav-links a.active{color:#38bdf8}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;color:#334155;padding:0}
+  .nav-toggle svg{width:18px;height:18px;fill:currentColor}
+  .mobile-menu{
+    display:none;position:fixed;top:50px;right:16px;left:auto;width:min(240px,calc(100vw - 32px));
+    z-index:99;padding:8px 16px;background:rgba(255,255,255,.96);border:1px solid var(--line);
+    border-radius:14px;box-shadow:0 14px 36px rgba(15,23,42,.14);overflow:hidden;
+    -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  }
+  .mobile-menu.open{display:block}
+  .mobile-menu ul{list-style:none;margin:0;padding:0}
+  .mobile-menu a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:500}
+  .mobile-menu li:last-child a{border-bottom:0}
+  @media (max-width:833px){.nav-links{display:none}.nav-toggle{display:flex;align-items:center}}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:14px 24px 0}
+  .skills-hero{padding:58px 0 34px;max-width:820px}
+  .skills-hero h1{
+    margin:0;font-size:56px;line-height:1;letter-spacing:.01em;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
+  }
+  .skills-hero h1 span{color:#38bdf8}
+  .skills-hero p{margin:18px 0 0;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:17px;line-height:1.7}
+  .skill-section{padding:22px 0 30px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .sec-head h2{
+    margin:0;padding:4px 10px;background:#38bdf8;color:#fff;font-size:22px;line-height:1.25;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
+  }
+  .sec-head .rule{flex:1;height:1px;background:var(--line)}
+  .skill-card{padding:6px 0 24px;border-bottom:1px solid var(--line)}
+  .skill-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+  .skill-title-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .skill-title{
+    margin:0;font-size:28px;font-weight:600;line-height:1.2;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
+  }
+  .skill-status{padding:2px 8px;border-radius:999px;background:#e2eef4;color:#496b7a;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
+    font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .skill-copy{max-width:760px;margin-top:14px}
+  .skill-copy p{margin:0;color:#334155;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:15px;line-height:1.7}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:6px 13px;margin:14px 0 0;padding:0;list-style:none;color:var(--muted);
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px}
+  .skill-tags li::before{content:"#";margin-right:1px;color:#9aa3ad}
+  .skill-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .skill-button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 15px;border:1px solid var(--line);
+    border-radius:999px;text-decoration:none;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:500;transition:.18s}
+  .skill-button.primary{background:#38bdf8;border-color:#38bdf8;color:#fff}
+  .skill-button:hover{border-color:#38bdf8;color:#0284c7;transform:translateY(-1px)}
+  .skill-button.primary:hover{background:#0ea5e9;border-color:#0ea5e9;color:#fff}
+  .install{margin-top:18px;padding:13px 16px;background:var(--soft);border-radius:10px;color:var(--muted);
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+  .install code{color:var(--ink)}
+  .wish-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+  .wish-item{padding:18px 0 20px;border-top:1px solid var(--line)}
+  .wish-label{display:block;margin-bottom:5px;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
+    font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  .wish-item h3{margin:0;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:17px;font-weight:600}
+  .wish-item p{margin:7px 0 0;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;line-height:1.65}
+  html[data-theme="dark"] .skill-status{background:#20313b;color:#bed6e2}
+  html[data-theme="dark"] .skill-copy p{color:#cbd5e1}
+  html[data-theme="dark"] .install{background:#111a2b}
+
+  footer{
+    position:fixed;left:0;right:0;bottom:0;z-index:90;height:44px;display:flex;align-items:center;padding:0 24px;
+    border-top:1px solid var(--line);background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  }
+  .share-row{display:flex;align-items:center;gap:14px;width:100%;max-width:1280px;margin:0 auto}
+  .updated{margin-left:auto;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;white-space:nowrap}
+  .icon-btn{display:flex;align-items:center;justify-content:center;color:#334155;padding:6px;text-decoration:none;transition:.18s}
+  .icon-btn:hover{color:#38bdf8}
+  .icon-btn svg{width:18px;height:18px;fill:currentColor}
+  @media (max-width:720px){
+    .skills-hero{padding-top:38px}
+    .skills-hero h1{font-size:46px}
+    .skill-title{font-size:24px}
+    .wish-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:600px){
+    footer{padding:0 16px}
+    .share-row{gap:12px}
+    .updated{font-size:11px}
+  }
+</style>
+<link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="./"><img src="assets/logo-sky.png" alt="Zirui Kong"></a>
+    <ul class="nav-links">
+      <li><a href="./#about">About</a></li>
+      <li><a href="research/">Research</a></li>
+      <li><a href="datasets/">Datasets</a></li>
+      <li><a href="skills/" class="active">Skills</a></li>
+    </ul>
+    <div class="nav-tools">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.4A8.3 8.3 0 0 1 9.6 3.8 8.5 8.5 0 1 0 20.2 14.4Z"/></svg>
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="./#about">About</a></li>
+    <li><a href="research/">Research</a></li>
+    <li><a href="datasets/">Datasets</a></li>
+    <li><a href="skills/">Skills</a></li>
+  </ul>
+</div>
+
+<main class="wrap">
+  <header class="skills-hero">
+    <h1>Skills<span>.</span></h1>
+    <p>A working collection of tools I have built and tools I want to use for research, writing, analysis, and reproducible academic work.</p>
+  </header>
+
+  <section class="skill-section" aria-labelledby="created-skills">
+    <div class="sec-head"><h2 id="created-skills">Created by Me</h2><div class="rule"></div></div>
+    <article class="skill-card">
+      <div class="skill-card-top">
+        <div>
+          <div class="skill-title-row">
+            <h3 class="skill-title">Publication Chart Designer</h3>
+            <span class="skill-status">Published</span>
+          </div>
+          <div class="skill-copy">
+            <p>A Codex skill for turning research data into accurate, accessible, journal-ready figures. It covers chart selection, statistical integrity, publication typography, reproducible code, captions, and export checks.</p>
+          </div>
+          <ul class="skill-tags" aria-label="Skill topics">
+            <li>Academic Figures</li><li>Data Visualization</li><li>Matplotlib</li><li>Reproducible Research</li>
+          </ul>
+        </div>
+      </div>
+      <div class="install"><code>$publication-chart-designer</code> — installs as a standard Codex skill from the GitHub repository.</div>
+      <div class="skill-actions">
+        <a class="skill-button primary" href="https://github.com/ziruiKong/publication-chart-designer" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="skill-button" href="https://github.com/ziruiKong/publication-chart-designer/blob/main/SKILL.md" target="_blank" rel="noopener">Read SKILL.md</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="skill-section" aria-labelledby="wanted-skills">
+    <div class="sec-head"><h2 id="wanted-skills">Skills I Want to Use</h2><div class="rule"></div></div>
+    <div class="wish-grid">
+      <article class="wish-item">
+        <span class="wish-label">Planned</span>
+        <h3>Literature Review Synthesizer</h3>
+        <p>Organize sources, compare methods and findings, and produce evidence tables without losing citations.</p>
+      </article>
+      <article class="wish-item">
+        <span class="wish-label">Planned</span>
+        <h3>Causal Inference Code Reviewer</h3>
+        <p>Audit research designs, estimands, diagnostics, and sensitivity checks for observational and experimental studies.</p>
+      </article>
+      <article class="wish-item">
+        <span class="wish-label">Planned</span>
+        <h3>Replication Package Auditor</h3>
+        <p>Check project structure, dependencies, data paths, randomness, and output reproducibility before submission.</p>
+      </article>
+      <article class="wish-item">
+        <span class="wish-label">Planned</span>
+        <h3>Academic Writing &amp; LaTeX</h3>
+        <p>Polish argument structure, tables, citations, and manuscript formatting while preserving the author’s voice.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="share-row">
+    <a class="icon-btn" href="mailto:zk2332@columbia.edu" aria-label="Email" title="Email">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v.01L12 13l8-5.99V7l-8 5L4 7z"/></svg>
+    </a>
+    <a class="icon-btn" href="https://github.com/ziruiKong" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a class="icon-btn" href="https://www.linkedin.com/in/raykong626" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <span class="updated">Updated Nov 16, 2026</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle=document.getElementById("navToggle");
+    var menu=document.getElementById("mobileMenu");
+    toggle.addEventListener("click",function(){
+      var open=menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded",open?"true":"false");
+    });
+  })();
+</script>
+</body>
+</html>

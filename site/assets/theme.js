@@ -41,7 +41,7 @@
     applyTheme(root.getAttribute("data-theme"), false);
 
     if (window.location.protocol === "file:") {
-      var subpageMatch = window.location.pathname.match(/\/(research|datasets|interests|design|profile)\/index\.html$/);
+      var subpageMatch = window.location.pathname.match(/\/(research|datasets|interests|design|profile|skills)\/index\.html$/);
       var siteRoot = new URL(subpageMatch ? "../" : "./", window.location.href);
 
       document.querySelectorAll(".nav-logo, .nav-links a, .mobile-menu a").forEach(function (link) {
@@ -53,7 +53,7 @@
           return;
         }
 
-        var routeMatch = href.match(/^(research|datasets|interests|design|profile)\/?$/);
+        var routeMatch = href.match(/^(research|datasets|interests|design|profile|skills)\/?$/);
         if (routeMatch) {
           link.href = new URL(routeMatch[1] + "/index.html", siteRoot).href;
         }
