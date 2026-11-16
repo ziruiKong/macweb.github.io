@@ -72,16 +72,13 @@
   .rule{flex:1;height:1px;background:var(--line)}
   .topic-note{
     position:relative;padding:20px 22px;color:#334155;
-    background:linear-gradient(135deg,rgba(255,255,255,.74),rgba(236,248,255,.46));
-    border:1px solid rgba(56,189,248,.2);
-    box-shadow:0 14px 34px rgba(56,189,248,.09),inset 0 1px 0 rgba(255,255,255,.9);
-    -webkit-backdrop-filter:blur(16px) saturate(155%);
-    backdrop-filter:blur(16px) saturate(155%);
-    overflow:hidden;
+    background:transparent;
+    border:0;
+    box-shadow:none;
+    overflow:visible;
   }
   .topic-note::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:linear-gradient(115deg,rgba(255,255,255,.46),transparent 42%,rgba(125,211,252,.08));
+    content:none;
   }
   .topic-note p{position:relative}
   .topic-note p{margin:0;font-size:15px;line-height:1.7}
