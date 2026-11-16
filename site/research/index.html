@@ -90,6 +90,11 @@
   .project .summary-main{min-width:0}
   .project h3{margin:0;font-size:18px;font-weight:400;color:var(--ink);
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
+  .project-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:0 0 5px;color:var(--muted);
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  .project-kicker span+span::before{content:"·";margin-right:7px;color:#94a3b8}
+  .project-date{color:var(--accent);font-weight:600}
+  .project ul a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:2px}
   .project .chevron{flex:none;width:9px;height:9px;margin:0 3px 5px 8px;border-right:1.7px solid #334155;border-bottom:1.7px solid #334155;transform:rotate(45deg);transition:transform .18s ease}
   .project[open] .chevron{margin-top:5px;margin-bottom:0;transform:rotate(225deg)}
   .project ul{margin:0;padding:0 22px 20px 40px;color:#334155;font-size:16px;line-height:1.65}
@@ -164,6 +169,29 @@
 
   <section class="block projects-section">
     <div class="sec-head"><h2>Research Projects</h2><div class="rule"></div></div>
+
+    <details class="project" data-year="2023" data-month="7">
+      <summary>
+        <div class="summary-main">
+          <div class="project-kicker">
+            <time class="project-date" datetime="2023-07">Jul 2023</time>
+            <span>Experiment</span>
+            <span>The Journal of Politics</span>
+          </div>
+          <h3>Democratic Integration of Former Insurgents: Evidence from a Civic Inclusion Campaign in Colombia</h3>
+        </div>
+        <span class="chevron" aria-hidden="true"></span>
+      </summary>
+      <ul>
+        <li><strong>Paper:</strong> <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/723967"
+        target="_blank" rel="noopener">Read in The Journal of Politics</a>. Published in volume 85, issue 3,
+        pp. 919–932.</li>
+        <li><strong>Authors:</strong> María Ignacia Curiel, Cyrus Samii, and Mateo Vásquez-Cortés.</li>
+        <li><strong>Replication data:</strong> <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QR1EIR"
+        target="_blank" rel="noopener">Harvard Dataverse</a>.</li>
+        <li><strong>Project contributors:</strong> hz3056, zk2332.</li>
+      </ul>
+    </details>
 
     <details class="project">
       <summary>
