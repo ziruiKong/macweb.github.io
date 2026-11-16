@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Profile — Zirui Kong</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-kzr.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#0f172a;--muted:#64748b;--line:#e6ebf2;--accent:#2563eb}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:#fff;color:var(--ink);
+    font-family:"EB Garamond",Georgia,"Times New Roman",serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:44px;
+  }
+  a{color:inherit}
+  .nav{
+    position:sticky;top:0;z-index:100;height:44px;
+    background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:1080px;height:44px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+  .nav-logo img{height:26px;width:auto;display:block}
+  .nav-links{display:flex;list-style:none;height:44px;align-items:center;flex:1;justify-content:center;gap:38px;padding:0;margin:0}
+  .nav-links a{
+    color:#0f172a;font-size:13px;text-decoration:none;height:44px;display:flex;align-items:center;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;transition:color .2s;
+  }
+  .nav-links a:hover,.nav-links a.active{color:#38bdf8}
+  .nav-toggle{display:none;background:none;border:0;cursor:pointer;color:#334155;padding:0}
+  .nav-toggle svg{width:18px;height:18px;fill:currentColor}
+  .mobile-menu{
+    display:none;position:fixed;top:50px;right:16px;left:auto;width:min(240px,calc(100vw - 32px));
+    z-index:99;padding:8px 16px;background:rgba(255,255,255,.96);border:1px solid var(--line);
+    border-radius:14px;box-shadow:0 14px 36px rgba(15,23,42,.14);overflow:hidden;
+    -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  }
+  .mobile-menu.open{display:block}
+  .mobile-menu ul{list-style:none;margin:0;padding:0}
+  .mobile-menu a{display:block;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:500}
+  .mobile-menu li:last-child a{border-bottom:0}
+  @media (max-width:833px){.nav-links{display:none}.nav-toggle{display:flex;align-items:center}}
+
+  .wrap{max-width:980px;margin:0 auto;padding:14px 24px 0}
+  .block{padding:26px 0 6px}
+  #education{padding-top:46px}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .sec-head h2{
+    margin:0;padding:5px 12px;background:#38bdf8;color:#fff;line-height:1.25;
+    font-size:26px;font-weight:700;letter-spacing:.02em;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
+  }
+  .rule{flex:1;height:1px;background:var(--line)}
+  .chart-card{position:relative;display:flex;align-items:center;background:transparent;border:0;border-radius:0;padding:4px 0}
+  .tl-chart{width:100%;height:auto;display:block}
+  .edu-mobile{display:none}
+  .tl-bar{cursor:pointer}
+  .tl-bar rect{fill:#fff;stroke:#cbd5e1;stroke-width:1;transition:filter .16s ease}
+  .tl-bar:hover rect{filter:brightness(.9)}
+  .tl-tip{
+    position:absolute;pointer-events:none;opacity:0;transform:translate(-50%,-100%);
+    background:#0f172a;color:#fff;padding:8px 12px;border-radius:8px;font-size:12.5px;line-height:1.35;
+    white-space:nowrap;transition:opacity .15s ease;z-index:5;box-shadow:0 8px 24px rgba(15,23,42,.22);
+  }
+  .tl-tip.show{opacity:1}
+  .tl-tip strong{display:block;font-size:13px;margin-bottom:1px}
+  .tl-tip .d{display:block;color:#cbd5e1}
+
+  footer{
+    position:fixed;left:0;right:0;bottom:0;z-index:90;height:44px;display:flex;align-items:center;
+    padding:0 24px;border-top:1px solid var(--line);background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
+  }
+  .share-row{display:flex;align-items:center;gap:14px;width:100%;max-width:1080px;margin:0 auto}
+  .updated{margin-left:auto;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;white-space:nowrap}
+  .icon-btn{display:flex;align-items:center;justify-content:center;color:#334155;padding:6px;text-decoration:none;transition:.18s}
+  .icon-btn:hover{color:var(--accent)}
+  .icon-btn svg{width:18px;height:18px;fill:currentColor}
+
+  @media (max-width:600px){
+    body{padding-bottom:0}
+    .wrap{padding:0 24px}
+    #education{padding-top:34px}
+    .sec-head h2{font-size:22px}
+    .chart-card{display:block;width:calc(100% + 48px);margin-left:-24px;margin-right:-24px;padding:10px 24px 54px}
+    .tl-chart{display:none}
+    .edu-mobile{display:flex;flex-direction:column;gap:8px;width:100%}
+    .edu-mobile-item{
+      display:grid;grid-template-columns:26px minmax(0,1fr);align-items:center;gap:10px;
+      min-height:48px;padding:9px 11px;background:#f7f9fc;border:1px solid var(--line);
+      border-radius:10px;cursor:pointer;transition:box-shadow .16s ease,transform .16s ease;
+    }
+    .edu-mobile-item:hover,.edu-mobile-item:focus-visible,.edu-mobile-item[aria-expanded="true"]{
+      outline:none;box-shadow:0 0 0 2px rgba(14,165,233,.35);transform:translateY(-1px);
+    }
+    .edu-mobile-logo{width:24px;height:24px;object-fit:contain;display:block}
+    .edu-mobile-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:20px}
+    .edu-mobile-code{font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:700;line-height:1.2}
+    .edu-mobile-date{flex:none;color:#475569;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+    .tl-tip{width:min(92%,360px);white-space:normal;font-size:12px;padding:9px 11px}
+    footer{padding:0 16px}
+    .share-row{gap:12px}
+    .updated{font-size:11px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><img src="assets/logo-sky.png" alt="Zirui Kong"></a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="profile.html" class="active">Profile</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="interests.html">Interests</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="datasets.html">Datasets</a></li>
+    <li><a href="interests.html">Interests</a></li>
+  </ul>
+</div>
+
+<main class="wrap">
+  <section class="block" id="education">
+    <div class="sec-head"><h2>EDUCATION</h2><div class="rule"></div></div>
+    <div class="chart-card" id="eduChart">
+      <svg class="tl-chart" viewBox="0 64 900 78" font-family="Jost, sans-serif" aria-label="Education timeline from 2022 to 2028">
+        <line x1="8" y1="114" x2="892" y2="114" stroke="#cbd5e1"/>
+
+        <g class="tl-bar" data-title="The Ohio State University" data-sub="College of Arts and Sciences · B.A. Economics · Aug 2022 – May 2025">
+          <rect x="8" y="72" width="442" height="28" rx="14" fill="#ffffff"/>
+          <image href="assets/school-osu.png" x="16" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
+          <text x="229" y="90" font-size="12.5" font-weight="600" fill="#0f172a" text-anchor="middle">CAS</text>
+        </g>
+        <g class="tl-bar" data-title="Peking University" data-sub="Guanghua School of Management · Visiting Student · Sep 2025 – Jan 2026">
+          <rect x="492.4" y="72" width="76" height="28" rx="14" fill="#ffffff"/>
+          <image href="assets/school-pku.png" x="498.4" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
+          <text x="526" y="90" font-size="11" font-weight="600" fill="#0f172a">GSM</text>
+        </g>
+        <g class="tl-bar" data-title="Columbia University" data-sub="Graduate School of Arts and Sciences · M.A. QMSS · Sep 2026 – Feb 2028">
+          <rect x="664.3" y="72" width="227.7" height="28" rx="14" fill="#ffffff"/>
+          <image href="assets/school-columbia.png" x="672.3" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
+          <text x="778.2" y="90" font-size="12.5" font-weight="600" fill="#0f172a" text-anchor="middle">GSAS</text>
+        </g>
+
+        <g font-family="Jost, sans-serif" font-size="10" font-weight="600" fill="#0f172a" text-anchor="middle">
+          <text x="8" y="132" text-anchor="start">AUG 2022</text>
+          <text x="450" y="132">MAY 2025</text>
+          <text x="664.3" y="132">SEP 2026</text>
+          <text x="892" y="132" text-anchor="end">FEB 2028</text>
+        </g>
+      </svg>
+      <div class="edu-mobile" aria-label="Education timeline from 2022 to 2028">
+        <div class="edu-mobile-item" role="button" tabindex="0" aria-expanded="false"
+          data-title="The Ohio State University"
+          data-sub="College of Arts and Sciences · B.A. Economics · Aug 2022 – May 2025">
+          <img class="edu-mobile-logo" src="assets/school-osu.png" alt="The Ohio State University">
+          <div><div class="edu-mobile-head"><span class="edu-mobile-code">CAS</span><span class="edu-mobile-date">AUG 2022 – MAY 2025</span></div></div>
+        </div>
+        <div class="edu-mobile-item" role="button" tabindex="0" aria-expanded="false"
+          data-title="Peking University"
+          data-sub="Guanghua School of Management · Visiting Student · Sep 2025 – Jan 2026">
+          <img class="edu-mobile-logo" src="assets/school-pku.png" alt="Peking University">
+          <div><div class="edu-mobile-head"><span class="edu-mobile-code">GSM</span><span class="edu-mobile-date">SEP 2025 – JAN 2026</span></div></div>
+        </div>
+        <div class="edu-mobile-item" role="button" tabindex="0" aria-expanded="false"
+          data-title="Columbia University"
+          data-sub="Graduate School of Arts and Sciences · M.A. QMSS · Sep 2026 – Feb 2028">
+          <img class="edu-mobile-logo" src="assets/school-columbia.png" alt="Columbia University">
+          <div><div class="edu-mobile-head"><span class="edu-mobile-code">GSAS</span><span class="edu-mobile-date">SEP 2026 – FEB 2028</span></div></div>
+        </div>
+      </div>
+      <div class="tl-tip" id="tlTip"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="share-row">
+    <a class="icon-btn" href="mailto:zk2332@columbia.edu" aria-label="Email" title="Email">
+      <svg viewBox="0 0 24 24"><path d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2v.01L12 13l8-5.99V7l-8 5L4 7z"/></svg>
+    </a>
+    <a class="icon-btn" href="https://github.com/ziruiKong" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+    </a>
+    <a class="icon-btn" href="https://www.linkedin.com/in/raykong626" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <span class="updated">Updated Nov 16, 2026</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var toggle=document.getElementById('navToggle');
+    var menu=document.getElementById('mobileMenu');
+    toggle.addEventListener('click',function(){
+      var open=menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded',open?'true':'false');
+    });
+
+    var tip=document.getElementById('tlTip');
+    var chart=document.getElementById('eduChart');
+    document.querySelectorAll('.tl-bar').forEach(function(bar){
+      bar.addEventListener('mousemove',function(e){
+        var r=chart.getBoundingClientRect();
+        tip.innerHTML='<strong>'+bar.getAttribute('data-title')+'</strong><span class="d">'+bar.getAttribute('data-sub')+'</span>';
+        tip.style.left=(e.clientX-r.left)+'px';
+        tip.style.top=(e.clientY-r.top-12)+'px';
+        tip.classList.add('show');
+      });
+      bar.addEventListener('mouseleave',function(){tip.classList.remove('show')});
+    });
+
+    var mobileItems=document.querySelectorAll('.edu-mobile-item');
+    mobileItems.forEach(function(item){
+      function toggleTip(e){
+        if(e)e.preventDefault();
+        var wasOpen=item.getAttribute('aria-expanded')==='true';
+        mobileItems.forEach(function(other){other.setAttribute('aria-expanded','false')});
+        if(wasOpen){tip.classList.remove('show');return;}
+        var r=chart.getBoundingClientRect();
+        var ir=item.getBoundingClientRect();
+        tip.innerHTML='<strong>'+item.getAttribute('data-title')+'</strong><span class="d">'+item.getAttribute('data-sub')+'</span>';
+        tip.style.left=(ir.left-r.left+ir.width/2)+'px';
+        tip.style.top=(ir.top-r.top-8)+'px';
+        tip.classList.add('show');
+        item.setAttribute('aria-expanded','true');
+      }
+      item.addEventListener('click',toggleTip);
+      item.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){toggleTip(e)}});
+    });
+  })();
+</script>
+</body>
+</html>
