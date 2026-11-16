@@ -111,7 +111,7 @@
   .project summary:hover{background:transparent}
   .project summary:focus-visible{outline:2px solid #38bdf8;outline-offset:-2px}
   .project .summary-main{flex:1;min-width:0}
-  .project h3{margin:0;font-size:22px;font-weight:400;color:var(--ink);
+  .project h3{margin:0;font-size:22px;font-weight:600;color:var(--ink);
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
   .project .project-tags{display:flex;flex-wrap:wrap;gap:6px 13px;margin:9px 0 0;padding:0;list-style:none}
   .project .project-tags li{position:relative;margin:0;padding:0 0 2px;border:0;background:none;color:var(--muted);
@@ -130,14 +130,14 @@
   .project .project-tags .project-progress:hover{color:var(--muted);transform:none}
   .project-progress > span:first-child{opacity:0;transform:translateX(4px);transition:opacity .16s ease,transform .16s ease}
   .project-progress:hover > span:first-child,.project-progress:focus-within > span:first-child{opacity:1;transform:translateX(0)}
-  .project-progress .progress-track{display:block;width:54px;height:4px;overflow:hidden;border-radius:999px;background:#dce8f6}
-  .project-progress .progress-fill{display:block;height:100%;border-radius:999px;background:#3b82f6}
-  .project-progress.ongoing .progress-track{background:#deebf8}
-  .project-progress.ongoing .progress-fill{width:45%;background:#4f9cf5;animation:project-progress 3.2s ease-in-out infinite}
-  html[data-theme="dark"] .project-progress .progress-track{background:#1d3144}
-  html[data-theme="dark"] .project-progress .progress-fill{background:#65a9ff}
-  html[data-theme="dark"] .project-progress.ongoing .progress-track{background:#1b3348}
-  html[data-theme="dark"] .project-progress.ongoing .progress-fill{background:#74b5ff}
+  .project-progress .progress-track{display:block;width:54px;height:4px;overflow:hidden;border-radius:999px;background:#e1f3fb}
+  .project-progress .progress-fill{display:block;height:100%;border-radius:999px;background:#38bdf8}
+  .project-progress.ongoing .progress-track{background:#e4f5fc}
+  .project-progress.ongoing .progress-fill{width:45%;background:#38bdf8;animation:project-progress 3.2s ease-in-out infinite}
+  html[data-theme="dark"] .project-progress .progress-track{background:#183548}
+  html[data-theme="dark"] .project-progress .progress-fill{background:#38bdf8}
+  html[data-theme="dark"] .project-progress.ongoing .progress-track{background:#193a4f}
+  html[data-theme="dark"] .project-progress.ongoing .progress-fill{background:#38bdf8}
   @keyframes project-progress{
     0%{transform:translateX(-110%)}
     55%,100%{transform:translateX(230%)}
