@@ -95,8 +95,11 @@
   .project-kicker span+span::before{content:"·";margin-right:7px;color:#94a3b8}
   .project-date{color:var(--accent);font-weight:600}
   .project ul a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:2px}
-  .project .chevron{flex:none;width:9px;height:9px;margin:0 3px 5px 8px;border-right:1.7px solid #334155;border-bottom:1.7px solid #334155;transform:rotate(45deg);transition:transform .18s ease}
-  .project[open] .chevron{margin-top:5px;margin-bottom:0;transform:rotate(225deg)}
+  .project .chevron{position:relative;flex:none;width:18px;height:18px;margin:0 3px 0 8px}
+  .project .chevron::before,.project .chevron::after{content:"";position:absolute;left:50%;top:50%;background:var(--muted);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+  .project .chevron::before{width:16px;height:2px;transform:translate(-50%,-50%)}
+  .project .chevron::after{width:2px;height:16px;transform:translate(-50%,-50%)}
+  .project[open] .chevron::after{transform:translate(-50%,-50%) scaleY(0);opacity:0}
   .project ul{margin:0;padding:0 22px 20px 40px;color:#334155;font-size:16px;line-height:1.65}
   .project li{margin-bottom:6px}
   .project li:last-child{margin-bottom:0}
