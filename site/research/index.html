@@ -89,16 +89,19 @@
   .alphabet-row::-webkit-scrollbar{display:none}
   .alphabet-row button{flex:none;min-width:24px;height:28px;padding:0 5px;border:0;border-radius:999px;background:transparent;color:var(--muted);
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:600;line-height:1;cursor:pointer;
-    transition:background .16s ease,color .16s ease,transform .16s ease,box-shadow .16s ease}
+    position:relative;transition:background .16s ease,color .16s ease,transform .16s ease,box-shadow .16s ease}
   .alphabet-row button.available{color:#38bdf8}
   .alphabet-row button:disabled{color:#cbd5e1;cursor:default;opacity:.72}
   .alphabet-row button:not(:disabled):hover{background:rgba(56,189,248,.14);color:var(--accent);
-    transform:translateY(-1px) scale(1.12);box-shadow:0 3px 9px rgba(56,189,248,.16)}
+    transform:translateY(-1px) scale(1.1);box-shadow:0 3px 9px rgba(56,189,248,.16);z-index:2}
   .alphabet-row button:disabled:hover{background:transparent;color:#cbd5e1}
   .alphabet-row button.active{background:#38bdf8;color:#fff}
   .alphabet-row button.active:hover{background:#0ea5e9;color:#fff}
   .alphabet-row button[data-letter="all"]{padding:0 10px;margin-right:5px}
   .filterable-section[hidden]{display:none}
+  @media (min-width:834px){
+    .alphabet-row{overflow:visible;padding:8px 0 10px}
+  }
 
   .project{background:transparent;border:0;border-radius:0;margin-bottom:0;overflow:visible}
   .project + .project{border-top:0}
