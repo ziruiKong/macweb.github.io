@@ -123,11 +123,13 @@
   .project .project-tags li:hover{color:var(--accent);transform:translateY(-1px)}
   .project .project-tags li:hover::before{color:var(--accent)}
   .project .project-tags li:hover::after{transform:scaleX(1)}
-  .project .project-tags .project-progress{margin-left:auto;display:flex;align-items:center;gap:7px;padding:0;color:var(--muted);
-    font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;
+  .project .project-tags .project-progress{margin-left:auto;display:flex;flex:none;justify-content:flex-end;align-items:center;gap:7px;width:132px;padding:0;color:var(--muted);
+    font-size:12px;font-weight:400;letter-spacing:.01em;text-transform:none;white-space:nowrap;
     transform:none;transition:none;cursor:default}
   .project .project-tags .project-progress::before,.project .project-tags .project-progress::after{content:none}
   .project .project-tags .project-progress:hover{color:var(--muted);transform:none}
+  .project-progress > span:first-child{opacity:0;transform:translateX(4px);transition:opacity .16s ease,transform .16s ease}
+  .project-progress:hover > span:first-child,.project-progress:focus-within > span:first-child{opacity:1;transform:translateX(0)}
   .project-progress .progress-track{display:block;width:54px;height:4px;overflow:hidden;border-radius:999px;background:#e4e9e5}
   .project-progress .progress-fill{display:block;height:100%;border-radius:999px;background:#86a48c}
   .project-progress.ongoing .progress-track{background:#e3edf1}
