@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Interests — Zirui Kong</title>
+<title>Design — Zirui Kong</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<base href="../">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-kzr.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -71,19 +72,32 @@
   .sec-head h2{margin:0;padding:5px 12px;background:#38bdf8;color:#fff;line-height:1.25;
     font-size:26px;font-weight:700;letter-spacing:.02em;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
   .rule{flex:1;height:1px;background:var(--line)}
-  .topic-note{
-    position:relative;padding:20px 22px;color:#334155;
-    background:transparent;
-    border:0;
-    box-shadow:none;
-    overflow:visible;
+  .dataset-note{background:var(--soft);border:1px solid var(--line);padding:20px 22px;color:#334155}
+  .dataset-note p{margin:0;font-size:15px;line-height:1.7}
+  .spec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .spec-card{background:var(--soft);border:1px solid var(--line);padding:16px 18px;min-width:0}
+  .spec-card h3{margin:0 0 6px;font-size:15px;font-weight:700;
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
+  .spec-card p{margin:0;color:#475569;font-size:14px;line-height:1.6}
+  .spec-list{margin:0;padding-left:18px;color:#475569;font-size:14.5px;line-height:1.7}
+  .spec-list li+li{margin-top:4px}
+  .swatches{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+  .swatch{padding-top:44px;position:relative;color:#475569;font-size:11px;line-height:1.35}
+  .swatch::before{content:"";position:absolute;inset:0 0 auto 0;height:36px;border:1px solid rgba(15,23,42,.08);background:var(--sw)}
+  .swatch strong{display:block;color:var(--ink);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px}
+  .type-row{display:grid;grid-template-columns:180px minmax(0,1fr);gap:18px;align-items:baseline;
+    padding:14px 0;border-bottom:1px solid var(--line)}
+  .type-row:last-child{border-bottom:0}
+  .type-label{color:var(--muted);font-size:12px;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
+  .type-display{font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:30px;font-weight:700;letter-spacing:.02em;line-height:1.1}
+  .type-body{font-size:17px;line-height:1.6}
+  .type-row p{margin:0;color:#475569;font-size:14.5px;line-height:1.65}
+  @media (max-width:720px){
+    .spec-grid{grid-template-columns:1fr}
+    .swatches{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .type-row{grid-template-columns:1fr;gap:4px}
+    .type-display{font-size:26px}
   }
-  .topic-note::before{
-    content:none;
-  }
-  .topic-note p{position:relative}
-  .topic-note p{margin:0;font-size:15px;line-height:1.7}
-  .interest-themes{margin:2px 0 0;color:#475569;font-size:14px;line-height:1.7}
 
   footer{
     position:fixed;left:0;right:0;bottom:0;z-index:90;height:44px;display:flex;align-items:center;padding:0 24px;
@@ -105,8 +119,8 @@
     <a class="nav-logo" href="./"><img src="assets/logo-sky.png" alt="Zirui Kong"></a>
     <ul class="nav-links">
       <li><a href="./#about">About</a></li>
-      <li><a href="research">Research</a></li>
-      <li><a href="datasets">Datasets</a></li>
+      <li><a href="research/">Research</a></li>
+      <li><a href="datasets/">Datasets</a></li>
     </ul>
     <div class="nav-tools">
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
@@ -123,59 +137,55 @@
 <div class="mobile-menu" id="mobileMenu">
   <ul>
     <li><a href="./#about">About</a></li>
-    <li><a href="research">Research</a></li>
-    <li><a href="datasets">Datasets</a></li>
+    <li><a href="research/">Research</a></li>
+    <li><a href="datasets/">Datasets</a></li>
   </ul>
 </div>
 
 <main class="wrap">
   <section class="block">
-    <div class="sec-head"><h2>Football Worlds &amp; Sport Design</h2><div class="rule"></div></div>
-    <div class="topic-note">
-      <p>Football culture, club histories, league systems, and management&mdash;especially building complete football
-      universes such as Majority Soccer I, Islington FC, and the Nasrian system, along with their kits and identities.
-      <a href="https://www.arsenal.com/" target="_blank" rel="noopener">Arsenal</a> is my club.</p>
+    <div class="sec-head"><h2>Design System</h2><div class="rule"></div></div>
+    <div class="dataset-note">
+      <p>A high-level guide to the visual language and experience principles used across this website.</p>
     </div>
   </section>
 
   <section class="block">
-    <div class="sec-head"><h2>Cinema, Media &amp; Internet Culture</h2><div class="rule"></div></div>
-    <div class="topic-note">
-      <p>Chinese and world cinema, film history, criticism, and awards; the imagined film institution FMIFA; and
-      Bilibili-style internet culture, covers, comments, and fictional media controversies.</p>
+    <div class="sec-head"><h2>Visual Language</h2><div class="rule"></div></div>
+    <div class="spec-grid">
+      <div class="spec-card">
+        <h3>Identity</h3>
+        <p>The KZR elephant mark is the primary identity, with a white-background favicon for clear browser recognition.</p>
+      </div>
+      <div class="spec-card">
+        <h3>Palette</h3>
+        <p>Deep ink, muted slate, signature sky blue, soft gray, and white create the site's restrained academic tone.</p>
+      </div>
+      <div class="spec-card">
+        <h3>Typography</h3>
+        <p>Jost handles navigation, labels, and headings; EB Garamond carries longer body text and academic prose.</p>
+      </div>
     </div>
   </section>
 
   <section class="block">
-    <div class="sec-head"><h2>Music &amp; Hip-Hop</h2><div class="rule"></div></div>
-    <div class="topic-note">
-      <p>Hip-hop is my favorite genre, especially Chinese rap&mdash;its lyricism, regional scenes, and production styles.</p>
-    </div>
+    <div class="sec-head"><h2>Core Components</h2><div class="rule"></div></div>
+    <ul class="spec-list">
+      <li>Global sticky navigation and fixed footer, identical on every page.</li>
+      <li>Sky-blue section labels with white text and a thin rule.</li>
+      <li>Flat accordion cells for research and a compact dropdown for mobile navigation.</li>
+      <li>Translucent glass cards for interests and rounded mobile education cards with detail popovers.</li>
+    </ul>
   </section>
 
   <section class="block">
-    <div class="sec-head"><h2>Worldbuilding, Politics &amp; Institutions</h2><div class="rule"></div></div>
-    <div class="topic-note">
-      <p>Fictional nations, constitutions, political institutions, diplomacy, and historical continuity, including
-      the Nasria Federation and the Great Yin in <em>Yinzheng</em>.</p>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="sec-head"><h2>Visual Identity &amp; Creative Direction</h2><div class="rule"></div></div>
-    <div class="topic-note">
-      <p>Logos, crests, typography, sports branding, kits, and complete visual systems, with a geometric, minimal,
-      and internationally legible style.</p>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="sec-head"><h2>Cities, Geography &amp; Digital Products</h2><div class="rule"></div></div>
-    <div class="topic-note">
-      <p>Cities, architecture, maps, regional identity, web design, interfaces, and data-driven digital products.</p>
-      <p class="interest-themes"><strong>Also:</strong> biographies, institutional rules, satire, encyclopedia-style
-      writing, naming, and cultural symbols.</p>
-    </div>
+    <div class="sec-head"><h2>Experience Principles</h2><div class="rule"></div></div>
+    <ul class="spec-list">
+      <li>Academic content comes first; personal interests support the person behind the research without competing with it.</li>
+      <li>Keep hierarchy obvious through spacing, concise copy, and restrained decorative elements.</li>
+      <li>Support mobile, keyboard, and desktop use while preserving zero horizontal overflow.</li>
+      <li>Keep all factual details consistent and avoid inventing claims, metrics, or affiliations.</li>
+    </ul>
   </section>
 </main>
 
