@@ -80,6 +80,17 @@
   .projects-section .sec-head,.thesis-section .sec-head{align-items:center}
   .projects-section .sec-head h2,.thesis-section .sec-head h2{background:#38bdf8;color:#ffffff;padding:4px 10px;font-size:22px;line-height:1.25}
 
+  .alphabet-filter{padding:18px 0 8px}
+  .alphabet-row{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:3px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+  .alphabet-row::-webkit-scrollbar{display:none}
+  .alphabet-row button{flex:none;min-width:24px;height:28px;padding:0 5px;border:0;border-radius:999px;background:transparent;color:var(--muted);
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:600;line-height:1;cursor:pointer;transition:background .16s ease,color .16s ease}
+  .alphabet-row button:hover{background:rgba(56,189,248,.12);color:var(--accent)}
+  .alphabet-row button.active{background:#38bdf8;color:#fff}
+  .alphabet-row button[data-letter="all"]{padding:0 10px;margin-right:5px}
+  .filter-status{margin:0;color:var(--muted);font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px}
+  .filterable-section[hidden]{display:none}
+
   .project{background:transparent;border:0;border-radius:0;margin-bottom:0;overflow:visible}
   .project + .project{border-top:0}
   .project summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:13px 22px;cursor:pointer;list-style:none}
@@ -151,7 +162,15 @@
 </div>
 
 <main class="wrap">
-  <section class="block thesis-section">
+  <section class="alphabet-filter" aria-label="Filter projects alphabetically">
+    <div class="alphabet-row" id="alphabetFilter">
+      <button type="button" data-letter="all" class="active">ALL</button>
+      <button type="button" data-letter="A">A</button><button type="button" data-letter="B">B</button><button type="button" data-letter="C">C</button><button type="button" data-letter="D">D</button><button type="button" data-letter="E">E</button><button type="button" data-letter="F">F</button><button type="button" data-letter="G">G</button><button type="button" data-letter="H">H</button><button type="button" data-letter="I">I</button><button type="button" data-letter="J">J</button><button type="button" data-letter="K">K</button><button type="button" data-letter="L">L</button><button type="button" data-letter="M">M</button><button type="button" data-letter="N">N</button><button type="button" data-letter="O">O</button><button type="button" data-letter="P">P</button><button type="button" data-letter="Q">Q</button><button type="button" data-letter="R">R</button><button type="button" data-letter="S">S</button><button type="button" data-letter="T">T</button><button type="button" data-letter="U">U</button><button type="button" data-letter="V">V</button><button type="button" data-letter="W">W</button><button type="button" data-letter="X">X</button><button type="button" data-letter="Y">Y</button><button type="button" data-letter="Z">Z</button>
+    </div>
+    <p class="filter-status" id="filterStatus" role="status">Showing all projects</p>
+  </section>
+
+  <section class="block thesis-section filterable-section">
     <div class="sec-head"><h2>Master Thesis</h2><div class="rule"></div></div>
     <details class="project">
       <summary>
@@ -173,7 +192,7 @@
     </details>
   </section>
 
-  <section class="block projects-section">
+  <section class="block projects-section filterable-section">
     <div class="sec-head"><h2>Research Projects</h2><div class="rule"></div></div>
 
     <details class="project" data-year="2026" data-month="11">
@@ -352,6 +371,36 @@
         if (!e.target.closest('.nav-contact')) contactDropdown.classList.remove('open');
       });
     }
+
+    var alphabetButtons = document.querySelectorAll("#alphabetFilter button");
+    var filterableSections = document.querySelectorAll(".filterable-section");
+    var filterStatus = document.getElementById("filterStatus");
+
+    document.querySelectorAll(".project").forEach(function (project) {
+      var title = project.querySelector("h3");
+      project.dataset.letter = title ? title.textContent.trim().charAt(0).toUpperCase() : "";
+    });
+
+    alphabetButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        var letter = button.getAttribute("data-letter");
+        alphabetButtons.forEach(function (item) { item.classList.toggle("active", item === button); });
+
+        filterableSections.forEach(function (section) {
+          var projects = section.querySelectorAll(".project");
+          var visibleCount = 0;
+          projects.forEach(function (project) {
+            project.hidden = letter !== "all" && project.dataset.letter !== letter;
+            if (!project.hidden) visibleCount += 1;
+          });
+          section.hidden = projects.length > 0 && visibleCount === 0;
+        });
+
+        filterStatus.textContent = letter === "all"
+          ? "Showing all projects"
+          : (document.querySelector(".project:not([hidden])") ? "Showing projects starting with " + letter : "No projects starting with " + letter);
+      });
+    });
   })();
 </script>
 </body>
