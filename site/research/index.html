@@ -114,9 +114,15 @@
   .project h3{margin:0;font-size:20px;font-weight:400;color:var(--ink);
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
   .project .project-tags{display:flex;flex-wrap:wrap;gap:6px 13px;margin:9px 0 0;padding:0;list-style:none}
-  .project .project-tags li{margin:0;padding:0;border:0;background:none;color:var(--muted);
-    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;font-weight:400;line-height:1.4;letter-spacing:.01em;white-space:nowrap}
-  .project .project-tags li::before{content:"#";margin-right:1px;color:#9aa3ad;font-weight:500}
+  .project .project-tags li{position:relative;margin:0;padding:0 0 2px;border:0;background:none;color:var(--muted);
+    font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;font-weight:400;line-height:1.4;letter-spacing:.01em;white-space:nowrap;
+    transition:color .16s ease,transform .16s ease}
+  .project .project-tags li::before{content:"#";margin-right:1px;color:#9aa3ad;font-weight:500;transition:color .16s ease}
+  .project .project-tags li::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;
+    transform:scaleX(0);transform-origin:left center;transition:transform .18s ease}
+  .project .project-tags li:hover{color:var(--accent);transform:translateY(-1px)}
+  .project .project-tags li:hover::before{color:var(--accent)}
+  .project .project-tags li:hover::after{transform:scaleX(1)}
   html[data-theme="dark"] .project .project-tags li::before{color:#7f8b99}
   .project-kicker{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:0 0 5px;color:var(--muted);
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
