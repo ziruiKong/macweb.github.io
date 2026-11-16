@@ -59,6 +59,23 @@
         }
       });
     }
+
+    var backToTop = document.createElement("button");
+    backToTop.type = "button";
+    backToTop.className = "back-to-top";
+    backToTop.setAttribute("aria-label", "Back to top");
+    backToTop.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 14l7-7 7 7M12 7v11"/></svg>';
+    document.body.appendChild(backToTop);
+
+    function updateBackToTop() {
+      backToTop.classList.toggle("is-visible", window.scrollY > 40);
+    }
+
+    window.addEventListener("scroll", updateBackToTop, { passive: true });
+    backToTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    updateBackToTop();
   }, { once: true });
 
   document.addEventListener("click", function (event) {
