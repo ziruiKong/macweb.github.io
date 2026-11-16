@@ -29,6 +29,7 @@
     line-height:1.6;-webkit-font-smoothing:antialiased;
     display:flex;flex-direction:column;height:100vh;overflow:hidden;padding-bottom:44px;
   }
+  body.booking-page{height:auto;min-height:100vh;overflow-x:hidden;overflow-y:auto;padding-bottom:84px}
   a{color:inherit}
 
   /* nav */
@@ -79,6 +80,7 @@
 
   /* layout */
   .wrap{flex:1;min-height:0;max-width:1080px;width:100%;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;justify-content:center}
+  body.booking-page .wrap{flex:none;min-height:0;justify-content:flex-start;padding-top:72px}
   .eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
   h1{margin:0;font-size:58px;line-height:1.06;letter-spacing:0.02em;font-weight:700;
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif}
@@ -178,6 +180,11 @@
   #about .card a{color:inherit;text-decoration:underline;text-decoration-color:#38bdf8;text-decoration-thickness:2.5px;text-underline-offset:3px}
   #about .card a:hover{color:var(--accent)}
   #about .card .ul{text-decoration:underline;text-decoration-color:#38bdf8;text-decoration-thickness:2.5px;text-underline-offset:3px}
+
+  .booking-section{padding-top:42px;padding-bottom:56px}
+  .booking-section .sec-head{align-items:center}
+  .booking-section .sec-head h2{background:#38bdf8;color:#fff;padding:5px 12px;line-height:1.25}
+  .booking-widget{display:block;width:100%;min-width:320px;height:700px;border:0;background:transparent}
 
   /* education */
   .chart-card{position:relative;flex:none;display:flex;align-items:center;background:transparent;border:0;border-radius:0;padding:4px 0}
@@ -279,7 +286,7 @@
 </style>
 <link rel="stylesheet" href="assets/theme.css">
 </head>
-<body>
+<body class="booking-page">
 
 <nav class="nav">
   <div class="nav-inner">
@@ -338,6 +345,12 @@
       <a class="ul" href="https://en.wikipedia.org/wiki/Football_Manager" target="_blank" rel="noopener">Football Manager</a>, and <a class="ul" href="https://en.wikipedia.org/wiki/Cities:_Skylines" target="_blank" rel="noopener">Cities: Skylines</a>, and my
       favorite sport is <a class="ul" href="https://en.wikipedia.org/wiki/Association_football" target="_blank" rel="noopener">football</a> &mdash; I support <a class="ul" href="https://www.arsenal.com/" target="_blank" rel="noopener">Arsenal</a>.</p>
     </div>
+  </section>
+
+  <section class="block booking-section" id="booking">
+    <div class="sec-head"><h2>Schedule a Meeting</h2><div class="rule"></div></div>
+    <div class="calendly-inline-widget booking-widget"
+      data-url="https://calendly.com/ray20040626/30min?hide_event_type_details=1&hide_gdpr_banner=1"></div>
   </section>
 
 </main>
@@ -436,5 +449,6 @@
     }
   })();
 </script>
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
