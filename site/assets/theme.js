@@ -39,6 +39,26 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     applyTheme(root.getAttribute("data-theme"), false);
+
+    if (window.location.protocol === "file:") {
+      var subpageMatch = window.location.pathname.match(/\/(research|datasets|interests|design|profile)\/index\.html$/);
+      var siteRoot = new URL(subpageMatch ? "../" : "./", window.location.href);
+
+      document.querySelectorAll(".nav-logo, .nav-links a, .mobile-menu a").forEach(function (link) {
+        var href = link.getAttribute("href");
+        if (!href) return;
+
+        if (href === "#" || href === "./" || href === "#about" || href === "./#about") {
+          link.href = new URL(href.endsWith("#about") ? "index.html#about" : "index.html", siteRoot).href;
+          return;
+        }
+
+        var routeMatch = href.match(/^(research|datasets|interests|design|profile)\/?$/);
+        if (routeMatch) {
+          link.href = new URL(routeMatch[1] + "/index.html", siteRoot).href;
+        }
+      });
+    }
   }, { once: true });
 
   document.addEventListener("click", function (event) {
