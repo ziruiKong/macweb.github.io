@@ -123,13 +123,12 @@
   .project .project-tags li:hover{color:var(--accent);transform:translateY(-1px)}
   .project .project-tags li:hover::before{color:var(--accent)}
   .project .project-tags li:hover::after{transform:scaleX(1)}
-  .project .project-tags .project-progress{margin-left:auto;display:flex;flex:none;justify-content:flex-end;align-items:center;gap:7px;width:132px;padding:0;color:var(--muted);
-    font-size:12px;font-weight:400;letter-spacing:.01em;text-transform:none;white-space:nowrap;
-    transform:none;transition:none;cursor:default}
-  .project .project-tags .project-progress::before,.project .project-tags .project-progress::after{content:none}
-  .project .project-tags .project-progress:hover{color:var(--muted);transform:none}
-  .project-progress > span:first-child{opacity:0;transform:translateX(4px);transition:opacity .16s ease,transform .16s ease}
-  .project-progress:hover > span:first-child,.project-progress:focus-within > span:first-child{opacity:1;transform:translateX(0)}
+  .project-control{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:54px}
+  .project-progress{position:relative;display:flex;align-items:center;width:54px;height:16px;margin:-6px 0;color:var(--muted);cursor:default}
+  .project-progress > span:first-child{position:absolute;right:60px;top:50%;opacity:0;transform:translate(4px,-50%);
+    white-space:nowrap;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:12px;letter-spacing:.01em;
+    transition:opacity .16s ease,transform .16s ease}
+  .project-progress:hover > span:first-child,.project-progress:focus-within > span:first-child{opacity:1;transform:translate(0,-50%)}
   .project-progress .progress-track{display:block;width:54px;height:4px;overflow:hidden;border-radius:999px;background:#e1f3fb}
   .project-progress .progress-fill{display:block;height:100%;border-radius:999px;background:#38bdf8}
   .project-progress.ongoing .progress-track{background:#e4f5fc}
@@ -151,7 +150,7 @@
   .project-kicker span+span::before{content:"·";margin-right:7px;color:#94a3b8}
   .project-date{color:#38bdf8;font-weight:600}
   .project ul a{color:var(--accent);text-decoration-thickness:1.5px;text-underline-offset:2px}
-  .project .chevron{position:relative;flex:none;width:18px;height:18px;margin:0 3px 0 8px}
+  .project .chevron{position:relative;flex:none;width:18px;height:18px;margin:0}
   .project .chevron::before,.project .chevron::after{content:"";position:absolute;left:50%;top:50%;background:var(--muted);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
   .project .chevron::before{width:16px;height:2px;transform:translate(-50%,-50%)}
   .project .chevron::after{width:2px;height:16px;transform:translate(-50%,-50%)}
@@ -231,10 +230,12 @@
           <h3>Synthetic Data Augmentation in Political Text Analysis</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Synthetic Data</li><li>Political Text</li><li>LLM</li>
-            <li class="project-progress ongoing" aria-label="Project status: Ongoing"><span>Ongoing</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress ongoing" role="status" aria-label="Project status: Ongoing"><span>Ongoing</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <div class="thesis-body">
         <div class="thesis-meta">Advisor: Dr. Samira Zaroudi · QMSS, Columbia University</div>
@@ -258,10 +259,12 @@
           <h3>Democratic Integration of Former Insurgents: Evidence from a Civic Inclusion Campaign in Colombia</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Civic Inclusion</li><li>Former Insurgents</li><li>Colombia</li><li>Experiment</li>
-            <li class="project-progress ongoing" aria-label="Project status: Ongoing"><span>Ongoing</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress ongoing" role="status" aria-label="Project status: Ongoing"><span>Ongoing</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li><strong>Project:</strong> Final research project for coursework, focused on replicating the
@@ -284,10 +287,12 @@
           <h3>Climate Change Health-Risk Perception and Psychological Distress</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Climate Health</li><li>Psychological Distress</li><li>PHQ-4</li><li>HINTS</li><li>Ordinal Regression</li>
-            <li class="project-progress ongoing" aria-label="Project status: Ongoing"><span>Ongoing</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress ongoing" role="status" aria-label="Project status: Ongoing"><span>Ongoing</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li>Conducting faculty-supervised research using pooled HINTS 6 and HINTS 7 data (N = 12,716) to
@@ -313,10 +318,12 @@
           <h3>Sociodemographic Disparities in eHealth Information Seeking</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>eHealth</li><li>HINTS</li><li>Health Disparities</li>
-            <li class="project-progress completed" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress completed" role="status" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li>Harmonized HINTS 2018, 2020, and 2022 data (N = 9,691) and constructed a composite measure of
@@ -338,10 +345,12 @@
           <h3>High-Frequency Order Book Direction Prediction</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Order Book</li><li>Price Direction</li><li>Gradient Boosting</li><li>Finance</li>
-            <li class="project-progress completed" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress completed" role="status" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li>Processed nearly 100,000 Resset limit-order-book records to predict 3-second-ahead mid-price
@@ -363,10 +372,12 @@
           <h3>Short-Term Appliance Energy Forecasting with Chronos-2 and Gradient Boosting</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Time Series</li><li>Chronos-2</li><li>Gradient Boosting</li>
-            <li class="project-progress completed" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress completed" role="status" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li>Built a 60-minute-ahead appliance-energy forecasting pipeline using 10-minute residential data
@@ -389,10 +400,12 @@
           <h3>Financial NLP for MD&amp;A Sentiment Analysis and Firm Performance Prediction</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Financial NLP</li><li>Sentiment Analysis</li><li>LLM</li><li>Firm Performance</li><li>A-share Market</li>
-            <li class="project-progress completed" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress completed" role="status" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li>Built a DeepSeek-based financial NLP pipeline linking 2022 MD&amp;A disclosures from 500 A-share
@@ -414,10 +427,12 @@
           <h3>MBTI Personality Prediction with ML and LLM Fine-Tuning</h3>
           <ul class="project-tags" aria-label="Project keywords">
             <li>Personality</li><li>Qwen3</li><li>LoRA</li><li>Multi-label Classification</li>
-            <li class="project-progress completed" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></li>
           </ul>
         </div>
-        <span class="chevron" aria-hidden="true"></span>
+        <div class="project-control">
+          <span class="chevron" aria-hidden="true"></span>
+          <div class="project-progress completed" role="status" aria-label="Project status: Completed"><span>Completed</span><span class="progress-track"><span class="progress-fill"></span></span></div>
+        </div>
       </summary>
       <ul>
         <li>Built a personality-inference pipeline for 8,328 Twitter users, removing explicit MBTI references
