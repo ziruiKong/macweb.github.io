@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="assets/theme.js"></script>
 <style>
   html{scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
   html::-webkit-scrollbar{display:none}
@@ -108,6 +109,7 @@
   .icon-btn:hover{color:#38bdf8}
   .icon-btn svg{width:18px;height:18px;fill:currentColor}
 </style>
+<link rel="stylesheet" href="assets/theme.css">
 </head>
 <body>
 
@@ -121,9 +123,15 @@
       <li><a href="datasets.html">Datasets</a></li>
       <li><a href="interests.html">Interests</a></li>
     </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-    </button>
+    <div class="nav-tools">
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 14.4A8.3 8.3 0 0 1 9.6 3.8 8.5 8.5 0 1 0 20.2 14.4Z"/></svg>
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+    </div>
   </div>
 </nav>
 
