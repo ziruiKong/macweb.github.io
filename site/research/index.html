@@ -80,7 +80,9 @@
   .projects-section .sec-head,.thesis-section .sec-head{align-items:center}
   .projects-section .sec-head h2,.thesis-section .sec-head h2{background:#38bdf8;color:#ffffff;padding:4px 10px;font-size:22px;line-height:1.25}
 
-  .alphabet-filter{padding:18px 0 8px}
+  .alphabet-filter{position:sticky;top:44px;z-index:80;padding:12px 0 8px;background:rgba(255,255,255,.94);
+    border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+  html[data-theme="dark"] .alphabet-filter{background:rgba(11,17,32,.94)}
   .alphabet-row{display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:3px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
   .alphabet-row::-webkit-scrollbar{display:none}
   .alphabet-row button{flex:none;min-width:24px;height:28px;padding:0 5px;border:0;border-radius:999px;background:transparent;color:var(--muted);
