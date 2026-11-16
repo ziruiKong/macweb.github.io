@@ -59,7 +59,7 @@
     font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;
   }
   .rule{flex:1;height:1px;background:var(--line)}
-  .chart-card{position:relative;display:flex;align-items:center;background:transparent;border:0;border-radius:0;padding:4px 0}
+  .chart-card{position:relative;display:flex;align-items:center;background:transparent;border:0;border-radius:0;padding:8px 0}
   .tl-chart{width:100%;height:auto;display:block}
   .edu-mobile{display:none}
   .tl-bar{cursor:pointer}
@@ -95,16 +95,16 @@
     .edu-mobile{display:flex;flex-direction:column;gap:8px;width:100%}
     .edu-mobile-item{
       display:grid;grid-template-columns:26px minmax(0,1fr);align-items:center;gap:10px;
-      min-height:48px;padding:9px 11px;background:#f7f9fc;border:1px solid var(--line);
+      min-height:60px;padding:11px 13px;background:#f7f9fc;border:1px solid var(--line);
       border-radius:10px;cursor:pointer;transition:box-shadow .16s ease,transform .16s ease;
     }
     .edu-mobile-item:hover,.edu-mobile-item:focus-visible,.edu-mobile-item[aria-expanded="true"]{
       outline:none;box-shadow:0 0 0 2px rgba(14,165,233,.35);transform:translateY(-1px);
     }
-    .edu-mobile-logo{width:24px;height:24px;object-fit:contain;display:block}
+    .edu-mobile-logo{width:30px;height:30px;object-fit:contain;display:block}
     .edu-mobile-head{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:20px}
-    .edu-mobile-code{font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:13px;font-weight:700;line-height:1.2}
-    .edu-mobile-date{flex:none;color:#475569;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+    .edu-mobile-code{font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:15px;font-weight:700;line-height:1.2}
+    .edu-mobile-date{flex:none;color:#475569;font-family:"Jost","Century Gothic","Futura","Segoe UI",sans-serif;font-size:11px;font-weight:600;letter-spacing:.02em;white-space:nowrap}
     .tl-tip{width:min(92%,360px);white-space:normal;font-size:12px;padding:9px 11px}
     footer{padding:0 16px}
     .share-row{gap:12px}
@@ -149,30 +149,30 @@
   <section class="block" id="education">
     <div class="sec-head"><h2>EDUCATION</h2><div class="rule"></div></div>
     <div class="chart-card" id="eduChart">
-      <svg class="tl-chart" viewBox="0 64 900 78" font-family="Jost, sans-serif" aria-label="Education timeline from 2022 to 2028">
-        <line x1="8" y1="114" x2="892" y2="114" stroke="#cbd5e1"/>
+      <svg class="tl-chart" viewBox="0 58 900 108" font-family="Jost, sans-serif" aria-label="Education timeline from 2022 to 2028">
+        <line x1="8" y1="124" x2="892" y2="124" stroke="#cbd5e1"/>
 
         <g class="tl-bar" data-title="The Ohio State University" data-sub="College of Arts and Sciences · B.A. Economics · Aug 2022 – May 2025">
-          <rect x="8" y="72" width="442" height="28" rx="14" fill="#ffffff"/>
-          <image href="assets/school-osu.png" x="16" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
-          <text x="229" y="90" font-size="12.5" font-weight="600" fill="#0f172a" text-anchor="middle">CAS</text>
+          <rect x="8" y="68" width="442" height="44" rx="22" fill="#ffffff"/>
+          <image href="assets/school-osu.png" x="17" y="75" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>
+          <text x="229" y="97" font-size="16" font-weight="600" fill="#0f172a" text-anchor="middle">CAS</text>
         </g>
         <g class="tl-bar" data-title="Peking University" data-sub="Guanghua School of Management · Visiting Student · Sep 2025 – Jan 2026">
-          <rect x="492.4" y="72" width="76" height="28" rx="14" fill="#ffffff"/>
-          <image href="assets/school-pku.png" x="498.4" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
-          <text x="526" y="90" font-size="11" font-weight="600" fill="#0f172a">GSM</text>
+          <rect x="492.4" y="68" width="76" height="44" rx="22" fill="#ffffff"/>
+          <image href="assets/school-pku.png" x="498.4" y="75" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>
+          <text x="536" y="97" font-size="15" font-weight="600" fill="#0f172a">GSM</text>
         </g>
         <g class="tl-bar" data-title="Columbia University" data-sub="Graduate School of Arts and Sciences · M.A. QMSS · Sep 2026 – Feb 2028">
-          <rect x="664.3" y="72" width="227.7" height="28" rx="14" fill="#ffffff"/>
-          <image href="assets/school-columbia.png" x="672.3" y="76" width="20" height="20" preserveAspectRatio="xMidYMid meet"/>
-          <text x="778.2" y="90" font-size="12.5" font-weight="600" fill="#0f172a" text-anchor="middle">GSAS</text>
+          <rect x="664.3" y="68" width="227.7" height="44" rx="22" fill="#ffffff"/>
+          <image href="assets/school-columbia.png" x="673.3" y="75" width="30" height="30" preserveAspectRatio="xMidYMid meet"/>
+          <text x="778.2" y="97" font-size="16" font-weight="600" fill="#0f172a" text-anchor="middle">GSAS</text>
         </g>
 
-        <g font-family="Jost, sans-serif" font-size="10" font-weight="600" fill="#0f172a" text-anchor="middle">
-          <text x="8" y="132" text-anchor="start">AUG 2022</text>
-          <text x="450" y="132">MAY 2025</text>
-          <text x="664.3" y="132">SEP 2026</text>
-          <text x="892" y="132" text-anchor="end">FEB 2028</text>
+        <g font-family="Jost, sans-serif" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle">
+          <text x="8" y="148" text-anchor="start">AUG 2022</text>
+          <text x="450" y="148">MAY 2025</text>
+          <text x="664.3" y="148">SEP 2026</text>
+          <text x="892" y="148" text-anchor="end">FEB 2028</text>
         </g>
       </svg>
       <div class="edu-mobile" aria-label="Education timeline from 2022 to 2028">
