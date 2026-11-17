@@ -88,6 +88,11 @@ html[data-theme="dark"] .icon-btn {
   color: #cbd5e1;
 }
 
+html[data-theme="dark"] .icon-btn.zoom-btn img {
+  filter: brightness(0) invert(1);
+  opacity: .84;
+}
+
 html[data-theme="dark"] .theme-toggle:hover {
   background: rgba(125, 211, 252, .1);
   border-color: #38bdf8;
