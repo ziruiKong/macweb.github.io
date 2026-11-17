@@ -178,6 +178,55 @@
   .icon-btn{display:flex;align-items:center;justify-content:center;color:#334155;padding:6px;text-decoration:none;transition:.18s}
   .icon-btn:hover{color:var(--accent)}
   .icon-btn svg{width:18px;height:18px;fill:currentColor}
+
+  @media (max-width:600px){
+    body{padding-bottom:calc(52px + env(safe-area-inset-bottom))}
+    .nav-inner{padding:0 16px}
+    .wrap{padding:8px 18px 0}
+    .alphabet-filter{top:44px;padding:5px 14px 4px}
+    .alphabet-row{gap:0;justify-content:flex-start;padding:1px 0 3px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+    .alphabet-row button{min-width:18px;height:22px;padding:0 2px;font-size:10px;scroll-snap-align:center}
+    .alphabet-row button[data-letter="all"]{min-width:34px;padding:0 7px;margin-right:2px}
+    section.block{padding:20px 0 4px}
+    .sec-head{gap:9px;margin-bottom:10px}
+    .projects-section .sec-head h2,.thesis-section .sec-head h2{font-size:18px;padding:5px 9px}
+    .project summary{align-items:flex-start;gap:8px;padding:12px 0 14px}
+    .project .summary-main{padding-top:1px}
+    .project h3{font-size:12px;line-height:1.45;letter-spacing:.005em}
+    .project-kicker{gap:5px;margin-bottom:5px;font-size:9px;line-height:1.4;letter-spacing:.03em}
+    .project-kicker span+span::before{margin-right:5px}
+    .project .project-tags{gap:5px 9px;margin-top:7px}
+    .project .project-tags li{font-size:8px}
+    .project-control{width:30px;min-height:70px}
+    .project .chevron{width:16px;height:16px}
+    .project .chevron::before{width:14px}
+    .project .chevron::after{height:14px}
+    .project-progress{right:0;bottom:0;width:30px}
+    .project-progress > span:first-child{right:36px}
+    .project-progress .progress-track{width:30px}
+    .project ul,.thesis-body{padding-left:0;padding-right:0;font-size:14px;line-height:1.62}
+    .project ul{padding-bottom:16px}
+    .thesis-meta{font-size:12px;line-height:1.5}
+    .thesis-body p{font-size:14px;line-height:1.65}
+    details.project[open] > ul,details.project[open] > .thesis-body{margin:2px 0 12px;padding:14px 14px 15px;border-radius:9px}
+    footer{height:calc(44px + env(safe-area-inset-bottom));padding:0 16px env(safe-area-inset-bottom)}
+    .share-row{gap:12px}
+  }
+
+  @media (max-width:380px){
+    .wrap{padding-left:14px;padding-right:14px}
+    .alphabet-filter{padding-left:12px;padding-right:12px}
+    .projects-section .sec-head h2,.thesis-section .sec-head h2{font-size:17px}
+    .project h3{font-size:12px}
+    .project summary{gap:6px}
+    .project .project-tags{gap:4px 7px}
+    .project .project-tags li{font-size:8px}
+    .project-control{width:26px}
+    .project-progress,.project-progress .progress-track{width:26px}
+    footer{padding-left:14px;padding-right:14px}
+    .share-row{gap:10px}
+    .updated{font-size:10.5px}
+  }
 </style>
 <link rel="stylesheet" href="assets/theme.css">
 </head>
