@@ -88,9 +88,14 @@ html[data-theme="dark"] .icon-btn {
   color: #cbd5e1;
 }
 
-html[data-theme="dark"] .icon-btn.zoom-btn img {
+html[data-theme="dark"] .icon-btn.zoom-btn .zoom-default {
   filter: brightness(0) invert(1);
   opacity: .84;
+}
+
+html[data-theme="dark"] .icon-btn.zoom-btn .zoom-hover {
+  filter: none;
+  opacity: 1;
 }
 
 html[data-theme="dark"] .theme-toggle:hover {
