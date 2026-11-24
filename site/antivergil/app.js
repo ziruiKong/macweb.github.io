@@ -5633,7 +5633,6 @@ function renderMyPage() {
       <div class="my-identity">
         <div class="my-avatar">${avatar}</div>
         <div>
-          <span class="dept-kicker">Student workspace · ${esc(termShort(state.term))}</span>
           <h1>${esc(authUser.name || "Columbia student")}</h1>
           <p>${esc(authUser.email || "")}</p>
         </div>
@@ -5646,27 +5645,23 @@ function renderMyPage() {
     </header>
     <div class="my-grid">
       <section class="my-panel my-plan-panel">
-        <div class="my-panel-head"><span>Current session</span><h2>Your plan</h2></div>
+        <div class="my-panel-head"><h2>Plan</h2></div>
         ${plannedCodes.length ? `<div class="my-course-list">${plannedCodes.map((code) =>
           `<button type="button" data-my-course="${esc(code)}"><b>${esc(code)}</b><span>${esc(titleForCode(code))}</span></button>`).join("")}</div>`
-          : `<div class="dept-empty">No courses in your plan yet.</div>`}
+          : `<div class="dept-empty">No courses yet.</div>`}
       </section>
       <section class="my-panel">
-        <div class="my-panel-head"><span>Saved on this device</span><h2>Your ratings</h2></div>
+        <div class="my-panel-head"><h2>Ratings</h2></div>
         ${ratings.length ? `<div class="my-rating-list">${ratings.map((item) =>
           `<button type="button" data-my-course="${esc(item.code)}"><b>${esc(item.code)}</b><span>${"★".repeat(item.value)}${"☆".repeat(5 - item.value)}</span></button>`).join("")}</div>`
-          : `<div class="dept-empty">Open a course and tap a star to add your first rating.</div>`}
+          : `<div class="dept-empty">No ratings yet.</div>`}
       </section>
-      <section class="my-panel my-account-panel">
-        <div class="my-panel-head"><span>Account</span><h2>Session</h2></div>
-        <p>Signed in with ${authUser.provider === "google" ? "Google" : "your Columbia email"}.</p>
-        <div class="my-actions">
-          <button class="btn small primary" type="button" data-my-path="browse">Browse courses</button>
-          <button class="btn small ghost" type="button" data-my-path="planner">Open plan</button>
-          <button class="btn small ghost" type="button" data-my-path="calendar">Calendar</button>
-          <button class="btn small ghost" type="button" data-my-signout>Sign out</button>
-        </div>
-      </section>
+    </div>
+    <div class="my-footer-actions">
+      <button class="btn small primary" type="button" data-my-path="browse">Browse courses</button>
+      <button class="btn small ghost" type="button" data-my-path="planner">Open plan</button>
+      <button class="btn small ghost" type="button" data-my-path="calendar">Calendar</button>
+      <button class="btn small ghost" type="button" data-my-signout>Sign out</button>
     </div>`;
   host.querySelectorAll("[data-my-course]").forEach((button) => {
     button.addEventListener("click", () => openCourse(button.dataset.myCourse));
