@@ -1361,6 +1361,7 @@ function renderCourseRatingPanel(host, code) {
 /* ---------- 课程详情 ---------- */
 function openCourse(code, sectionId = "") {
   const locked = !authUser;
+  $(".modal")?.classList.toggle("is-course-locked", locked);
   const sections = state.courses.filter((c) => normCode(c.code) === normCode(code));
   if (!sections.length) return;
   state.modalCourse = { code, sectionId };
@@ -1445,7 +1446,7 @@ function openCourse(code, sectionId = "") {
             </span>
             <b>Sign in to unlock course details</b>
             <span>Enrollment history, reviews, section data, and comparisons are available to Columbia students.</span>
-            <button class="btn primary course-lock-signin" type="button">Continue with Google</button>
+            <button class="btn primary course-lock-signin" type="button">Continue with LionMail</button>
           </div>
         </div>` : ""}
     </div>
@@ -1609,6 +1610,7 @@ function renderPrereqs(prereqs) {
 
 function closeModal() {
   $("#modal").hidden = true;
+  $(".modal")?.classList.remove("is-course-locked");
   document.body.style.overflow = "";
   document.documentElement.style.overflow = "";
   state.modalCourse = null;
@@ -5504,7 +5506,7 @@ function renderAccount() {
         <button class="primary" type="button" id="account-done">Done</button>
         <button type="button" id="account-signout">Sign out</button>
       </div>
-      <div class="account-status">${authUser.provider === "google" ? "Signed in with Google." : "Preview sign-in (Google OAuth not configured)."}</div>
+      <div class="account-status">${authUser.provider === "google" ? "Signed in with LionMail." : "Preview sign-in (LionMail OAuth not configured)."}</div>
     `;
     $("#account-signout")?.addEventListener("click", signOut);
     $("#account-done")?.addEventListener("click", closeAccount);
@@ -5523,12 +5525,12 @@ function renderAccount() {
         <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
         <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
       </svg>
-      Sign in with Google
+      Continue with LionMail
     </button>`;
   body.innerHTML = `
     <div class="account-logo">CU</div>
     <h2 id="account-title">Sign in</h2>
-    <p>Continue with your Google account to personalise the planner.</p>
+    <p>Continue with your Columbia LionMail account to personalise the planner.</p>
     <div class="account-google" id="google-button">${configured ? "" : googleFallback}</div>
     <div class="account-hint">${fileHint}</div>
   `;

@@ -2171,6 +2171,10 @@ body.sidebar-collapsed .term-chip::before { display: none; }
   min-height: min(620px, calc(86vh - 60px));
 }
 
+.modal.is-course-locked {
+  overflow: hidden;
+}
+
 .course-detail-locked > :not(.course-lock-overlay) {
   pointer-events: none;
   user-select: none;
