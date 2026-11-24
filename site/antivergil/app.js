@@ -1797,14 +1797,15 @@ function dailyMetricsHTML(metrics, lastValue) {
   return values.map(([label, value]) => `<div><b>${label}</b><span>${value}</span></div>`).join("");
 }
 
-function combinedFlowChartSVG(points, width = 900, height = 288) {
+function combinedFlowChartSVG(points, width = 900, height = 356) {
   if (!points.length) return "";
   const left = 46;
   const right = 42;
   const barTop = 18;
-  const barBottom = 188;
-  const lineTop = 222;
-  const lineBottom = 272;
+  const barBottom = Math.round(height * 0.66);
+  const dividerY = Math.round(height * 0.715);
+  const lineTop = Math.round(height * 0.77);
+  const lineBottom = Math.round(height * 0.94);
   const axisY = height - 6;
   const plotW = width - left - right;
   const maxFlow = Math.max(...points.flatMap((point) => [point.added, point.dropped]), 1);
@@ -1857,7 +1858,7 @@ function combinedFlowChartSVG(points, width = 900, height = 288) {
       ${flowGrid}
       <line class="flow-baseline" x1="${left}" y1="${barBottom}" x2="${width - right}" y2="${barBottom}"/>
       ${bars}
-      <line class="flow-pane-divider" x1="${left}" y1="205" x2="${width - right}" y2="205"/>
+      <line class="flow-pane-divider" x1="${left}" y1="${dividerY}" x2="${width - right}" y2="${dividerY}"/>
       <text class="flow-axis-label flow-right-label" x="${width - right + 9}" y="${lineTop + 3}" text-anchor="start">${(maxTotal / 1000).toFixed(1)}k</text>
       <path class="enrollment-line-area" d="${areaPath}"/>
       <path class="enrollment-line" d="${linePath}"/>
