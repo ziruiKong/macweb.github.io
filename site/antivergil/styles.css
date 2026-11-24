@@ -11386,3 +11386,88 @@ body.join-page-open {
   position: relative;
   z-index: 1;
 }
+
+/* Fine paper and restrained letterpress details. */
+:is(#course-list, #search-results) .course-card > .stamp-shape {
+  background-color: #fefefd;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23555555' opacity='.055' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E"),
+    linear-gradient(110deg, #ffffff, #f8f8f6);
+}
+:is(#course-list, #search-results) .course-card > .stamp-shape::before { content: none; }
+:is(#course-list, #search-results) .course-card {
+  color: #30302d;
+}
+:is(#course-list, #search-results) .course-card .cc-title {
+  letter-spacing: -.035em;
+  text-shadow: .25px .2px .35px rgba(20,20,18,.22);
+}
+:is(#course-list, #search-results) .course-card .cc-code-row {
+  border-right-color: #99998f;
+  border-bottom-color: #73736b;
+}
+:is(#course-list, #search-results) .course-card .cc-meta { border-bottom-color: #73736b; }
+:is(#course-list, #search-results) .course-card .cc-days-row {
+  padding-block: 5px;
+  min-height: 34px;
+  border-bottom: 1px dashed #b5b5ac;
+}
+:is(#course-list, #search-results) .course-card .day-strip .day-box,
+:is(#course-list, #search-results) .course-card .day-strip:has(.day-box:nth-child(7)) .day-box {
+  width: 20px;
+  min-width: 20px;
+  flex-basis: 20px;
+  height: 22px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #aaa9a2;
+  font-size: 10px;
+}
+:is(#course-list, #search-results) .course-card .day-strip .day-box.active {
+  background: #373733;
+  color: #fff;
+}
+:is(#course-list, #search-results) .course-card .cc-days-row .time-chip {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  flex: 0 1 auto;
+  min-height: 26px;
+  height: auto;
+  padding: 3px 0 3px 8px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #33332f;
+  font-size: 11px;
+  font-weight: 700;
+}
+:is(#course-list, #search-results) .course-card .cc-bottom { padding-block: 3px 0; }
+:is(#course-list, #search-results) .course-card .course-data-lock {
+  color: #81817a;
+  font-weight: 400;
+  font-size: 9px;
+}
+:is(#course-list, #search-results) .course-card .card-add {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border: 1px solid #85857b;
+  border-radius: 50%;
+  background: transparent;
+  color: #45453e;
+}
+:is(#course-list, #search-results) .course-card .card-add svg { width: 14px; height: 14px; }
+:is(#course-list, #search-results) .course-card .card-add:hover {
+  background: #33332f;
+  color: white;
+}
+:is(#course-list, #search-results) .course-card button:focus-visible {
+  outline: 2px solid #333;
+  outline-offset: 3px;
+}
+:is(#course-list, #search-results) .course-card .day-strip:has(.day-box:nth-child(7)) .day-box.active {
+  background: #373733;
+  color: #fff;
+}
