@@ -1001,14 +1001,12 @@ function cardHTML(course, opts = {}) {
       }
     }
   }
-  const analyticsHTML = authUser
-    ? `${pct != null ? `<div class="enroll-bar ${pctClass}" role="progressbar" aria-label="Seats filled" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" title="${esc(fillTip)}"><span style="width:${pct}%"></span></div>` : `<div class="enroll-bar-spacer"></div>`}
+  const analyticsHTML = `${pct != null ? `<div class="enroll-bar ${pctClass}" role="progressbar" aria-label="Seats filled" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" title="${esc(fillTip)}"><span style="width:${pct}%"></span></div>` : `<div class="enroll-bar-spacer"></div>`}
           <span class="enroll-box enroll-combo" data-tip="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}" title="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}">
             <b>${hasEnroll ? course.enrolledTotal : "—"}</b>${course.hasCapacity && course.capacityTotal ? `<span class="enroll-capacity">/<b>${course.capacityTotal}</b></span>` : ""}
 
           </span>
-          ${dropChip}`
-    : `<div class="course-data-lock"><span>Sign in to view enrollment and drop data</span></div>`;
+          ${dropChip}`;
   return `
     <div class="course-card" data-code="${esc(course.code)}" data-section="${esc(one.classId || "")}">
       <span class="stamp-shape" aria-hidden="true"></span>
