@@ -11249,3 +11249,24 @@ body.join-page-open {
   margin-left: auto;
   margin-right: 0;
 }
+/* Compact course information while retaining touch-sized actions. */
+:is(#course-list, #search-results) > .course-card {
+  min-height: 0;
+  gap: 7px;
+  padding: 17px 22px;
+}
+:is(#course-list, #search-results) .course-card > .cc-main { gap: 7px; }
+:is(#course-list, #search-results) .course-card .cc-title {
+  padding-bottom: 5px;
+  margin-bottom: 0;
+  font-size: 18px;
+  line-height: 1.25;
+}
+:is(#course-list, #search-results) .course-card .cc-code-row { margin-bottom: 0; }
+:is(#course-list, #search-results) .course-card .cc-meta { row-gap: 4px; }
+:is(#course-list, #search-results) .course-card .cc-bottom { gap: 8px; }
+@media (max-width: 760px) {
+  :is(#course-list, #search-results) > .course-card { padding: 16px 20px; }
+  :is(#course-list, #search-results) .course-card .cc-title { font-size: 18px; }
+  :is(#course-list, #search-results) .course-card .cc-days-row { min-height: 32px; }
+}
