@@ -2419,10 +2419,11 @@ function aggregateDepartment(index, departmentCode) {
   const courses = new Map();
   const instructors = [];
   for (const [name, profile] of Object.entries(index.instructors || {})) {
-    const offerings = instructorOfferings(profile).filter((row) =>
+    const allOfferings = instructorOfferings(profile);
+    const offerings = allOfferings.filter((row) =>
       departmentCodeForCourse(row.code) === departmentCode);
     if (!offerings.length) continue;
-    const metrics = instructorMetrics(offerings, profile);
+    const metrics = instructorMetrics(allOfferings, profile);
     if (metrics.score != null) {
       instructors.push({
         name,
