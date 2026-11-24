@@ -2451,7 +2451,8 @@ function termChartSVG(offerings) {
   const bars = rows.map((row, index) => {
     const x = left + slot * index + slot / 2 - barW / 2;
     const h = row.enrolled / maxEnrolled * plotH;
-    return `<rect class="prof-chart-bar" x="${x.toFixed(1)}" y="${(top + plotH - h).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="2"><title>${esc(row.term)} · ${row.enrolled} enrolled</title></rect>`;
+    const tone = row.drop == null ? "pre" : row.drop >= .2 ? "risk" : row.drop >= .1 ? "watch" : "stable";
+    return `<rect class="prof-chart-bar ${tone}" x="${x.toFixed(1)}" y="${(top + plotH - h).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="2"><title>${esc(row.term)} · ${row.enrolled} enrolled</title></rect>`;
   }).join("");
   const dropPoints = rows.map((row, index) => {
     if (row.drop == null) return null;
@@ -2574,17 +2575,20 @@ function renderInstructorProfile() {
     const initials = canonical.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
     const reviewTag = metrics.reviewRating == null
       ? ""
-      : `<span>${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
+      : `<span class="is-review">${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
+    const dropTone = metrics.avgDrop == null ? "pending" : metrics.avgDrop <= .1 ? "good" : metrics.avgDrop <= .2 ? "mid" : "high";
     host.innerHTML = `
       <header class="prof-hero">
         <div class="prof-monogram" aria-hidden="true">${esc(initials || "?")}</div>
         <div class="prof-identity">
           <span class="prof-kicker">Instructor dossier · ${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
           <h1>${esc(canonical)}</h1>
-          <p>${metrics.courses.length} courses across ${metrics.terms.length} terms${latest ? ` · Latest ${esc(termShort(latest.term))}` : ""}</p>
+          <p>${latest ? `Latest teaching · ${esc(termShort(latest.term))}` : "Teaching history"}</p>
           <div class="prof-identity-tags">
-            <span>${metrics.totalEnrolled.toLocaleString("en-US")} course enrollments</span>
-            <span>${metrics.avgDrop == null ? "Drop history pending" : `${(metrics.avgDrop * 100).toFixed(1)}% weighted drop`}</span>
+            <span class="is-courses">${metrics.courses.length} courses</span>
+            <span class="is-terms">${metrics.terms.length} terms</span>
+            <span class="is-enrollment">${metrics.totalEnrolled.toLocaleString("en-US")} enrollments</span>
+            <span class="is-drop-${dropTone}">${metrics.avgDrop == null ? "Drop history pending" : `${(metrics.avgDrop * 100).toFixed(1)}% weighted drop`}</span>
             ${reviewTag}
           </div>
         </div>
