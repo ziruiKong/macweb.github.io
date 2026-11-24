@@ -3190,7 +3190,6 @@ function renderInstructorProfile() {
     const scoreTone = instructorScoreTone(metrics.score);
     const latest = offerings[0];
     const instructorDepartments = [...new Set(offerings.map((row) => departmentCodeForCourse(row.code)).filter(Boolean))];
-    const missingEnrollmentCount = offerings.filter((row) => row.enrolled == null).length;
     const reviewTag = metrics.reviewRating == null
       ? ""
       : `<span class="is-review">${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
@@ -3230,10 +3229,7 @@ function renderInstructorProfile() {
         </section>
       </div>
       <section class="prof-history">
-        <div class="prof-panel-head">
-          <div><h2>Every available course</h2></div>
-          ${missingEnrollmentCount ? `<small>${missingEnrollmentCount} pre-2020 offering${missingEnrollmentCount === 1 ? "" : "s"} have catalog records but no public enrollment count. They still count toward experience and breadth, but not demand, retention, or class size.</small>` : ""}
-        </div>
+        <div class="prof-panel-head"><div><h2>Every available course</h2></div></div>
         ${instructorHistoryHTML(offerings)}
       </section>`;
     host.querySelectorAll(".prof-offering[data-course]").forEach((row) => {
