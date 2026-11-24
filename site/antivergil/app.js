@@ -2316,8 +2316,9 @@ function instructorTeachingRows(offerings) {
 
 function instructorMetrics(offerings, profile) {
   const teaching = instructorTeachingRows(offerings);
+  const latestTerm = offerings[0]?.term || state.term;
   const completed = teaching.filter((row) =>
-    row.term !== state.term && row.dropRate != null && row.dropBase >= 10);
+    row.term !== latestTerm && row.dropRate != null && row.dropBase >= 10);
   const totalEnrolled = teaching.reduce((sum, row) => sum + row.enrolled, 0);
   const totalCapacity = teaching.reduce((sum, row) => sum + row.capacity, 0);
   const avgFill = totalCapacity ? totalEnrolled / totalCapacity : 0;
@@ -2520,7 +2521,7 @@ function instructorCourseBarsHTML(offerings) {
     <div class="prof-course-bar-row">
       <div class="prof-course-bar-label"><b>${esc(row.code)}</b><strong>${esc(row.title)}</strong></div>
       <div class="prof-course-bar-track"><i class="${row.drop == null ? "pre" : row.drop >= .2 ? "risk" : row.drop >= .1 ? "watch" : "stable"}" style="width:${Math.max(2, row.total / max * 100)}%"></i></div>
-      <div class="prof-course-bar-stat"><b>${row.total.toLocaleString("en-US")}</b><span>${row.terms.size} term${row.terms.size === 1 ? "" : "s"}${row.drop == null ? "" : ` · ${(row.drop * 100).toFixed(1)}% drop`}</span></div>
+      <div class="prof-course-bar-stat"><b>${row.total.toLocaleString("en-US")}</b><span class="prof-stat-term">${row.terms.size} term${row.terms.size === 1 ? "" : "s"}</span>${row.drop == null ? "" : `<span class="prof-stat-drop ${row.drop >= .2 ? "risk" : row.drop >= .1 ? "watch" : "stable"}">${(row.drop * 100).toFixed(1)}% drop</span>`}</div>
     </div>`).join("");
 }
 
