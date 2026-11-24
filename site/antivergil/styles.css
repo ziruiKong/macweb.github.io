@@ -11943,3 +11943,16 @@ main:has(> #view-browse:not([hidden])) {
 :is(#course-list, #search-results) .course-card .cc-code-row {
   border-right-style: solid;
 }
+
+body[data-view="browse"] .topbar,
+body[data-view="search"] .topbar {
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+@media (min-width: 861px) {
+  body[data-view="browse"] .topbar-search,
+  body[data-view="search"] .topbar-search {
+    margin-inline: -20px;
+  }
+}
