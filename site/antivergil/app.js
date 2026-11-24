@@ -2518,13 +2518,7 @@ function termChartSVG(offerings) {
     currentPath.push(`${currentPath.length ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`);
   });
   if (currentPath.length > 1) dropPaths.push(currentPath.join(" "));
-  const maxLabels = Math.min(5, rows.length);
-  const labelIndexes = new Set(
-    Array.from({ length: maxLabels }, (_, index) =>
-      Math.round(index * (rows.length - 1) / Math.max(1, maxLabels - 1))),
-  );
   const labels = rows.map((row, index) => {
-    if (!labelIndexes.has(index)) return "";
     const x = left + slot * index + slot / 2;
     const [year, season] = row.term.split("-");
     const label = `${season[0]}'${year.slice(-2)}`;
