@@ -11270,3 +11270,119 @@ body.join-page-open {
   :is(#course-list, #search-results) .course-card .cc-title { font-size: 18px; }
   :is(#course-list, #search-results) .course-card .cc-days-row { min-height: 32px; }
 }
+
+/* Monochrome ticket compartments. */
+:is(#course-list, #search-results) > .course-card {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  gap: 0;
+  padding: 12px;
+  align-content: start;
+}
+:is(#course-list, #search-results) .course-card > .cc-main { display: contents; }
+:is(#course-list, #search-results) .course-card .cc-code-row {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: stretch;
+  margin: 0;
+  padding: 10px 8px 10px 2px;
+  border-right: 1px dashed #777;
+  border-bottom: 1px solid #252525;
+}
+:is(#course-list, #search-results) .course-card .cc-code-tags {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+:is(#course-list, #search-results) .course-card .cc-code {
+  white-space: normal;
+  overflow: visible;
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: #222;
+  letter-spacing: 0;
+}
+:is(#course-list, #search-results) .course-card .section-chip {
+  height: auto;
+  padding: 0;
+  white-space: normal;
+  font-size: 10px;
+  line-height: 1.5;
+}
+:is(#course-list, #search-results) .course-card .cc-title {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  padding: 9px 10px 6px;
+  border-bottom: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: 18px;
+  line-height: 1.2;
+}
+:is(#course-list, #search-results) .course-card .cc-meta {
+  grid-column: 2;
+  grid-row: 2;
+  padding: 0 10px 9px;
+  border-bottom: 1px solid #252525;
+  gap: 4px 7px;
+}
+:is(#course-list, #search-results) .course-card .cc-meta > .chip,
+:is(#course-list, #search-results) .course-card .cc-meta .instructor-pill {
+  height: auto;
+  min-height: 20px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  font-size: 10px;
+}
+:is(#course-list, #search-results) .course-card .cc-meta .instructor-pill {
+  max-width: 100%;
+  flex-basis: 100%;
+  justify-content: flex-start;
+  text-align: left;
+}
+:is(#course-list, #search-results) .course-card .cc-days-row {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin: 0;
+  padding: 8px 4px;
+  min-height: 44px;
+  border-bottom: 1px solid #aaa;
+  overflow: visible;
+}
+:is(#course-list, #search-results) .course-card .cc-bottom {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  margin: 0;
+  padding: 6px 4px 2px;
+  align-items: center;
+}
+:is(#course-list, #search-results) .course-card .course-data-lock {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  font-size: 9px;
+}
+:is(#course-list, #search-results) .course-card .card-add {
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+}
+:is(#course-list, #search-results) .course-card .cc-reason {
+  grid-column: 1 / -1;
+  padding: 6px;
+}
+@media (max-width: 375px) {
+  :is(#course-list, #search-results) > .course-card { grid-template-columns: 58px minmax(0, 1fr); }
+  :is(#course-list, #search-results) .course-card .cc-title { font-size: 16px; }
+}
+:is(#course-list, #search-results) .course-card > .cc-main > * {
+  position: relative;
+  z-index: 1;
+}
