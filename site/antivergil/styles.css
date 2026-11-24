@@ -4048,6 +4048,47 @@ main {
   text-align: right;
 }
 
+.dept-ranking-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dept-ranking-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1.5px solid var(--sa-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sa-ink);
+  font-family: var(--sa-font);
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.dept-ranking-toggle:hover {
+  background: var(--sa-ink);
+  color: var(--sa-bg);
+}
+
+.dept-ranking-toggle svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform .18s ease;
+}
+
+.dept-ranking-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
 .dept-course-rank-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4833,6 +4874,12 @@ main {
   .dept-hero-metrics b { font-size: 22px; }
   .dept-section-head { display: block; }
   .dept-section-head p { margin-top: 7px; text-align: left; }
+  .dept-ranking-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+  }
   .dept-course-rank-grid { grid-template-columns: 1fr; }
   .dept-rank-panel { padding-right: 0; }
   .dept-rank-panel + .dept-rank-panel {

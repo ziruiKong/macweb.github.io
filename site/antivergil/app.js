@@ -112,6 +112,7 @@ const state = {
   instructorReturn: null,
   departmentCode: "",
   departmentReturn: null,
+  departmentInstructorsExpanded: false,
   calendarView: "week",
   rankingsMode: "score",
   rankingsQuery: "",
@@ -2359,6 +2360,7 @@ function openDepartment(code) {
   const currentView = document.body.dataset.view || "browse";
   if (currentView !== "department") state.departmentReturn = currentView;
   state.departmentCode = department;
+  state.departmentInstructorsExpanded = false;
   switchView("department");
 }
 
@@ -2798,13 +2800,14 @@ function departmentCourseRankHTML(rows, mode) {
     </div>`).join("");
 }
 
-function departmentProfessorHTML(rows) {
+function departmentProfessorHTML(rows, expanded = false) {
   if (!rows.length) return `<div class="dept-empty">Instructor ranking is still being built.</div>`;
+  const visibleRows = expanded ? rows : rows.slice(0, 5);
   return `
     <div class="dept-prof-head" aria-hidden="true">
       <span>Rank</span><span>Instructor</span><span>Scale</span><span>Score</span>
     </div>
-    ${rows.map((row, index) => `
+    ${visibleRows.map((row, index) => `
       <button class="dept-prof-row" type="button" data-instructor="${esc(row.name)}">
         <span class="dept-prof-rank">${String(index + 1).padStart(2, "0")}</span>
         <span class="dept-prof-identity">
@@ -2916,9 +2919,12 @@ function renderDepartmentProfile() {
       <section class="dept-prof-panel">
         <div class="dept-section-head compact">
           <div><span>Faculty index</span><h2>Instructor ranking</h2></div>
-          <p>${instructorCount.toLocaleString("en-US")} instructors teaching in ${esc(departmentCode)}.</p>
+          <div class="dept-ranking-actions">
+            <p>${instructorCount.toLocaleString("en-US")} instructors teaching in ${esc(departmentCode)}.</p>
+            ${instructorCount > 5 ? `<button class="dept-ranking-toggle" type="button" data-dept-instructor-toggle aria-expanded="${state.departmentInstructorsExpanded}">${state.departmentInstructorsExpanded ? "收起" : `展开全部 ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>` : ""}
+          </div>
         </div>
-        ${departmentProfessorHTML(aggregate.instructors)}
+        <div id="dept-instructor-list">${departmentProfessorHTML(aggregate.instructors, state.departmentInstructorsExpanded)}</div>
       </section>
       <section class="dept-term-panel">
         <div class="dept-section-head compact">
@@ -2932,8 +2938,18 @@ function renderDepartmentProfile() {
     host.querySelectorAll("[data-dept-back]").forEach((button) => {
       button.addEventListener("click", leaveDepartment);
     });
-    host.querySelectorAll(".dept-prof-row[data-instructor]").forEach((button) => {
-      button.addEventListener("click", () => openInstructor(button.dataset.instructor));
+    host.querySelector(".dept-prof-panel")?.addEventListener("click", (event) => {
+      const toggle = event.target.closest("[data-dept-instructor-toggle]");
+      if (toggle) {
+        state.departmentInstructorsExpanded = !state.departmentInstructorsExpanded;
+        host.querySelector("#dept-instructor-list").innerHTML =
+          departmentProfessorHTML(aggregate.instructors, state.departmentInstructorsExpanded);
+        toggle.setAttribute("aria-expanded", String(state.departmentInstructorsExpanded));
+        toggle.innerHTML = `${state.departmentInstructorsExpanded ? "收起" : `展开全部 ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>`;
+        return;
+      }
+      const instructor = event.target.closest(".dept-prof-row[data-instructor]");
+      if (instructor) openInstructor(instructor.dataset.instructor);
     });
     host.querySelectorAll(".dept-course-row[data-course]").forEach((row) => {
       row.addEventListener("click", () => openCourse(row.dataset.course, row.dataset.section));
