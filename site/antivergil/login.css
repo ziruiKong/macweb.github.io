@@ -123,6 +123,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 }
 
 .login-auth { margin-top: 27px; }
+.google-login-mount {
+  display: flex;
+  justify-content: center;
+}
+.google-login-mount:empty { display: none; }
+.google-login-mount > div,
+.google-login-mount iframe {
+  max-width: 100%;
+}
 .google-login {
   width: 100%;
   height: 52px;

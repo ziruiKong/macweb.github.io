@@ -28,6 +28,7 @@ const MIRROR_BASE = "https://raw.githubusercontent.com/soid/columbia-catalog-dat
 const CUSTOM_TERMS_KEY = "cu-custom-terms";
 const TERM_STORAGE_KEY = "cu-selected-term";
 const COURSE_RATINGS_KEY = "cu-course-ratings-v1";
+const PENDING_COURSE_KEY = "cu-auth-pending-course";
 let courseRatingCache = null;
 
 function readCourseRatings() {
@@ -510,7 +511,28 @@ const NAV = [
   ["planner", "Plan"],
   ["calendar", "Calendar"],
   ["map", "Map"],
+  ["me", "Profile"],
 ];
+
+const AUTH_REQUIRED_VIEWS = new Set(["rankings", "analysis", "history", "instructor", "department", "me"]);
+
+function authViewHash(id) {
+  if (id === "instructor") return `#/instructor/${encodeURIComponent(state.instructorName)}`;
+  if (id === "department") return `#/department/${encodeURIComponent(state.departmentCode)}`;
+  if (id === "search") return `#/search${searchHash() ? `?${searchHash()}` : ""}`;
+  return `#/${id}`;
+}
+
+function redirectToLogin(nextHash = location.hash) {
+  const next = `${location.pathname}${location.search}${nextHash || "#/browse"}`;
+  location.assign(`login.html?next=${encodeURIComponent(next)}`);
+}
+
+function requireAuthenticated(nextHash = location.hash) {
+  if (authUser) return true;
+  redirectToLogin(nextHash);
+  return false;
+}
 
 const viewStack = [];
 let viewIndex = -1;
@@ -543,6 +565,8 @@ function goView(delta) {
 }
 
 function switchView(id, opts = {}) {
+  const targetHash = authViewHash(id);
+  if (AUTH_REQUIRED_VIEWS.has(id) && !requireAuthenticated(targetHash)) return;
   $$(".view").forEach((v) => (v.hidden = v.id !== `view-${id}`));
   const navId = id === "search" || id === "instructor" || id === "department" ? "browse" : id;
   $$(".nav button").forEach((b) => b.classList.toggle("active", b.dataset.view === navId));
@@ -569,19 +593,14 @@ function switchView(id, opts = {}) {
     }
   }
   updateViewNav();
-  const hash = id === "search"
-    ? `#/search${searchHash() ? `?${searchHash()}` : ""}`
-    : id === "instructor"
-      ? `#/instructor/${encodeURIComponent(state.instructorName)}`
-      : id === "department"
-        ? `#/department/${encodeURIComponent(state.departmentCode)}`
-      : `#/${id}`;
+  const hash = targetHash;
   if (location.hash !== hash) history.replaceState(null, "", hash);
   if (id === "map") { initMap(); refreshMapPins(); }
   if (id === "search") renderSearchResults();
   if (id === "instructor") renderInstructorProfile();
   if (id === "department") renderDepartmentProfile();
   if (id === "rankings") renderRankings();
+  if (id === "me") renderMyPage();
   if (id === "analysis") renderAnalysis();
   if (id === "planner") renderPlanner();
   if (id === "calendar") {
@@ -606,7 +625,8 @@ const NAV_ICONS = {
 function buildNav() {
   const nav = $("#nav");
   const inkPath = "M110 27C105 14 82 7 56 7C30 7 8 13 5 23C2 34 24 44 53 46C80 48 105 40 111 31C116 24 105 16 94 12C82 8 68 7 55 8";
-  nav.innerHTML = NAV.map(([id, label]) =>
+  const items = NAV.filter(([id]) => id !== "me" || authUser);
+  nav.innerHTML = items.map(([id, label]) =>
     `<button data-view="${id}" title="${esc(label)}" aria-label="${esc(label)}">
       <span class="nav-label">
         ${label}
@@ -617,10 +637,13 @@ function buildNav() {
       </span>
     </button>`).join("");
   nav.querySelector("button")?.classList.add("active");
-  nav.addEventListener("click", (e) => {
-    const b = e.target.closest("button");
-    if (b) switchView(b.dataset.view);
-  });
+  if (nav.dataset.bound !== "true") {
+    nav.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (b) switchView(b.dataset.view);
+    });
+    nav.dataset.bound = "true";
+  }
 }
 
 function renderTermSwitch() {
@@ -957,6 +980,16 @@ function cardHTML(course, opts = {}) {
       }
     }
   }
+  const analyticsHTML = authUser
+    ? `${pct != null ? `<div class="enroll-bar ${pctClass}"><span style="width:${pct}%"></span></div>` : `<div class="enroll-bar-spacer"></div>`}
+        <div class="cc-enroll-inline ${pctClass}">
+          <span class="enroll-box enroll-combo" data-tip="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}" title="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}">
+            <b>${hasEnroll ? course.enrolledTotal : "—"}</b>${course.hasCapacity && course.capacityTotal ? `<span class="enroll-capacity">/<b>${course.capacityTotal}</b></span>` : ""}
+            ${pct != null ? `<span class="enroll-combo-pct">${pct}%</span>` : ""}
+          </span>
+          ${dropChip}
+        </div>`
+    : `<div class="course-data-lock"><span>Sign in to view enrollment and drop data</span></div>`;
   return `
     <div class="course-card" data-code="${esc(course.code)}" data-section="${esc(one.classId || "")}">
       <span class="stamp-shape" aria-hidden="true"></span>
@@ -986,14 +1019,7 @@ function cardHTML(course, opts = {}) {
         ${opts.reason ? `<div class="cc-reason">${esc(opts.reason)}</div>` : ""}
       </div>
       <div class="cc-bottom">
-        ${pct != null ? `<div class="enroll-bar ${pctClass}"><span style="width:${pct}%"></span></div>` : `<div class="enroll-bar-spacer"></div>`}
-        <div class="cc-enroll-inline ${pctClass}">
-          <span class="enroll-box enroll-combo" data-tip="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}" title="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}">
-            <b>${hasEnroll ? course.enrolledTotal : "—"}</b>${course.hasCapacity && course.capacityTotal ? `<span class="enroll-capacity">/<b>${course.capacityTotal}</b></span>` : ""}
-            ${pct != null ? `<span class="enroll-combo-pct">${pct}%</span>` : ""}
-          </span>
-          ${dropChip}
-        </div>
+        ${analyticsHTML}
         <div class="card-add-wrap">
           <button class="card-add" type="button" aria-label="Add to…" title="Add to…"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12h14"/></svg></button>
           <div class="card-add-menu" hidden>
@@ -1334,6 +1360,13 @@ function renderCourseRatingPanel(host, code) {
 
 /* ---------- 课程详情 ---------- */
 function openCourse(code, sectionId = "") {
+  if (!authUser) {
+    try {
+      sessionStorage.setItem(PENDING_COURSE_KEY, JSON.stringify({ code, sectionId }));
+    } catch { /* ignore storage errors */ }
+    redirectToLogin(location.hash);
+    return;
+  }
   const sections = state.courses.filter((c) => normCode(c.code) === normCode(code));
   if (!sections.length) return;
   state.modalCourse = { code, sectionId };
@@ -5395,6 +5428,7 @@ function initialsOf(user) {
 
 function renderRailBrand() {
   const btn = $("#topbar-account");
+  document.body.classList.toggle("auth-authenticated", Boolean(authUser));
   if (!btn) return;
   if (authUser) {
     btn.classList.add("is-user");
@@ -5422,11 +5456,7 @@ function openAccount() {
     location.assign(`login.html?next=${encodeURIComponent(next)}`);
     return;
   }
-  const modal = $("#account-modal");
-  if (!modal) return;
-  modal.hidden = false;
-  document.body.style.overflow = "hidden";
-  renderAccount();
+  switchView("me");
 }
 
 function closeAccount() {
@@ -5578,6 +5608,73 @@ function handleGoogleCredential(response) {
   } catch {
     toast("Google sign-in failed.");
   }
+}
+
+function renderMyPage() {
+  const host = $("#my-page");
+  if (!host) return;
+  if (!authUser) {
+    redirectToLogin("#/me");
+    return;
+  }
+  const ratings = Object.entries(readCourseRatings())
+    .map(([code, value]) => ({ code, value: Number(value?.value) || 0 }))
+    .filter((item) => item.value > 0)
+    .sort((a, b) => a.code.localeCompare(b.code));
+  const plannedCodes = [...new Set(state.planBuckets.flat().map(normCode))];
+  const calendarCourses = state.schedule.length;
+  const currentCourses = getGrouped();
+  const titleForCode = (code) => currentCourses.find((course) => course.code === code)?.title || "Course";
+  const avatar = authUser.picture
+    ? `<img src="${esc(authUser.picture)}" alt="" referrerpolicy="no-referrer" />`
+    : `<span>${esc(initialsOf(authUser))}</span>`;
+  host.innerHTML = `
+    <header class="my-hero">
+      <div class="my-identity">
+        <div class="my-avatar">${avatar}</div>
+        <div>
+          <span class="dept-kicker">Student workspace · ${esc(termShort(state.term))}</span>
+          <h1>${esc(authUser.name || "Columbia student")}</h1>
+          <p>${esc(authUser.email || "")}</p>
+        </div>
+      </div>
+      <div class="my-stats">
+        <div><b>${calendarCourses}</b><span>scheduled courses</span></div>
+        <div><b>${plannedCodes.length}</b><span>planned courses</span></div>
+        <div><b>${ratings.length}</b><span>course ratings</span></div>
+      </div>
+    </header>
+    <div class="my-grid">
+      <section class="my-panel my-plan-panel">
+        <div class="my-panel-head"><span>Current session</span><h2>Your plan</h2></div>
+        ${plannedCodes.length ? `<div class="my-course-list">${plannedCodes.map((code) =>
+          `<button type="button" data-my-course="${esc(code)}"><b>${esc(code)}</b><span>${esc(titleForCode(code))}</span></button>`).join("")}</div>`
+          : `<div class="dept-empty">No courses in your plan yet.</div>`}
+      </section>
+      <section class="my-panel">
+        <div class="my-panel-head"><span>Saved on this device</span><h2>Your ratings</h2></div>
+        ${ratings.length ? `<div class="my-rating-list">${ratings.map((item) =>
+          `<button type="button" data-my-course="${esc(item.code)}"><b>${esc(item.code)}</b><span>${"★".repeat(item.value)}${"☆".repeat(5 - item.value)}</span></button>`).join("")}</div>`
+          : `<div class="dept-empty">Open a course and tap a star to add your first rating.</div>`}
+      </section>
+      <section class="my-panel my-account-panel">
+        <div class="my-panel-head"><span>Account</span><h2>Session</h2></div>
+        <p>Signed in with ${authUser.provider === "google" ? "Google" : "your Columbia email"}.</p>
+        <div class="my-actions">
+          <button class="btn small primary" type="button" data-my-path="browse">Browse courses</button>
+          <button class="btn small ghost" type="button" data-my-path="planner">Open plan</button>
+          <button class="btn small ghost" type="button" data-my-path="calendar">Calendar</button>
+          <button class="btn small ghost" type="button" data-my-signout>Sign out</button>
+        </div>
+      </section>
+    </div>`;
+  host.querySelectorAll("[data-my-course]").forEach((button) => {
+    button.addEventListener("click", () => openCourse(button.dataset.myCourse));
+  });
+  host.querySelectorAll("[data-my-path]").forEach((button) => {
+    button.addEventListener("click", () => switchView(button.dataset.myPath));
+  });
+  host.querySelector("[data-my-signout]")?.addEventListener("click", signOut);
 }
 
 const GOOGLE_CALENDAR_CLIENT_KEY = "cu-google-calendar-client-id";
@@ -5933,8 +6030,10 @@ function signOut() {
     try { window.google.accounts.id.disableAutoSelect(); } catch { /* ignore */ }
   }
   renderRailBrand();
+  buildNav();
   renderAccount();
   toast("Signed out.");
+  switchView("browse");
 }
 
 /* ---------- Search suggestions ---------- */
@@ -6682,6 +6781,15 @@ function init() {
     }
   }
   switchView(initial);
+  if (authUser) {
+    try {
+      const pendingCourse = JSON.parse(sessionStorage.getItem(PENDING_COURSE_KEY) || "null");
+      if (pendingCourse?.code) {
+        sessionStorage.removeItem(PENDING_COURSE_KEY);
+        setTimeout(() => openCourse(pendingCourse.code, pendingCourse.sectionId || ""), 120);
+      }
+    } catch { /* ignore storage errors */ }
+  }
   fitCourseCardTitles();
   document.fonts?.ready.then(fitCourseCardTitles);
   document.fonts?.ready.then(positionSearchCaret);

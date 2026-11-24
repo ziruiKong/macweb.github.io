@@ -58,31 +58,34 @@ function localSignIn(email) {
   completeSignIn({ name, email: clean, picture: null, provider: "local" });
 }
 
-let googleTokenClient = null;
-let googleTokenClientId = "";
-
 function loadGoogleScript() {
-  if (window.google?.accounts?.oauth2) return Promise.resolve();
+  if (window.google?.accounts?.id) return Promise.resolve();
   return new Promise((resolve, reject) => {
     const script = document.createElement("script");
+    const timeout = window.setTimeout(() => {
+      script.remove();
+      reject(new Error("Google Identity Services timed out"));
+    }, 10000);
     script.src = "https://accounts.google.com/gsi/client";
     script.async = true;
-    script.onload = resolve;
-    script.onerror = () => reject(new Error("Google Identity Services unavailable"));
+    script.onload = () => {
+      window.clearTimeout(timeout);
+      resolve();
+    };
+    script.onerror = () => {
+      window.clearTimeout(timeout);
+      script.remove();
+      reject(new Error("Google Identity Services unavailable"));
+    };
     document.head.appendChild(script);
   });
 }
 
-async function handleGoogleTokenResponse(response) {
-  const button = $("#google-login");
+function handleGoogleCredential(response) {
   try {
-    if (response?.error) throw new Error(response.error_description || response.error);
-    if (!response?.access_token) throw new Error("Google did not return an access token");
-    const profileResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-      headers: { Authorization: `Bearer ${response.access_token}` },
-    });
-    if (!profileResponse.ok) throw new Error(`Google profile request failed (${profileResponse.status})`);
-    const payload = await profileResponse.json();
+    let base64 = String(response.credential || "").split(".")[1].replace(/-/g, "+").replace(/_/g, "/");
+    base64 += "=".repeat((4 - (base64.length % 4)) % 4);
+    const payload = JSON.parse(atob(base64));
     if (!isColumbiaEmail(payload.email)) {
       setStatus("Use your Columbia University Google account.", "error");
       return;
@@ -96,14 +99,13 @@ async function handleGoogleTokenResponse(response) {
     });
   } catch (_) {
     setStatus("Google sign-in failed. Try again.", "error");
-  } finally {
-    if (button) button.disabled = false;
   }
 }
 
-async function startGoogleLogin() {
+async function initializeGoogleLogin() {
   clearStatus();
   const button = $("#google-login");
+  const mount = $("#google-login-mount");
   const clientId = String(window.COLUMBIA_AUTH?.googleClientId || "").trim();
   if (!clientId || !/^https?:$/.test(location.protocol)) {
     $("#email-form").hidden = false;
@@ -112,26 +114,28 @@ async function startGoogleLogin() {
     return;
   }
 
-  button.disabled = true;
   try {
     await loadGoogleScript();
-    if (!window.google?.accounts?.oauth2) throw new Error("Google OAuth client unavailable");
-    if (!googleTokenClient || googleTokenClientId !== clientId) {
-      googleTokenClientId = clientId;
-      googleTokenClient = window.google.accounts.oauth2.initTokenClient({
-        client_id: clientId,
-        scope: "openid email profile",
-        ux_mode: "popup",
-        callback: handleGoogleTokenResponse,
-        error_callback: (error) => {
-          setStatus(error?.message || "Google sign-in was cancelled.", "error");
-          button.disabled = false;
-        },
-      });
-    }
-    googleTokenClient.requestAccessToken({ prompt: "select_account" });
+    if (!window.google?.accounts?.id) throw new Error("Google Identity Services unavailable");
+    window.google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleCredential,
+      auto_select: false,
+      cancel_on_tap_outside: true,
+      hd: "columbia.edu",
+    });
+    mount.innerHTML = "";
+    window.google.accounts.id.renderButton(mount, {
+      type: "standard",
+      theme: "outline",
+      size: "large",
+      text: "continue_with",
+      shape: "rectangular",
+      logo_alignment: "left",
+      width: 390,
+    });
+    button.hidden = true;
   } catch (_) {
-    button.disabled = false;
     $("#email-form").hidden = false;
     setStatus("Google sign-in is unavailable. Use your @columbia.edu email to continue.", "error");
     requestAnimationFrame(() => $("#email-form input")?.focus());
@@ -139,9 +143,11 @@ async function startGoogleLogin() {
 }
 
 $("#login-back").href = safeNextPath();
-$("#google-login").addEventListener("click", startGoogleLogin);
+$("#google-login").addEventListener("click", initializeGoogleLogin);
 $("#email-form input").addEventListener("input", clearStatus);
 $("#email-form").addEventListener("submit", (event) => {
   event.preventDefault();
   localSignIn(new FormData(event.currentTarget).get("email"));
 });
+
+initializeGoogleLogin();
