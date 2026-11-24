@@ -11854,10 +11854,31 @@ main:has(> #view-browse:not([hidden])) {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 4px;
     width: 100%;
     min-width: 0;
     min-height: 44px;
+    padding: 0 3px;
+    border: 0;
+    background: transparent;
+    color: var(--sa-ink);
+    font: inherit;
     font-size: 16px;
+    cursor: pointer;
+  }
+  .mobile-nav-toggle span {
+    overflow: hidden;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .mobile-nav-toggle svg {
+    flex: 0 0 13px;
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
   }
   .topbar .nav {
     grid-column: 1 / -1;
