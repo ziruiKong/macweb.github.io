@@ -2406,10 +2406,9 @@ function radarChartSVG(axes, size = 338) {
     const valueX = x + (center - x) * .085;
     const valueY = y + (center - y) * .085;
     const value = Math.round(axis.value);
-    const badgeRadius = String(value).length >= 3 ? 13 : 12;
+    const badgeRadius = String(value).length >= 3 ? 10 : 9;
     return `
-      <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100">
-        <title>${esc(axis.label)} · ${value} / 100</title>
+      <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100" data-label="${esc(axis.label)}" data-value="${value}">
         <circle class="prof-radar-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>
         <circle class="prof-radar-value-bg" cx="${valueX.toFixed(1)}" cy="${valueY.toFixed(1)}" r="${badgeRadius}"/>
         <text class="prof-radar-value" x="${valueX.toFixed(1)}" y="${(valueY + .5).toFixed(1)}">${value}</text>
@@ -2421,6 +2420,49 @@ function radarChartSVG(axes, size = 338) {
       <polygon class="prof-radar-area" points="${dataPolygon}"/>
       ${points}
     </svg>`;
+}
+
+function bindInstructorRadar(root) {
+  const chart = root.querySelector(".prof-radar-chart");
+  const panel = chart?.closest(".prof-radar-panel");
+  if (!chart || !panel) return;
+  const tip = document.createElement("div");
+  tip.className = "prof-radar-tip";
+  tip.hidden = true;
+  panel.appendChild(tip);
+  let pinned = null;
+  chart.querySelectorAll(".prof-radar-point").forEach((point) => {
+    const show = () => {
+      const panelRect = panel.getBoundingClientRect();
+      const pointRect = point.getBoundingClientRect();
+      const value = Number(point.dataset.value) || 0;
+      tip.innerHTML = `
+        <span>${esc(point.dataset.label)}</span>
+        <b>${value}<small>/100</small></b>
+        <i><em style="width:${value}%"></em></i>`;
+      tip.hidden = false;
+      tip.style.left = `${Math.max(8, Math.min(panelRect.width - 154, pointRect.left - panelRect.left + pointRect.width / 2 - 66))}px`;
+      tip.style.top = `${Math.max(8, pointRect.top - panelRect.top - 72)}px`;
+    };
+    const hide = () => {
+      if (!pinned) tip.hidden = true;
+    };
+    point.addEventListener("pointerenter", show);
+    point.addEventListener("pointerleave", hide);
+    point.addEventListener("focus", show);
+    point.addEventListener("blur", () => {
+      if (pinned !== point) tip.hidden = true;
+    });
+    point.addEventListener("click", () => {
+      if (pinned === point) {
+        pinned = null;
+        tip.hidden = true;
+      } else {
+        pinned = point;
+        show();
+      }
+    });
+  });
 }
 
 function termChartSVG(offerings) {
@@ -2440,7 +2482,7 @@ function termChartSVG(offerings) {
     .sort((a, b) => a.term.localeCompare(b.term));
   if (!rows.length) return "";
   const width = 900;
-  const height = 440;
+  const height = 500;
   const left = 54;
   const right = 48;
   const top = 28;
@@ -2633,6 +2675,7 @@ function renderInstructorProfile() {
         if (row.dataset.term === state.term) openCourse(row.dataset.course);
       });
     });
+    bindInstructorRadar(host);
   }).catch((error) => {
     host.innerHTML = `<div class="notice error"><b>Instructor history unavailable.</b><span>${esc(error.message)}</span><button class="btn small ghost" data-prof-back>Back</button></div>`;
     host.querySelector("[data-prof-back]")?.addEventListener("click", leaveInstructorProfile);
