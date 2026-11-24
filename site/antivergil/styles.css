@@ -2188,7 +2188,7 @@ body.sidebar-collapsed .term-chip::before { display: none; }
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(243, 243, 240, .48);
+  background: transparent;
 }
 
 .course-lock-card {
