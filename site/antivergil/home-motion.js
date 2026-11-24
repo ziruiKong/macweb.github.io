@@ -46,10 +46,34 @@ function scramble(event){
   requestAnimationFrame(frame);
 }
 for(const tile of gallery.children){
-  const label=tile.querySelector('span');
-  tile.onpointerenter=()=>scramble({currentTarget:label});
+  const img=tile.querySelector('img');
+  const title=tile.textContent.replace(' ↗','');
+  const frame=document.createElement('div');
+  frame.className='photo-window';
+  frame.append(img);
+  const caption=document.createElement('div');
+  caption.className='tile-caption';
+  for(const part of title.split(' ')){
+    const line=document.createElement('div');
+    const word=document.createElement('strong');
+    word.textContent=part;
+    line.append(word);
+    caption.append(line);
+  }
+  tile.setAttribute('aria-label',title);
+  tile.replaceChildren(frame,caption);
 }
-const originals=[...gallery.children];
+gallery.addEventListener('pointermove',event=>{
+  if(reduced.matches || event.pointerType==='touch')return;
+  const frame=event.target.closest('.photo-window');
+  if(!frame)return;
+  const rect=frame.getBoundingClientRect();
+  frame.style.setProperty('--pan',((event.clientX-rect.left)/rect.width-.5)*9+'%');
+  frame.style.setProperty('--lift',((event.clientY-rect.top)/rect.height-.5)*5+'%');
+});
+for(const link of document.querySelectorAll('nav a')){
+  link.addEventListener('pointerenter',()=>scramble({currentTarget:link}));
+}\nconst originals=[...gallery.children];
 for(const tile of originals){const copy=tile.cloneNode(true);copy.tabIndex=-1;copy.setAttribute('aria-hidden','true');gallery.append(copy);}
 const track=document.createElement('div');
 track.className='gallery-track';
