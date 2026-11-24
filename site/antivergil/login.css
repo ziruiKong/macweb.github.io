@@ -16,8 +16,8 @@
 :root {
   --blue: #4169e1;
   --blue-deep: #3156c9;
-  --paper: #fcfbf8;
-  --paper-light: #f4f1ea;
+  --paper: #f5f5f7;
+  --paper-light: #ececef;
   --ink: #1e2024;
   --muted: #777a7e;
   --rule: #d5d3cf;
@@ -53,9 +53,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   overflow: hidden;
   background-color: var(--paper);
   background-image:
-    radial-gradient(circle at 10% 4%, rgba(255, 255, 255, .98), transparent 32%),
-    radial-gradient(circle at 100% 100%, rgba(226, 221, 211, .22), transparent 36%),
-    linear-gradient(118deg, rgba(255, 255, 255, .5), transparent 48%);
+    radial-gradient(900px 520px at 0% 0%, rgba(255, 255, 255, .95), transparent 62%),
+    radial-gradient(760px 520px at 100% 8%, rgba(232, 232, 236, .85), transparent 60%),
+    linear-gradient(180deg, #f6f6f8 0%, #ececef 100%);
 }
 .login-main::after {
   content: "";
@@ -294,10 +294,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
   pointer-events: none;
   background: linear-gradient(
     to right,
-    var(--paper) 0%,
-    rgba(252, 251, 248, .94) 12%,
-    rgba(252, 251, 248, .64) 34%,
-    rgba(252, 251, 248, .2) 72%,
+    var(--paper-light) 0%,
+    rgba(236, 236, 239, .94) 12%,
+    rgba(236, 236, 239, .64) 34%,
+    rgba(236, 236, 239, .2) 72%,
     transparent 100%
   );
 }
@@ -319,6 +319,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .login-main { padding: 26px clamp(24px, 8vw, 56px) 34px; }
   .login-panel { width: min(420px, 100%); }
+  .login-panel { transform: translateY(max(125px, 15svh)); }
   .login-panel h1 { font-size: clamp(22px, 5.4vw, 32px); }
   .login-visual img { object-position: center 48%; }
   .login-visual::before {
@@ -327,10 +328,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
     height: 56%;
     background: linear-gradient(
       to bottom,
-      var(--paper) 0%,
-      rgba(252, 251, 248, .94) 12%,
-      rgba(252, 251, 248, .64) 34%,
-      rgba(252, 251, 248, .2) 72%,
+      var(--paper-light) 0%,
+      rgba(236, 236, 239, .94) 12%,
+      rgba(236, 236, 239, .64) 34%,
+      rgba(236, 236, 239, .2) 72%,
       transparent 100%
     );
   }
@@ -352,6 +353,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .login-main { padding-top: 16px; }
   .login-back { min-height: 44px; top: 10px; }
   .login-panel { padding-top: 10px; }
+  .login-panel { transform: translateY(clamp(70px, 13svh, 110px)); }
   .google-login,
   .email-submit { min-height: 44px; }
   .email-form input { font-size: 16px; }
