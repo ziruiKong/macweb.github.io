@@ -2586,14 +2586,12 @@ function renderInstructorProfile() {
     const metrics = instructorMetrics(offerings, profile);
     const scoreTone = instructorScoreTone(metrics.score);
     const latest = offerings[0];
-    const initials = canonical.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
     const reviewTag = metrics.reviewRating == null
       ? ""
       : `<span class="is-review">${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
     const dropTone = metrics.avgDrop == null ? "pending" : metrics.avgDrop <= .1 ? "good" : metrics.avgDrop <= .2 ? "mid" : "high";
     host.innerHTML = `
       <header class="prof-hero">
-        <div class="prof-monogram" aria-hidden="true">${esc(initials || "?")}</div>
         <div class="prof-identity">
           <h1>${esc(canonical)}</h1>
           <div class="prof-identity-tags">

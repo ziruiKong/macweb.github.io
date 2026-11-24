@@ -3147,7 +3147,7 @@ main {
 
 .prof-hero {
   display: grid;
-  grid-template-columns: 92px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 24px;
   padding: 30px 0 28px;
@@ -3267,6 +3267,19 @@ main {
   border-color: #b6b1a6;
   background: #efede7;
   color: #545047;
+}
+
+.prof-identity-tags .is-courses,
+.prof-identity-tags .is-terms,
+.prof-identity-tags .is-enrollment,
+.prof-identity-tags .is-drop-good,
+.prof-identity-tags .is-drop-mid,
+.prof-identity-tags .is-drop-high,
+.prof-identity-tags .is-drop-pending,
+.prof-identity-tags .is-review {
+  border-color: #9eb1c5;
+  background: #e8eef5;
+  color: #354f6c;
 }
 
 .prof-score {
@@ -3822,7 +3835,7 @@ main {
     border-bottom: 1px solid var(--sa-soft-line);
   }
   .prof-course-panel { grid-column: auto; padding-left: 20px; }
-  .prof-hero { grid-template-columns: 74px minmax(0, 1fr) auto; }
+  .prof-hero { grid-template-columns: minmax(0, 1fr) auto; }
   .prof-monogram { width: 70px; height: 70px; font-size: 22px; }
   .prof-score { width: 108px; height: 108px; }
   .prof-score b { font-size: 32px; }
@@ -3832,17 +3845,18 @@ main {
   .prof-toolbar { grid-template-columns: 1fr auto; }
   .prof-toolbar span:nth-child(2) { display: none; }
   .prof-hero {
-    grid-template-columns: 58px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
     gap: 15px;
     padding: 24px 0;
   }
   .prof-monogram { width: 54px; height: 54px; font-size: 17px; }
   .prof-score {
-    grid-column: 1 / -1;
+    grid-column: auto;
+    grid-row: 1;
     width: 92px;
     height: 92px;
-    margin-top: 5px;
+    margin-top: 0;
   }
   .prof-score b { font-size: 28px; }
   .prof-panel { padding: 16px; }
