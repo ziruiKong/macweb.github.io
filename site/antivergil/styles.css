@@ -11733,3 +11733,8 @@ body.join-page-open {
 :is(#course-list, #search-results) .course-card .course-data-lock {
   grid-column: 1 / 4;
 }
+
+:is(#course-list, #search-results) .course-card .cc-title {
+  font-size: 16px;
+  line-height: 1.25;
+}
