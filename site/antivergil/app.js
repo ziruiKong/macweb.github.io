@@ -87,6 +87,8 @@ const state = {
   searchPage: 0,
   instructorName: "",
   instructorReturn: null,
+  departmentCode: "",
+  departmentReturn: null,
   calendarView: "week",
   calendarSelected: null,
   calendarMiniMonth: null,
@@ -506,12 +508,15 @@ function goView(delta) {
   if (entry.view === "instructor") {
     state.instructorName = entry.instructorName || "";
   }
+  if (entry.view === "department") {
+    state.departmentCode = entry.departmentCode || "";
+  }
   switchView(entry.view, { noHistory: true });
 }
 
 function switchView(id, opts = {}) {
   $$(".view").forEach((v) => (v.hidden = v.id !== `view-${id}`));
-  const navId = id === "search" || id === "instructor" ? "browse" : id;
+  const navId = id === "search" || id === "instructor" || id === "department" ? "browse" : id;
   $$(".nav button").forEach((b) => b.classList.toggle("active", b.dataset.view === navId));
   if (id !== "browse") setFilterPanelOpen(false);
   document.body.dataset.view = id;
@@ -526,9 +531,10 @@ function switchView(id, opts = {}) {
       dept: id === "search" ? state.searchDepartment : null,
       instructor: id === "search" ? state.searchInstructor : null,
       instructorName: id === "instructor" ? state.instructorName : null,
+      departmentCode: id === "department" ? state.departmentCode : null,
     };
     const cur = viewStack[viewIndex];
-    if (!cur || cur.view !== entry.view || cur.q !== entry.q || cur.instructorName !== entry.instructorName) {
+    if (!cur || cur.view !== entry.view || cur.q !== entry.q || cur.instructorName !== entry.instructorName || cur.departmentCode !== entry.departmentCode) {
       viewStack.length = viewIndex + 1;
       viewStack.push(entry);
       viewIndex = viewStack.length - 1;
@@ -539,11 +545,14 @@ function switchView(id, opts = {}) {
     ? `#/search${searchHash() ? `?${searchHash()}` : ""}`
     : id === "instructor"
       ? `#/instructor/${encodeURIComponent(state.instructorName)}`
+      : id === "department"
+        ? `#/department/${encodeURIComponent(state.departmentCode)}`
       : `#/${id}`;
   if (location.hash !== hash) history.replaceState(null, "", hash);
   if (id === "map") { initMap(); refreshMapPins(); }
   if (id === "search") renderSearchResults();
   if (id === "instructor") renderInstructorProfile();
+  if (id === "department") renderDepartmentProfile();
   if (id === "analysis") renderAnalysis();
   if (id === "planner") renderPlanner();
   if (id === "calendar") {
@@ -971,7 +980,7 @@ let titleFitFrame = 0;
 function fitCourseCardTitles() {
   cancelAnimationFrame(titleFitFrame);
   titleFitFrame = requestAnimationFrame(() => {
-    document.querySelectorAll("#course-list .cc-title, #search-results .cc-title").forEach((title) => {
+    document.querySelectorAll("#course-list .cc-title, #search-results .cc-title, #department-courses .cc-title").forEach((title) => {
       title.style.removeProperty("font-size");
     });
   });
@@ -995,7 +1004,7 @@ let stampResizeFrame = 0;
 function scheduleStampCardLayout() {
   cancelAnimationFrame(stampResizeFrame);
   stampResizeFrame = requestAnimationFrame(() => {
-    ["#course-list", "#search-results"].forEach((selector) => {
+    ["#course-list", "#search-results", "#department-courses"].forEach((selector) => {
       decorateStampCards(selector);
     });
   });
@@ -1283,7 +1292,7 @@ function openCourse(code, sectionId = "") {
       </div>
       <div class="m-folder-head">
         <h2>${esc(c.code)} · ${esc(c.title)}</h2>
-        <div class="m-sub">${esc(c.dept)}${c.sections[0].subtitle && c.sections[0].subtitle !== c.title ? " · " + esc(c.sections[0].subtitle) : ""} · Section ${esc(sectionLabel(selected))}</div>
+        <div class="m-sub"><button class="m-dept-link" type="button" data-department="${esc(c.deptCode)}">${esc(c.dept)} ↗</button>${c.sections[0].subtitle && c.sections[0].subtitle !== c.title ? " · " + esc(c.sections[0].subtitle) : ""} · Section ${esc(sectionLabel(selected))}</div>
       </div>
       <section class="m-folder-panel" id="m-panel-overview" role="tabpanel" aria-labelledby="m-tab-overview" data-mpanel="overview">
         <div class="m-grid">
@@ -1368,6 +1377,11 @@ function openCourse(code, sectionId = "") {
       closeModal();
       openInstructor(instructor);
     });
+  });
+  body.querySelector(".m-dept-link[data-department]")?.addEventListener("click", () => {
+    const department = body.querySelector(".m-dept-link[data-department]")?.dataset.department;
+    closeModal();
+    openDepartment(department);
   });
   body.querySelectorAll(".prereq-link").forEach((a) =>
     a.addEventListener("click", () => openCourse(a.dataset.code)));
@@ -2276,6 +2290,21 @@ function openInstructor(name) {
   switchView("instructor");
 }
 
+function openDepartment(code) {
+  const department = String(code || "").trim().toUpperCase();
+  if (!department) return;
+  const currentView = document.body.dataset.view || "browse";
+  if (currentView !== "department") state.departmentReturn = currentView;
+  state.departmentCode = department;
+  switchView("department");
+}
+
+function leaveDepartment() {
+  const destination = state.departmentReturn;
+  state.departmentReturn = null;
+  switchView(destination && destination !== "department" ? destination : "browse");
+}
+
 function leaveInstructorProfile() {
   const destination = state.instructorReturn;
   state.instructorReturn = null;
@@ -2303,6 +2332,7 @@ function instructorOfferings(profile) {
     schedule: row[8] || "Time TBA",
     dropBase: Number(row[9]) || 0,
     dropComplete: row[10] === 1,
+    archive: row[11] || null,
   })).sort((a, b) => b.term.localeCompare(a.term) || a.code.localeCompare(b.code));
 }
 
@@ -2379,6 +2409,252 @@ function instructorMetrics(offerings, profile) {
     axes,
     score: teaching.length ? Math.round(weighted / weightSum) : null,
   };
+}
+
+function departmentCodeForCourse(code) {
+  return normCode(code).split(/\s+/)[0] || "";
+}
+
+function aggregateDepartment(index, departmentCode) {
+  const courses = new Map();
+  const instructors = [];
+  for (const [name, profile] of Object.entries(index.instructors || {})) {
+    const offerings = instructorOfferings(profile).filter((row) =>
+      departmentCodeForCourse(row.code) === departmentCode);
+    if (!offerings.length) continue;
+    const metrics = instructorMetrics(offerings, profile);
+    if (metrics.score != null) {
+      instructors.push({
+        name,
+        score: metrics.score,
+        courses: metrics.courses.length,
+        terms: metrics.terms.length,
+        enrolled: metrics.totalEnrolled,
+        drop: metrics.avgDrop,
+        reviews: metrics.reviewCount,
+      });
+    }
+    for (const row of offerings) {
+      const code = normCode(row.code);
+      const current = courses.get(code) || {
+        code,
+        title: row.title,
+        terms: new Set(),
+        totals: new Set(),
+        enrolled: 0,
+        capacity: 0,
+        dropBase: 0,
+        dropWeighted: 0,
+        latestTerm: row.term,
+      };
+      current.terms.add(row.term);
+      current.totals.add(row.instructor || name);
+      if (row.term > current.latestTerm) {
+        current.latestTerm = row.term;
+        current.title = row.title || current.title;
+      }
+      if (Number.isFinite(row.enrolled) && row.enrolled > 0) current.enrolled += row.enrolled;
+      if (Number.isFinite(row.capacity) && row.capacity > 0) current.capacity += row.capacity;
+      if (row.dropRate != null && row.dropBase >= 10) {
+        current.dropBase += row.dropBase;
+        current.dropWeighted += row.dropRate * row.dropBase;
+      }
+      courses.set(code, current);
+    }
+  }
+  const courseRows = [...courses.values()].map((row) => ({
+    ...row,
+    drop: row.dropBase ? row.dropWeighted / row.dropBase : null,
+    instructors: row.totals.size,
+  }));
+  instructors.sort((a, b) =>
+    b.score - a.score || b.enrolled - a.enrolled || a.name.localeCompare(b.name));
+  return {
+    courses: courseRows,
+    instructors,
+    mostEnrolled: [...courseRows]
+      .filter((row) => row.enrolled > 0)
+      .sort((a, b) => b.enrolled - a.enrolled || a.code.localeCompare(b.code))
+      .slice(0, 8),
+    lowestDrop: [...courseRows]
+      .filter((row) =>
+        row.drop != null &&
+        row.dropBase >= 20 &&
+        row.enrolled >= 40 &&
+        !/independent|fieldwork|practica|research|recitation|\brec\b|mentored/i.test(row.title) &&
+        !/GR(?:5999|8001|8101)/i.test(row.code))
+      .sort((a, b) => a.drop - b.drop || b.enrolled - a.enrolled || a.code.localeCompare(b.code))
+      .slice(0, 8),
+  };
+}
+
+function departmentCourseRankHTML(rows, mode) {
+  if (!rows.length) {
+    return `<div class="dept-empty">No verified ${mode === "drop" ? "drop history" : "enrollment records"} yet.</div>`;
+  }
+  return rows.map((row, index) => `
+    <div class="dept-course-rank">
+      <span class="dept-rank-index">${String(index + 1).padStart(2, "0")}</span>
+      <div class="dept-rank-main">
+        <b>${esc(row.code)}</b>
+        <strong>${esc(row.title)}</strong>
+        <span>${row.terms.size} term${row.terms.size === 1 ? "" : "s"}${row.instructors ? ` · ${row.instructors} instructor${row.instructors === 1 ? "" : "s"}` : ""}${mode === "drop" ? ` · ${row.dropBase.toLocaleString("en-US")} drop base` : ""}</span>
+      </div>
+      <div class="dept-rank-value ${mode}">
+        <b>${mode === "drop" ? `${(row.drop * 100).toFixed(1)}%` : row.enrolled.toLocaleString("en-US")}</b>
+        <span>${mode === "drop" ? "drop" : "enrolled"}</span>
+      </div>
+    </div>`).join("");
+}
+
+function departmentProfessorHTML(rows, total) {
+  if (!rows.length) return `<div class="dept-empty">Instructor ranking is still being built.</div>`;
+  return `
+    <div class="dept-prof-head" aria-hidden="true">
+      <span>Rank</span><span>Instructor</span><span>Scale</span><span>Score</span>
+    </div>
+    ${rows.slice(0, 20).map((row, index) => `
+      <button class="dept-prof-row" type="button" data-instructor="${esc(row.name)}">
+        <span class="dept-prof-rank">${String(index + 1).padStart(2, "0")}</span>
+        <span class="dept-prof-identity">
+          <b>${esc(row.name)}</b>
+          <span>${row.courses} course${row.courses === 1 ? "" : "s"} · ${row.terms} term${row.terms === 1 ? "" : "s"}${row.reviews ? ` · ${row.reviews} reviews` : ""}</span>
+        </span>
+        <span class="dept-prof-scale"><i style="width:${Math.max(4, row.score)}%"></i></span>
+        <span class="dept-prof-score ${instructorScoreTone(row.score)}">${row.score}</span>
+      </button>`).join("")}
+    ${total > 20 ? `<div class="dept-ranking-note">Showing the top 20 of ${total.toLocaleString("en-US")} ranked instructors.</div>` : ""}`;
+}
+
+function departmentCourseRowsHTML(courses) {
+  if (!courses.length) return `<div class="dept-empty">No current-term courses are available.</div>`;
+  return `
+    <div class="dept-course-table-head" aria-hidden="true">
+      <span>Course</span><span>Instructor</span><span>Schedule</span><span>Enrollment</span>
+    </div>
+    ${courses.map((course) => {
+      const section = course.sections[0];
+      const instructors = [...new Set(course.sections.map((item) => item.instructor).filter(Boolean))];
+      const meeting = meetingParts(section);
+      const days = (section.days || []).map((day) => DAY_MINI[day - 1]).join("/") || "TBA";
+      const instructorLabel = instructors.length
+        ? `${instructors.slice(0, 2).join(", ")}${instructors.length > 2 ? ` +${instructors.length - 2}` : ""}`
+        : "Staff";
+      const fill = course.hasCapacity && course.capacityTotal
+        ? Math.round(course.enrolledTotal / course.capacityTotal * 100)
+        : null;
+      return `
+        <button class="dept-course-row" type="button" data-course="${esc(course.code)}" data-section="${esc(section.classId || "")}">
+          <span class="dept-course-code">${esc(course.code)}</span>
+          <span class="dept-course-main">
+            <b>${esc(course.title)}</b>
+            <span>${esc(instructorLabel)}<i>${course.sections.length} section${course.sections.length === 1 ? "" : "s"}</i></span>
+          </span>
+          <span class="dept-course-schedule">
+            <b>${esc(days)} · ${esc(meeting.time)}</b>
+            <span>${esc(section.type || section.method || "Course")}</span>
+          </span>
+          <span class="dept-course-enrollment">
+            <b>${course.enrolledTotal || "—"}${course.hasCapacity && course.capacityTotal ? ` / ${course.capacityTotal}` : ""}</b>
+            <span>${fill == null ? "seats" : `${fill}% filled`}</span>
+          </span>
+        </button>`;
+    }).join("")}`;
+}
+
+function renderDepartmentProfile() {
+  const host = $("#department-page");
+  if (!host) return;
+  const departmentCode = String(state.departmentCode || "").trim().toUpperCase();
+  if (!departmentCode) {
+    host.innerHTML = `<div class="notice info"><b>Choose a department first.</b><button class="btn small ghost" data-dept-back>Back to browse</button></div>`;
+    host.querySelectorAll("[data-dept-back]").forEach((button) => {
+      button.addEventListener("click", leaveDepartment);
+    });
+    return;
+  }
+  const currentCourses = getGrouped()
+    .filter((course) => course.deptCode === departmentCode)
+    .sort((a, b) => a.code.localeCompare(b.code));
+  const departmentName = currentCourses[0]?.dept || departmentCode;
+  host.innerHTML = `
+    <div class="instructor-loading">
+      <span></span>
+      <b>Building ${esc(departmentCode)} department dossier</b>
+      <small>Ranking courses and instructors across all available terms…</small>
+    </div>`;
+  loadInstructorIndex().then((index) => {
+    if (state.departmentCode !== departmentCode || $("#view-department").hidden) return;
+    const aggregate = aggregateDepartment(index, departmentCode);
+    if (!currentCourses.length && !aggregate.courses.length) {
+      host.innerHTML = `<div class="notice info"><b>Department not found.</b><span>No courses are available for “${esc(departmentCode)}”.</span><button class="btn small ghost" data-dept-back>Back to browse</button></div>`;
+      host.querySelectorAll("[data-dept-back]").forEach((button) => {
+        button.addEventListener("click", leaveDepartment);
+      });
+      return;
+    }
+    const currentSections = currentCourses.reduce((sum, course) => sum + course.sections.length, 0);
+    const currentEnrollment = currentCourses.reduce((sum, course) => sum + (course.enrolledTotal || 0), 0);
+    const instructorCount = aggregate.instructors.length;
+    host.innerHTML = `
+      <header class="dept-hero">
+        <div class="dept-hero-main">
+          <button class="dept-back" type="button" data-dept-back>← Browse all courses</button>
+          <span class="dept-kicker">Department dossier · ${esc(termShort(state.term))}</span>
+          <h1>${esc(departmentCode)}</h1>
+          <p>${esc(departmentName)}</p>
+        </div>
+        <div class="dept-hero-metrics">
+          <div><b>${currentCourses.length}</b><span>courses this term</span></div>
+          <div><b>${currentSections}</b><span>sections</span></div>
+          <div><b>${currentEnrollment.toLocaleString("en-US")}</b><span>students enrolled</span></div>
+        </div>
+      </header>
+      <div class="dept-section-head">
+        <div><span>Course pulse</span><h2>Popular courses</h2></div>
+        <p>Ranked from verified enrollment and post-start drop history across the teaching archive.</p>
+      </div>
+      <div class="dept-course-rank-grid">
+        <section class="dept-rank-panel">
+          <div class="dept-rank-title"><h3>Most enrolled</h3><span>All available terms</span></div>
+          ${departmentCourseRankHTML(aggregate.mostEnrolled, "enrollment")}
+        </section>
+        <section class="dept-rank-panel">
+          <div class="dept-rank-title"><h3>Lowest drop</h3><span>Drop base ≥20 · 40 enrolled</span></div>
+          ${departmentCourseRankHTML(aggregate.lowestDrop, "drop")}
+        </section>
+      </div>
+      <section class="dept-prof-panel">
+        <div class="dept-section-head compact">
+          <div><span>Faculty index</span><h2>Instructor ranking</h2></div>
+          <p>${instructorCount.toLocaleString("en-US")} instructors teaching in ${esc(departmentCode)}.</p>
+        </div>
+        ${departmentProfessorHTML(aggregate.instructors, instructorCount)}
+      </section>
+      <section class="dept-term-panel">
+        <div class="dept-section-head compact">
+          <div><span>${esc(termShort(state.term))}</span><h2>All courses this term</h2></div>
+          <p>${currentCourses.length} courses · ${currentSections} sections</p>
+        </div>
+        <div id="department-courses" class="dept-course-table">
+          ${departmentCourseRowsHTML(currentCourses)}
+        </div>
+      </section>`;
+    host.querySelectorAll("[data-dept-back]").forEach((button) => {
+      button.addEventListener("click", leaveDepartment);
+    });
+    host.querySelectorAll(".dept-prof-row[data-instructor]").forEach((button) => {
+      button.addEventListener("click", () => openInstructor(button.dataset.instructor));
+    });
+    host.querySelectorAll(".dept-course-row[data-course]").forEach((row) => {
+      row.addEventListener("click", () => openCourse(row.dataset.course, row.dataset.section));
+    });
+  }).catch((error) => {
+    host.innerHTML = `<div class="notice error"><b>Department data unavailable.</b><span>${esc(error.message)}</span><button class="btn small ghost" data-dept-back>Back to browse</button></div>`;
+    host.querySelectorAll("[data-dept-back]").forEach((button) => {
+      button.addEventListener("click", leaveDepartment);
+    });
+  });
 }
 
 function instructorScoreTone(score) {
@@ -2605,7 +2881,7 @@ function instructorHistoryHTML(offerings) {
             <div class="prof-offering-main">
               <b>${esc(row.title)}</b>
             </div>
-            <div class="prof-offering-metric"><b>${row.enrolled == null ? "—" : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
+            <div class="prof-offering-metric"${row.enrolled == null ? ` title="Enrollment count is not in the public dataset; open the archived directory page for the snapshot"` : ""}><b>${row.enrolled == null ? (row.archive ? `— <a class="prof-archive-link" href="${esc(row.archive)}" target="_blank" rel="noopener">Archive ↗</a>` : "—") : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
             <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b></div>
           </article>`).join("")}
       </div>
@@ -2636,6 +2912,8 @@ function renderInstructorProfile() {
     const metrics = instructorMetrics(offerings, profile);
     const scoreTone = instructorScoreTone(metrics.score);
     const latest = offerings[0];
+    const instructorDepartments = [...new Set(offerings.map((row) => departmentCodeForCourse(row.code)).filter(Boolean))];
+    const missingEnrollmentCount = offerings.filter((row) => row.enrolled == null).length;
     const reviewTag = metrics.reviewRating == null
       ? ""
       : `<span class="is-review">${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
@@ -2643,7 +2921,7 @@ function renderInstructorProfile() {
     host.innerHTML = `
       <header class="prof-hero">
         <div class="prof-identity">
-          <span class="prof-department">${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
+          <button class="prof-department" type="button" data-department="${esc(instructorDepartments[0] || "")}">${esc(metrics.departments.join(" / ") || "Columbia University")} ↗</button>
           <h1>${esc(canonical)}</h1>
           <div class="prof-identity-tags">
             <span class="is-courses">${metrics.courses.length} courses</span>
@@ -2675,13 +2953,19 @@ function renderInstructorProfile() {
         </section>
       </div>
       <section class="prof-history">
-        <div class="prof-panel-head"><div><h2>Every available course</h2></div></div>
+        <div class="prof-panel-head">
+          <div><h2>Every available course</h2></div>
+          ${missingEnrollmentCount ? `<small>${missingEnrollmentCount} pre-2020 offering${missingEnrollmentCount === 1 ? "" : "s"} have catalog records but no public enrollment count; they are excluded from scoring.</small>` : ""}
+        </div>
         ${instructorHistoryHTML(offerings)}
       </section>`;
     host.querySelectorAll(".prof-offering[data-course]").forEach((row) => {
       row.addEventListener("click", () => {
         if (row.dataset.term === state.term) openCourse(row.dataset.course);
       });
+    });
+    host.querySelector(".prof-department[data-department]")?.addEventListener("click", (event) => {
+      openDepartment(event.currentTarget.dataset.department);
     });
     bindInstructorRadar(host);
   }).catch((error) => {
@@ -5800,6 +6084,7 @@ function bindGlobal() {
   };
   $("#course-list").addEventListener("click", onCourseCardClick);
   $("#search-results").addEventListener("click", onCourseCardClick);
+  $("#department-page")?.addEventListener("click", onCourseCardClick);
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".card-add-wrap")) closeCardAddMenus();
   });
@@ -6113,6 +6398,14 @@ function init() {
       initial = "instructor";
     } catch {
       state.instructorName = "";
+    }
+  }
+  if (initialView.startsWith("department/")) {
+    try {
+      state.departmentCode = decodeURIComponent(initialView.slice("department/".length)).trim().toUpperCase();
+      initial = "department";
+    } catch {
+      state.departmentCode = "";
     }
   }
   switchView(initial);

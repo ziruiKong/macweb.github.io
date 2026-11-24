@@ -61,6 +61,18 @@ function scheduleLabel(section) {
   return `${sectionId ? `${sectionId} · ` : ""}${days ? `${days} ` : ""}${time}`;
 }
 
+function archiveLink(value) {
+  const link = String(value || "").trim();
+  if (/^https?:\/\/www\.columbia\.edu\/+/i.test(link)) {
+    return link.replace(/^https?:\/\/www\.columbia\.edu\/+/i, "http://www.columbia.edu/");
+  }
+  if (/^https?:\/\//i.test(link)) return link;
+  if (/^columbia\.edu\/+/i.test(link)) {
+    return `https://www.columbia.edu/${link.replace(/^columbia\.edu\/+/i, "")}`;
+  }
+  return null;
+}
+
 function analyzeDrop(series, term) {
   const start = semesterStart(term);
   const deadline = dropDeadline(term);
@@ -170,6 +182,7 @@ function main() {
         [...new Set(item.sections.map(scheduleLabel))].join("; "),
         drop.base,
         drop.complete ? 1 : 0,
+        latestEnrollment == null ? archiveLink(first.link) : null,
       ]);
       instructors.set(nameKey, profile);
     }
