@@ -2332,7 +2332,7 @@ function instructorMetrics(offerings, profile) {
   const avgEnrollment = teaching.length ? totalEnrolled / teaching.length : 0;
   const reviewRating = Array.isArray(profile?.r) ? Number(profile.r[0]) : null;
   const reviewCount = Array.isArray(profile?.r) ? Number(profile.r[1]) : 0;
-  const breadthScore = Math.max(0, Math.min(100, 45 + Math.min(courses.length, 10) * 4 + Math.min(terms.length, 12)));
+  const breadthScore = Math.max(0, Math.min(100, 65 + Math.max(0, courses.length - 1) * 5));
   const experienceScore = Math.max(0, Math.min(100, 30 + Math.min(terms.length, 10) * 6.5));
   const classSizeScore = avgEnrollment > 0
     ? Math.max(0, Math.min(100, 30 + Math.log1p(avgEnrollment) / Math.log1p(100) * 70))
