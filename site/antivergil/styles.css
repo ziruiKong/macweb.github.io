@@ -11738,3 +11738,29 @@ body.join-page-open {
   font-size: 16px;
   line-height: 1.25;
 }
+
+/* Explicitly place analytics cells so Drop never auto-flows behind Add. */
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-bar,
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-bar-spacer {
+  grid-column: 1;
+  grid-row: 1;
+}
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-combo {
+  grid-column: 2;
+  grid-row: 1;
+}
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop {
+  grid-column: 3;
+  grid-row: 1;
+  position: relative;
+  z-index: 1;
+  visibility: visible;
+  opacity: 1;
+  white-space: nowrap;
+  overflow: visible;
+  font-size: 10px;
+}
+:is(#course-list, #search-results) .course-card .cc-bottom .card-add-wrap,
+:is(#course-list, #search-results) .course-card .cc-bottom .course-data-lock {
+  grid-row: 1;
+}
