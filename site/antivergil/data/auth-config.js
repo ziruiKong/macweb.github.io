@@ -3,8 +3,8 @@
  * ------------------------------------------------------------
  * 想启用真正的 “Sign in with Google”：
  *   1. 在 Google Cloud Console 创建 OAuth 2.0 Web Client ID。
- *   2. 在 “Authorized JavaScript origins” 里加入 http://localhost:8000
- *      （以及你实际使用的 http/https 域名）。
+ *   2. 在 “Authorized JavaScript origins” 里加入 https://ziruikong.xyz
+ *      （本地调试可加入 http://localhost:8000）。
  *   3. 把 Client ID 填到下面的 googleClientId。
  *   4. 用 `node serve.mjs` 通过 http://localhost:8000 打开（Google 不接受 file://）。
  *
@@ -13,6 +13,6 @@
  * 真正的 Google 登录仍需填写下方 Client ID。
  */
 window.COLUMBIA_AUTH = {
-  googleClientId: "",
+  googleClientId: "179310231207-f2r0305ppefi7pr3fi1rf3s5crotgl4b.apps.googleusercontent.com",
   googleCalendarScope: "https://www.googleapis.com/auth/calendar.events",
 };
