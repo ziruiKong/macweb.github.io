@@ -11617,11 +11617,11 @@ body.join-page-open {
   border: 0;
   border-radius: 0;
   background: repeating-linear-gradient(to right,
-    #656561 0 1px, transparent 1px 3px,
-    #656561 3px 6px, transparent 6px 8px,
-    #656561 8px 10px, transparent 10px 11px,
-    #656561 11px 12px, transparent 12px 15px,
-    #656561 15px 19px, transparent 19px 21px);
+    #b8b8b2 0 1px, transparent 1px 3px,
+    #b8b8b2 3px 6px, transparent 6px 8px,
+    #b8b8b2 8px 10px, transparent 10px 11px,
+    #b8b8b2 11px 12px, transparent 12px 15px,
+    #b8b8b2 15px 19px, transparent 19px 21px);
 }
 :is(#course-list, #search-results) .course-card .enroll-bar > span {
   display: block;
