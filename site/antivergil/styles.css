@@ -12628,8 +12628,8 @@ body[data-view="search"] .topbar {
   top: 100%;
   right: 0;
   display: block;
-  width: min(320px, calc(100vw - 48px));
-  padding: 12px;
+  width: min(240px, calc(100vw - 32px));
+  padding: 8px;
   border: 1px solid var(--sa-soft-line);
   background: var(--sa-bg);
   box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
@@ -12650,16 +12650,10 @@ body[data-view="search"] .topbar {
   pointer-events: auto;
   transform: translateY(0);
 }
-.prof-score-popover-head {
-  margin: 0 0 6px;
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1.2;
-}
 .prof-score-popover .prof-radar-chart {
   display: block;
   width: 100%;
-  max-width: 280px;
+  max-width: 220px;
   height: auto;
   margin: 0 auto;
 }

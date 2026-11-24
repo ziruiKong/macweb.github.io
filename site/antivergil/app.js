@@ -3368,7 +3368,6 @@ function renderInstructorProfile() {
         <div class="prof-score ${scoreTone}${metrics.score == null ? " is-unrated" : ""}" style="--score-target:${metrics.score || 0}%" tabindex="0" aria-label="Instructor score ${metrics.score == null ? "not available" : metrics.score}; hover or focus to view the radar breakdown">
           <b>${metrics.score == null ? "NEW" : metrics.score}</b>
           <div class="prof-score-popover">
-            <div class="prof-score-popover-head">Teaching radar</div>
             ${radarChartSVG(metrics.axes)}
           </div>
         </div>
