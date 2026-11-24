@@ -2881,7 +2881,7 @@ function instructorHistoryHTML(offerings) {
             <div class="prof-offering-main">
               <b>${esc(row.title)}</b>
             </div>
-            <div class="prof-offering-metric"${row.enrolled == null ? ` title="Enrollment count is not in the public dataset; open the archived directory page for the snapshot"` : ""}><b>${row.enrolled == null ? (row.archive ? `— <a class="prof-archive-link" href="${esc(row.archive)}" target="_blank" rel="noopener">Archive ↗</a>` : "—") : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
+            <div class="prof-offering-metric"${row.enrolled == null ? ` title="Enrollment count is not in the public dataset; open the archived directory page for the snapshot"` : ""}><b>${row.enrolled == null ? (row.archive ? `— <a class="prof-archive-link" href="${esc(row.archive)}" target="_blank" rel="noopener">Count ↗</a>` : "—") : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
             <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b></div>
           </article>`).join("")}
       </div>
