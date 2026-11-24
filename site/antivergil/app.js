@@ -2482,7 +2482,7 @@ function termChartSVG(offerings) {
     .sort((a, b) => a.term.localeCompare(b.term));
   if (!rows.length) return "";
   const width = 900;
-  const height = 720;
+  const height = 560;
   const left = 54;
   const right = 48;
   const top = 28;
