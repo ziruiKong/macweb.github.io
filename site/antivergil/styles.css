@@ -11564,3 +11564,9 @@ body.join-page-open {
     grid-template-columns: 394px;
   }
 }
+
+/* Use the available space when only one standard ticket fits. */
+@media (min-width: 431px) and (max-width: 827px) {
+  #course-list, #search-results { grid-template-columns: minmax(0, 1fr); }
+  :is(#course-list, #search-results) > .course-card { width: 100%; }
+}
