@@ -2605,7 +2605,6 @@ function renderInstructorProfile() {
         </div>
         <div class="prof-score ${scoreTone}" style="--score:${metrics.score}">
           <b>${metrics.score}</b>
-          <small>of 100</small>
         </div>
       </header>
       <div class="prof-dashboard">
