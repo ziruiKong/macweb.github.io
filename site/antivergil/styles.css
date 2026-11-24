@@ -11464,7 +11464,7 @@ body.join-page-open {
 :is(#course-list, #search-results) .course-card > .stamp-shape::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 8px;
   border: 1px solid rgba(65, 65, 58, .65);
   background: transparent;
 }
