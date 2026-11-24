@@ -2538,20 +2538,6 @@ function aggregateDepartment(index, departmentCode) {
   return {
     courses: courseRows,
     instructors,
-    mostEnrolled: [...courseRows]
-      .filter((row) => row.enrolled > 0)
-      .sort((a, b) => b.enrolled - a.enrolled || a.code.localeCompare(b.code))
-      .slice(0, 8),
-    lowestDrop: [...courseRows]
-      .filter((row) =>
-        row.drop != null &&
-        row.dropBase >= 20 &&
-        row.enrolled >= 40 &&
-        !/independent|fieldwork|practica|research|recitation|\brec\b|mentored/i.test(row.title) &&
-        !/^RESI\b/i.test(row.code) &&
-        !/GR(?:5999|8001|8101)/i.test(row.code))
-      .sort((a, b) => a.drop - b.drop || b.enrolled - a.enrolled || a.code.localeCompare(b.code))
-      .slice(0, 8),
   };
 }
 
@@ -2902,20 +2888,6 @@ function renderDepartmentProfile() {
           <div><b>${currentEnrollment.toLocaleString("en-US")}</b><span>students enrolled</span></div>
         </div>
       </header>
-      <div class="dept-section-head">
-        <div><span>Course pulse</span><h2>Popular courses</h2></div>
-        <p>Ranked from verified enrollment and post-start drop history across the teaching archive.</p>
-      </div>
-      <div class="dept-course-rank-grid">
-        <section class="dept-rank-panel">
-          <div class="dept-rank-title"><h3>Most enrolled</h3><span>All available terms</span></div>
-          ${departmentCourseRankHTML(aggregate.mostEnrolled, "enrollment")}
-        </section>
-        <section class="dept-rank-panel">
-          <div class="dept-rank-title"><h3>Lowest drop</h3><span>Drop base ≥20 · 40 enrolled</span></div>
-          ${departmentCourseRankHTML(aggregate.lowestDrop, "drop")}
-        </section>
-      </div>
       <section class="dept-prof-panel">
         <div class="dept-section-head compact">
           <div><span>Faculty index</span><h2>Instructor ranking</h2></div>
