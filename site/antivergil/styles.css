@@ -11847,6 +11847,7 @@ main:has(> #view-browse:not([hidden])) {
 @media (max-width: 1200px) {
   .topbar-meta-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); }
   .topbar-meta-row > .topbar-term { grid-column: 3; justify-self: end; }
+  .topbar-meta-row > .topbar-term .term-menu-btn { font-weight: 700; }
   .topbar-meta-row > .topbar-actions { grid-column: 1; justify-self: start; }
   .topbar-meta-row > .mobile-nav-toggle {
     grid-column: 2;
@@ -11863,7 +11864,7 @@ main:has(> #view-browse:not([hidden])) {
     background: transparent;
     color: var(--sa-ink);
     font: inherit;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
   }
   .mobile-nav-toggle span {
@@ -11937,4 +11938,8 @@ main:has(> #view-browse:not([hidden])) {
 
 :is(#course-list, #search-results) .course-card .cc-days-row {
   border-bottom-style: solid;
+}
+
+:is(#course-list, #search-results) .course-card .cc-code-row {
+  border-right-style: solid;
 }
