@@ -565,11 +565,18 @@ function goView(delta) {
 }
 
 function switchView(id, opts = {}) {
+  $("#mobile-nav-toggle").setAttribute("aria-expanded", "false");
   const targetHash = authViewHash(id);
   if (AUTH_REQUIRED_VIEWS.has(id) && !requireAuthenticated(targetHash)) return;
   $$(".view").forEach((v) => (v.hidden = v.id !== `view-${id}`));
   const navId = id === "search" || id === "instructor" || id === "department" ? "browse" : id;
-  $$(".nav button").forEach((b) => b.classList.toggle("active", b.dataset.view === navId));
+  $$(".nav button").forEach((button) => {
+    const active = button.dataset.view === navId;
+    button.classList.toggle("active", active);
+    if (active) button.setAttribute("aria-current", "page");
+    else button.removeAttribute("aria-current");
+  });
+  $("#mobile-nav-label").textContent = NAV.find(([view]) => view === navId)?.[1] || "Menu";
   if (id !== "browse") setFilterPanelOpen(false);
   document.body.dataset.view = id;
   if (id === "calendar") {
@@ -640,7 +647,20 @@ function buildNav() {
   if (nav.dataset.bound !== "true") {
     nav.addEventListener("click", (e) => {
       const b = e.target.closest("button");
-      if (b) switchView(b.dataset.view);
+      if (!b) return;
+      const toggle = $("#mobile-nav-toggle");
+      if (toggle.getAttribute("aria-expanded") === "true") toggle.focus();
+      switchView(b.dataset.view);
+    });
+    const toggle = $("#mobile-nav-toggle");
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+    });
+    nav.parentElement.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || toggle.getAttribute("aria-expanded") !== "true") return;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.focus();
     });
     nav.dataset.bound = "true";
   }

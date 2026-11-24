@@ -314,3 +314,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .login-auth { margin-top: 24px; }
   .login-shell { grid-template-rows: minmax(0, 1fr) 250px; }
 }
+
+@media (max-width: 560px) {
+  .login-shell { grid-template-rows: auto clamp(140px, 26svh, 220px); }
+  .login-main { padding-top: 16px; }
+  .login-back { min-height: 44px; top: 10px; }
+  .login-panel { padding-top: 10px; }
+  .google-login,
+  .email-submit { min-height: 44px; }
+  .email-form input { font-size: 16px; }
+}
