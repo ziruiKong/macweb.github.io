@@ -11635,3 +11635,15 @@ body.join-page-open {
     #111 15px 19px, transparent 19px 21px);
   transition: width .2s ease;
 }
+
+@media (max-width: 827px) {
+  #course-list, #search-results { grid-template-columns: minmax(0, 1fr); }
+}
+:is(#course-list, #search-results) .course-card .cc-enroll-inline {
+  flex: 0 1 auto;
+  min-width: 0;
+  gap: 3px;
+}
+:is(#course-list, #search-results) .course-card .cc-bottom .card-add-wrap {
+  flex: 0 0 38px;
+}
