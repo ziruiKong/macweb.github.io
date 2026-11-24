@@ -11479,3 +11479,39 @@ body.join-page-open {
   border: 1px solid rgba(65, 65, 58, .65);
   background: transparent;
 }
+
+/* Ruled metadata cells inside the ticket information panel. */
+:is(#course-list, #search-results) .course-card .cc-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .8fr) auto;
+  gap: 0;
+  padding: 0;
+  border-top: 1px solid #b5b5ac;
+}
+:is(#course-list, #search-results) .course-card .cc-meta > .chip,
+:is(#course-list, #search-results) .course-card .cc-meta .instructor-pill {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 30px;
+  margin: 0;
+  padding: 5px 7px;
+  border-right: 1px solid #b5b5ac;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: normal;
+}
+:is(#course-list, #search-results) .course-card .cc-meta > :last-child { border-right: 0; }
+:is(#course-list, #search-results) .course-card .cc-meta .instructor-pill span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 560px) {
+  :is(#course-list, #search-results) .course-card .cc-meta {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  :is(#course-list, #search-results) .course-card .cc-meta > :nth-child(2n) { border-right: 0; }
+  :is(#course-list, #search-results) .course-card .cc-meta > :nth-child(n + 3) { border-top: 1px solid #b5b5ac; }
+}
