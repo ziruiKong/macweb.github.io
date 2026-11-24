@@ -2406,12 +2406,12 @@ function radarChartSVG(axes, size = 338) {
     const valueX = x + (center - x) * .085;
     const valueY = y + (center - y) * .085;
     const value = Math.round(axis.value);
-    const valueWidth = String(value).length >= 3 ? 30 : 24;
+    const badgeRadius = String(value).length >= 3 ? 13 : 12;
     return `
       <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100">
+        <title>${esc(axis.label)} · ${value} / 100</title>
         <circle class="prof-radar-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>
-        <circle class="prof-radar-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>
-        <rect class="prof-radar-value-bg" x="${(valueX - valueWidth / 2).toFixed(1)}" y="${(valueY - 9).toFixed(1)}" width="${valueWidth}" height="18" rx="9"/>
+        <circle class="prof-radar-value-bg" cx="${valueX.toFixed(1)}" cy="${valueY.toFixed(1)}" r="${badgeRadius}"/>
         <text class="prof-radar-value" x="${valueX.toFixed(1)}" y="${(valueY + .5).toFixed(1)}">${value}</text>
       </g>`;
   }).join("");
@@ -2593,9 +2593,9 @@ function renderInstructorProfile() {
     host.innerHTML = `
       <header class="prof-hero">
         <div class="prof-identity">
+          <span class="prof-department">${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
           <h1>${esc(canonical)}</h1>
           <div class="prof-identity-tags">
-            <span class="is-department">${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
             <span class="is-courses">${metrics.courses.length} courses</span>
             <span class="is-terms">${metrics.terms.length} terms</span>
             <span class="is-enrollment">${metrics.totalEnrolled.toLocaleString("en-US")} enrollments</span>
@@ -2612,7 +2612,6 @@ function renderInstructorProfile() {
         <section class="prof-panel prof-radar-panel">
           <div class="prof-panel-head"><div><h2>Teaching radar</h2></div></div>
           ${radarChartSVG(metrics.axes)}
-          <div class="prof-radar-legend">${metrics.axes.map((axis) => `<span>${esc(axis.label)}</span>`).join("")}</div>
         </section>
         <section class="prof-panel prof-trend-panel">
           <div class="prof-panel-head">

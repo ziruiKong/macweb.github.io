@@ -3184,6 +3184,16 @@ main {
   text-transform: uppercase;
 }
 
+.prof-department {
+  display: block;
+  margin-bottom: 4px;
+  color: #506174;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
 .prof-identity h1 {
   margin: 0;
   font-size: clamp(32px, 4vw, 58px);
