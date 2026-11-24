@@ -587,7 +587,7 @@ function buildNav() {
 
 function renderTermSwitch() {
   const terms = SEMESTERS
-    .filter((s) => s.enrollment && !/Summer/i.test(s.term))
+    .filter((s) => /(?:Spring|Fall)$/i.test(s.term))
     .map((s) => s.term)
     .sort((a, b) => b.localeCompare(a));
   const selectTerms = [...new Set([state.term, ...terms])].filter(Boolean);
@@ -2295,7 +2295,7 @@ function instructorOfferings(profile) {
     term: row[0],
     code: row[1],
     title: row[2],
-    enrolled: Number(row[3]) || 0,
+    enrolled: row[3] == null ? null : Number(row[3]),
     capacity: Number(row[4]) || 0,
     dropRate: row[5] == null ? null : Number(row[5]),
     points: Number(row[6]) || 0,
@@ -2315,12 +2315,15 @@ function instructorTeachingRows(offerings) {
 }
 
 function instructorMetrics(offerings, profile) {
-  const teaching = instructorTeachingRows(offerings).filter((row) => row.enrolled > 0);
+  const teachingHistory = instructorTeachingRows(offerings);
+  const teaching = teachingHistory.filter((row) => row.enrolled !== 0);
+  const reportedTeaching = teaching.filter((row) =>
+    Number.isFinite(row.enrolled) && row.enrolled > 0);
   const latestTerm = offerings[0]?.term || state.term;
-  const completed = teaching.filter((row) =>
+  const completed = reportedTeaching.filter((row) =>
     row.term !== latestTerm && row.dropRate != null && row.dropBase >= 10);
-  const totalEnrolled = teaching.reduce((sum, row) => sum + row.enrolled, 0);
-  const totalCapacity = teaching.reduce((sum, row) => sum + row.capacity, 0);
+  const totalEnrolled = reportedTeaching.reduce((sum, row) => sum + row.enrolled, 0);
+  const totalCapacity = reportedTeaching.reduce((sum, row) => sum + row.capacity, 0);
   const avgFill = totalCapacity ? totalEnrolled / totalCapacity : 0;
   const dropBase = completed.reduce((sum, row) => sum + row.dropBase, 0);
   const avgDrop = dropBase
@@ -2329,7 +2332,7 @@ function instructorMetrics(offerings, profile) {
   const terms = [...new Set(teaching.map((row) => row.term))];
   const courses = [...new Set(teaching.map((row) => row.code))];
   const departments = [...new Set(profile?.d || [])];
-  const avgEnrollment = teaching.length ? totalEnrolled / teaching.length : 0;
+  const avgEnrollment = reportedTeaching.length ? totalEnrolled / reportedTeaching.length : 0;
   const reviewRating = Array.isArray(profile?.r) ? Number(profile.r[0]) : null;
   const reviewCount = Array.isArray(profile?.r) ? Number(profile.r[1]) : 0;
   const breadthScore = Math.max(0, Math.min(100, 65 + Math.max(0, courses.length - 1) * 5));
@@ -2361,6 +2364,7 @@ function instructorMetrics(offerings, profile) {
   const weightSum = axes.reduce((sum, axis) => sum + weights[axis.key], 0);
   return {
     teaching,
+    reportedTeaching,
     completed,
     totalEnrolled,
     totalCapacity,
@@ -2601,7 +2605,7 @@ function instructorHistoryHTML(offerings) {
             <div class="prof-offering-main">
               <b>${esc(row.title)}</b>
             </div>
-            <div class="prof-offering-metric"><b>${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}</b></div>
+            <div class="prof-offering-metric"><b>${row.enrolled == null ? "—" : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
             <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b></div>
           </article>`).join("")}
       </div>
@@ -2663,11 +2667,11 @@ function renderInstructorProfile() {
             <div><h2>Enrollment &amp; drop history</h2></div>
             <div class="prof-chart-key"><span><i class="bar"></i>Enrollment</span><span><i class="line"></i>Drop rate</span></div>
           </div>
-          ${termChartSVG(metrics.teaching)}
+          ${termChartSVG(metrics.reportedTeaching)}
         </section>
         <section class="prof-panel prof-course-panel">
           <div class="prof-panel-head"><div><h2>Most-taught courses</h2></div></div>
-          <div class="prof-course-bars">${instructorCourseBarsHTML(metrics.teaching)}</div>
+          <div class="prof-course-bars">${instructorCourseBarsHTML(metrics.reportedTeaching)}</div>
         </section>
       </div>
       <section class="prof-history">

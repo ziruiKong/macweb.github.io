@@ -140,12 +140,18 @@ function main() {
         offerings: [],
       };
       const first = item.sections.find((section) => section.instructor) || item.sections[0];
-      const latestEnrollment = [...item.series.entries()]
+      const seriesLatest = [...item.series.entries()]
         .sort(([a], [b]) => a.localeCompare(b))
-        .at(-1)?.[1] || item.sections.reduce(
-          (sum, section) => sum + (Number(section.enrolled) || 0),
-          0,
-        );
+        .at(-1)?.[1];
+      const reportedEnrollments = item.sections
+        .map((section) => section.enrolled)
+        .filter((value) => value !== null && value !== undefined && Number.isFinite(Number(value)))
+        .map(Number);
+      const latestEnrollment = Number.isFinite(Number(seriesLatest))
+        ? Number(seriesLatest)
+        : reportedEnrollments.length
+          ? reportedEnrollments.reduce((sum, value) => sum + value, 0)
+          : null;
       const capacity = item.sections.reduce((sum, section) => sum + (Number(section.capacity) || 0), 0);
       const drop = analyzeDrop(
         [...item.series.entries()].sort(([a], [b]) => a.localeCompare(b)),
