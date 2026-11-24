@@ -537,6 +537,70 @@ function requireAuthenticated(nextHash = location.hash) {
 const viewStack = [];
 let viewIndex = -1;
 
+function viewEntryFromHash(hash = location.hash) {
+  const rawHash = String(hash || "").replace(/^#\/?/, "");
+  const [path, queryString = ""] = rawHash.split("?");
+  const params = new URLSearchParams(queryString);
+  if (path === "search") {
+    return {
+      view: "search",
+      q: params.get("q") || "",
+      dept: params.get("dept") || "all",
+      instructor: params.get("instructor") || "",
+      instructorName: null,
+      departmentCode: null,
+    };
+  }
+  if (path.startsWith("instructor/")) {
+    let instructorName = "";
+    try { instructorName = decodeURIComponent(path.slice("instructor/".length)); } catch { /* ignore malformed hashes */ }
+    return { view: "instructor", q: null, dept: null, instructor: null, instructorName, departmentCode: null };
+  }
+  if (path.startsWith("department/")) {
+    let departmentCode = "";
+    try { departmentCode = decodeURIComponent(path.slice("department/".length)).trim().toUpperCase(); } catch { /* ignore malformed hashes */ }
+    return { view: "department", q: null, dept: null, instructor: null, instructorName: null, departmentCode };
+  }
+  const view = NAV.some(([id]) => id === path) ? path : "browse";
+  return { view, q: null, dept: null, instructor: null, instructorName: null, departmentCode: null };
+}
+
+function sameViewEntry(a, b) {
+  return Boolean(a && b)
+    && a.view === b.view
+    && (a.q || "") === (b.q || "")
+    && (a.dept || "all") === (b.dept || "all")
+    && (a.instructor || "") === (b.instructor || "")
+    && (a.instructorName || "") === (b.instructorName || "")
+    && (a.departmentCode || "") === (b.departmentCode || "");
+}
+
+function restoreViewEntry(entry) {
+  if (entry.view === "search") {
+    state.searchQuery = entry.q || "";
+    state.searchDepartment = entry.dept || "all";
+    state.searchInstructor = entry.instructor || "";
+    syncSearchFields();
+  }
+  if (entry.view === "instructor") state.instructorName = entry.instructorName || "";
+  if (entry.view === "department") state.departmentCode = entry.departmentCode || "";
+}
+
+function handleBrowserPopState(event) {
+  const entry = event.state?.appViewEntry || viewEntryFromHash();
+  restoreViewEntry(entry);
+  let index = viewStack.findIndex((item) => sameViewEntry(item, entry));
+  if (index < 0) {
+    viewStack.length = viewIndex + 1;
+    viewStack.push(entry);
+    index = viewStack.length - 1;
+  }
+  viewIndex = index;
+  switchView(entry.view, { noHistory: true, noBrowserHistory: true });
+}
+
+window.addEventListener("popstate", handleBrowserPopState);
+
 function updateViewNav() {
   const back = $("#nav-back");
   const fwd = $("#nav-forward");
@@ -583,8 +647,9 @@ function switchView(id, opts = {}) {
     document.body.style.overflow = "auto";
     document.documentElement.style.overflow = "";
   }
+  let historyEntry = viewStack[viewIndex] || viewEntryFromHash(targetHash);
   if (!opts.noHistory) {
-    const entry = {
+    historyEntry = {
       view: id,
       q: id === "search" ? (opts.q ?? state.searchQuery) : null,
       dept: id === "search" ? state.searchDepartment : null,
@@ -593,15 +658,25 @@ function switchView(id, opts = {}) {
       departmentCode: id === "department" ? state.departmentCode : null,
     };
     const cur = viewStack[viewIndex];
-    if (!cur || cur.view !== entry.view || cur.q !== entry.q || cur.instructorName !== entry.instructorName || cur.departmentCode !== entry.departmentCode) {
+    if (!sameViewEntry(cur, historyEntry)) {
       viewStack.length = viewIndex + 1;
-      viewStack.push(entry);
+      viewStack.push(historyEntry);
       viewIndex = viewStack.length - 1;
     }
+  } else {
+    historyEntry = viewStack[viewIndex] || historyEntry;
   }
   updateViewNav();
   const hash = targetHash;
-  if (location.hash !== hash) history.replaceState(null, "", hash);
+  if (!opts.noBrowserHistory) {
+    const currentState = history.state && typeof history.state === "object" ? history.state : {};
+    const nextState = { ...currentState, appViewEntry: historyEntry };
+    if (opts.replaceHistory || opts.noHistory || location.hash === hash) {
+      history.replaceState(nextState, "", hash);
+    } else {
+      history.pushState(nextState, "", hash);
+    }
+  }
   if (id === "map") { initMap(); refreshMapPins(); }
   if (id === "search") renderSearchResults();
   if (id === "instructor") renderInstructorProfile();
@@ -6834,7 +6909,7 @@ function init() {
       state.departmentCode = "";
     }
   }
-  switchView(initial);
+  switchView(initial, { replaceHistory: true });
   if (authUser) {
     try {
       const pendingCourse = JSON.parse(sessionStorage.getItem(PENDING_COURSE_KEY) || "null");
