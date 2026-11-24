@@ -1,0 +1,20 @@
+{
+  "status": "ready",
+  "term": "2027-Spring",
+  "intervalMinutes": 60,
+  "dataThrough": "2026-11-23",
+  "snapshotUpdatedAt": "2026-11-23 19:49",
+  "officialUpdatedAt": "2026-11-24T00:06:00.000Z",
+  "lastAttemptAt": "2026-11-24T00:49:08.918Z",
+  "lastSuccessfulSyncAt": "2026-11-24T00:49:15.032Z",
+  "nextSyncAt": "2026-11-24T01:49:15.032Z",
+  "source": "Columbia Directory of Classes + soid catalog mirror",
+  "catalogSource": "live mirror",
+  "snapshotSource": "live mirror",
+  "subjectsUpdated": 66,
+  "subjectsRequested": 66,
+  "matchedSections": 3006,
+  "unmatchedSections": 114,
+  "warning": "114 sections without a numeric official count retained their previous value.",
+  "lastError": null
+}

@@ -1,0 +1,48 @@
+name: Refresh Antivergil data
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: antivergil-data-sync
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Refresh official enrollment data
+        working-directory: site/antivergil
+        env:
+          DATA_SYNC_INTERVAL_MINUTES: "60"
+        run: node sync-data.mjs
+
+      - name: Refresh CULPA cache on the first run of each day
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '17 6 * * *'
+        working-directory: site/antivergil
+        run: node build-culpa-cache.mjs
+
+      - name: Commit updated snapshots
+        run: |
+          if git diff --quiet -- site/antivergil/data; then
+            echo "No data changes"
+            exit 0
+          fi
+          git config user.name "antivergil-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/antivergil/data
+          git commit -m "chore(antivergil): refresh course data"
+          git push

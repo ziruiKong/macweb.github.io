@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANTIVERGIL · Columbia Course Planner</title>
+  <link rel="stylesheet" href="styles.css?v=20261123-home-only-cta" />
+</head>
+<body>
+  <svg class="ink-filter-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="nav-pencil-edge" x="-8%" y="-12%" width="116%" height="124%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="2" seed="11" result="pencilNoise" />
+        <feDisplacementMap in="SourceGraphic" in2="pencilNoise" scale="0.45" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+  <div class="app-shell">
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="topbar-meta-row">
+          <div class="analysis-term-wrap topbar-term" id="topbar-term" title="Switch term">
+            <button class="term-menu-btn" id="term-menu-btn" aria-haspopup="listbox" aria-expanded="false">
+              <span id="term-menu-label">Spring 2027</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="term-menu" id="term-menu" role="listbox" hidden></div>
+          </div>
+          <nav class="nav" id="nav"></nav>
+          <div class="topbar-actions">
+            <button class="nav-arrow" id="nav-back" type="button" title="Back" aria-label="Back" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="nav-arrow" id="nav-forward" type="button" title="Forward" aria-label="Forward" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="topbar-icon" id="topbar-account" type="button" title="Sign in" aria-label="Sign in">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.1-6 7-6s6.2 2 7 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="topbar-search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+          <input id="search" class="search" type="search" placeholder="Search courses, departments, instructors…" />
+          <span class="search-caret" id="search-caret" aria-hidden="true"></span>
+          <button class="filter-toggle" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">
+            <span>Filters</span>
+            <span class="filter-count" id="filter-count" hidden>0</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="search-suggest" id="search-suggest" hidden></div>
+          <div class="filter-panel" id="filter-panel" hidden>
+            <div class="filter-panel-head">
+              <span>Filters</span>
+              <button class="filter-panel-close" id="filter-close" type="button" aria-label="Close filters">×</button>
+            </div>
+            <div class="filters" id="filters"></div>
+            <div class="filter-panel-foot">
+              <button class="filter-clear" id="filter-clear" type="button">Clear filters</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main>
+    <!-- Browse -->
+    <section class="view" id="view-browse">
+      <div id="course-list" class="course-list"></div>
+      <button id="load-more" class="btn ghost center" hidden>Load more</button>
+    </section>
+
+    <!-- Search results -->
+    <section class="view" id="view-search" hidden>
+      <div class="view-head search-head">
+        <div class="search-head-row">
+          <h1>Search results</h1>
+        </div>
+        <div class="search-summary" id="search-sub"></div>
+      </div>
+      <div id="search-results" class="course-list"></div>
+      <button id="search-more" class="btn ghost center" hidden>Load more</button>
+    </section>
+
+    <!-- History -->
+    <section class="view" id="view-history" hidden>
+      <div class="view-head">
+        <h1>Historical terms & materials</h1>
+        <p class="sub">Course archives for GSAS, IEOR and Business (BUSI / FINC / DROM / ACCT / BUEC) from 2015–2027. Load a term, add your own, or download the raw JSON / CSV.</p>
+      </div>
+      <div class="history-picker">
+        <select id="term-select" class="select"></select>
+        <button id="load-term" class="btn primary">Load term</button>
+        <button id="load-enroll" class="btn ghost" hidden>Load enrollment</button>
+        <div class="history-add">
+          <input id="new-term" class="input" type="text" placeholder="Add a term, e.g. 2028-Fall" />
+          <button id="add-term" class="btn ghost">Add & load</button>
+        </div>
+        <div class="history-links" id="history-links"></div>
+      </div>
+      <div class="meta-line" id="history-meta"></div>
+      <div id="history-loading" class="loading" hidden>Loading term data (~10 MB)…</div>
+      <div id="history-error" class="notice error" hidden></div>
+    </section>
+
+    <!-- Enrollment analytics -->
+    <section class="view" id="view-analysis" hidden>
+      <div class="analysis-overview">
+        <div id="analysis-daily" class="daily-card" hidden></div>
+      </div>
+      <div class="analysis-stat-controls">
+        <div class="analysis-sort-block">
+          <span class="analysis-control-label">Rank by</span>
+          <div class="scope-bar" id="analysis-sort"></div>
+        </div>
+        <input id="analysis-search" class="search analysis-search" type="search" placeholder="Search courses or instructors…" />
+      </div>
+      <div class="analysis-table-head" aria-hidden="true">
+        <span>Course</span>
+        <span>Enrollment trend</span>
+        <span>Net movement</span>
+      </div>
+      <div id="analysis-list" class="analysis-list"></div>
+    </section>
+
+    <!-- Planner -->
+    <section class="view" id="view-planner" hidden>
+      <div class="view-head row planner-head">
+        <div>
+          <h1>Academic Plan & Modeling</h1>
+          <p class="sub">Check degree progress, build a semester plan, and visualize prerequisite graphs.</p>
+        </div>
+        <button class="btn small ghost plan-receipt-trigger" id="plan-print-receipt" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6"/></svg>
+          <span>Print receipt</span>
+        </button>
+      </div>
+      <div class="planner-grid">
+        <div class="card">
+          <h2 class="section-title">Degree progress</h2>
+          <div class="plan-template-field">
+            <div class="plan-template-caption">Plan template</div>
+            <div class="plan-template-select">
+              <button class="plan-template-btn" id="plan-template-btn" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span id="plan-template-label">IEOR (sample)</span>
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="plan-template-menu" id="plan-template-menu" role="listbox" hidden></div>
+            </div>
+          </div>
+          <div id="plan-progress"></div>
+        </div>
+        <div class="card">
+          <h2 class="section-title">Semester plan</h2>
+          <div class="plan-buckets" id="plan-buckets"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Prerequisite graph</h2>
+        <label>Course code
+          <input id="graph-input" class="input" type="text" placeholder="e.g. COMS W4111" />
+        </label>
+        <button id="graph-run" class="btn primary">Generate graph</button>
+        <div id="graph-holder" class="graph-holder"></div>
+      </div>
+    </section>
+
+    <!-- Calendar -->
+    <section class="view calendar-view" id="view-calendar" hidden>
+      <div class="calendar-app" id="calendar-app">
+        <aside class="calendar-sidebar" id="calendar-sidebar" aria-label="Calendar controls">
+          <div class="calendar-create-wrap">
+            <button class="calendar-create-btn" id="calendar-create" type="button" aria-expanded="false">
+              <span class="calendar-create-plus">+</span>
+              <span>Create</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+            </button>
+            <div class="calendar-create-menu" id="calendar-create-menu" hidden>
+              <button type="button" data-create-kind="event"><span class="ccm-icon">◫</span>Event<small>Meet, class, block</small></button>
+              <button type="button" data-create-kind="task"><span class="ccm-icon">✓</span>Task<small>Deadline or to-do</small></button>
+              <button type="button" data-create-kind="study"><span class="ccm-icon">◷</span>Focus block<small>Protected study time</small></button>
+            </div>
+          </div>
+
+          <div class="mini-calendar" id="mini-calendar"></div>
+
+          <label class="calendar-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            <input id="cal-event-search" type="search" placeholder="Search events" autocomplete="off" />
+          </label>
+
+          <div class="calendar-sidebar-tools" aria-label="Calendar tools">
+            <button id="gcal-open" class="calendar-text-btn" type="button" title="Connect Google Calendar">Connect</button>
+            <button id="ics-export" class="calendar-text-btn" type="button" title="Export calendar as .ics">Export</button>
+            <button id="calendar-share-code" class="calendar-text-btn" type="button" title="Share or import a course code">Share</button>
+          </div>
+
+          <div class="calendar-source-section">
+            <div class="calendar-source-heading">
+              <span>My calendars</span>
+            </div>
+            <div class="calendar-source-list" id="cal-my-sources"></div>
+          </div>
+
+          <div class="calendar-source-section">
+            <div class="calendar-source-heading">
+              <span>Other calendars</span>
+              <button type="button" title="Calendar settings">•••</button>
+            </div>
+            <div class="calendar-source-list" id="cal-other-sources"></div>
+          </div>
+
+        </aside>
+
+        <section class="calendar-main-panel">
+          <header class="calendar-toolbar">
+            <div class="calendar-period-nav">
+              <button class="calendar-today-btn" id="cal-today" type="button">Today</button>
+              <div class="calendar-arrow-group">
+                <button id="cal-prev" type="button" aria-label="Previous period">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+                </button>
+                <button id="cal-next" type="button" aria-label="Next period">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+                </button>
+              </div>
+              <div class="calendar-range-block">
+                <h1 id="cal-range">November 2026</h1>
+              </div>
+            </div>
+            <div class="calendar-toolbar-actions">
+              <button class="calendar-icon-btn" id="cal-time-format" type="button" title="Toggle 24-hour time">24h</button>
+              <button class="calendar-icon-btn calendar-sidebar-toggle" id="cal-sidebar-toggle" type="button" title="Toggle calendar sidebar" aria-label="Toggle calendar sidebar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+              </button>
+              <div class="calendar-view-switch" role="tablist" aria-label="Calendar view">
+                <button data-calview="day" role="tab">Day</button>
+                <button data-calview="week" role="tab">Week</button>
+                <button data-calview="month" role="tab">Month</button>
+                <button data-calview="agenda" role="tab">Agenda</button>
+              </div>
+            </div>
+          </header>
+
+          <div id="cal-conflicts" class="calendar-conflict-banner" hidden></div>
+          <div class="calendar-engine" id="calendar" aria-live="polite"></div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- Map -->
+    <section class="view" id="view-map" hidden>
+      <div class="campus-model-shell">
+        <div class="campus-model-main">
+          <div class="campus-model-viewport" id="campus-model-viewport">
+            <svg id="campus-model-svg" viewBox="0 0 1500 960" role="img" aria-label="Isometric line model of Columbia University main campus"></svg>
+            <div id="map-loading" class="campus-model-loading">Drawing campus model…</div>
+            <div class="campus-model-compass" aria-hidden="true">
+              <span>N</span><i></i><small>Broadway</small>
+            </div>
+          </div>
+          <div class="campus-model-legend">
+            <span><i class="landmark"></i>Landmark model</span>
+            <span><i class="building"></i>Building massing</span>
+            <span><i class="walk"></i>Roads & walkways</span>
+            <span class="campus-model-source">OSM geometry · NYC building footprints</span>
+          </div>
+        </div>
+        <aside class="campus-model-rail">
+          <div class="campus-rail-kicker">Field notes</div>
+          <label class="campus-model-rail-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+            <input id="map-search" type="search" placeholder="Find a building" autocomplete="off" />
+          </label>
+          <div id="campus-model-selection" class="campus-model-selection">
+            <b>Columbia University</b>
+            <span>Drag to orbit · Shift-drag to pan · scroll to zoom · double-click to reset · hover a landmark to inspect it.</span>
+          </div>
+          <div class="campus-model-rail-title">Landmarks <span>08</span></div>
+          <div id="campus-landmarks" class="campus-landmarks"></div>
+          <div class="campus-model-rail-title campus-course-rail-title">
+            <span>Course locations</span><span id="map-course-count">0</span>
+          </div>
+          <div id="map-list" class="cal-list campus-model-course-list"></div>
+          <div class="campus-model-links">
+            <a id="map-open-earth" href="https://earth.google.com/web/@40.8077,-73.9621,20a,800d,35y,0h,0t,0r" target="_blank" rel="noopener">Google Earth ↗</a>
+            <a id="map-open-apple" href="https://maps.apple.com/?ll=40.8077,-73.9621&q=Columbia%20University&t=k" target="_blank" rel="noopener">Apple Maps ↗</a>
+          </div>
+        </aside>
+      </div>
+      <div id="map-fallback" class="notice error" hidden></div>
+    </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Course detail modal -->
+  <div class="modal-backdrop" id="modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg>
+      </button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="course-title-tip" class="course-title-tip" hidden></div>
+  <div id="toast" class="toast" hidden></div>
+  <div class="data-as-of" id="data-as-of" role="status" aria-live="polite">
+    <span class="data-as-of-dot" aria-hidden="true"></span>
+    <span class="data-as-of-main">Data as of <b id="data-as-of-date">—</b></span>
+    <span class="data-as-of-separator" aria-hidden="true">·</span>
+    <span class="data-as-of-cadence">Refreshed hourly</span>
+    <span class="data-as-of-time" id="data-as-of-time"></span>
+    <button class="data-as-of-refresh" id="data-as-of-refresh" type="button" hidden>New data — refresh</button>
+  </div>
+  <aside class="floating-cta" id="floating-cta-banner" aria-label="Join the community">
+    <p class="floating-cta-copy">Start your plan</p>
+    <div class="floating-cta-actions">
+      <button class="floating-cta-choice is-join" id="floating-plan-cta" type="button">
+        <span class="floating-cta-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="m3.2 8.2 3.1 3.2 6.5-7"/></svg>
+        </span>
+        <span>Join</span>
+      </button>
+      <button class="floating-cta-choice is-later" id="floating-plan-later" type="button" aria-label="Later">
+        <span class="floating-cta-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </span>
+        <span>Later</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Account / sign-in modal -->
+  <div class="account-backdrop" id="account-modal" hidden>
+    <div class="account-card" role="dialog" aria-modal="true" aria-labelledby="account-title">
+      <button class="account-close" id="account-close" aria-label="Close">×</button>
+      <div id="account-body"></div>
+    </div>
+  </div>
+
+  <script src="data/semesters.js"></script>
+  <script src="data/buildings.js"></script>
+  <script src="data/campus-3d.js?v=20261122-campus-model"></script>
+  <script src="data/campus-osm.js?v=20261122-campus-greenery-2"></script>
+  <script src="campus-model.js?v=20261122-campus-model-21"></script>
+  <script src="data/courses-2026-Fall.js"></script>
+  <script src="data/courses-2026-Spring.js"></script>
+  <script src="data/courses-2027-Spring.js"></script>
+  <script src="data/enrollment-history/latest.js"></script>
+  <script src="data/enrollment-history/index.js"></script>
+  <script src="data/maps-config.js"></script>
+  <script src="data/auth-config.js"></script>
+  <script src="app.js?v=20261123-course-colors-1"></script>
+</body>
+</html>
