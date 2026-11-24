@@ -12527,3 +12527,70 @@ body[data-view="search"] .topbar {
   .prof-identity-tags span[class] { padding-inline: 8px; }
   .prof-offering-summary { grid-template-columns: minmax(75px, 32%) minmax(0, 1fr) 14px; gap: 6px; }
 }
+
+.prof-term-head b { font-weight: 800; }
+
+.prof-course-bars { gap: 7px; }
+.prof-course-bar-row {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 4px;
+  gap: 0;
+  min-height: 0;
+  padding: 0;
+  border: 1px solid var(--sa-line);
+}
+.prof-course-bar-label {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 0;
+  min-height: 40px;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--sa-soft-line);
+}
+.prof-course-bar-label b {
+  justify-self: start;
+  padding: 0 10px 0 0;
+  border-right: 1px solid var(--sa-soft-line);
+  color: var(--sa-ink-2);
+}
+.prof-course-bar-label strong {
+  padding-left: 11px;
+  font-size: 12px;
+}
+.prof-course-bar-stat {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr 1fr;
+  gap: 0;
+  text-align: left;
+}
+.prof-course-bar-stat > * {
+  justify-self: stretch;
+  align-self: stretch;
+  padding: 7px 10px;
+  border-right: 1px solid var(--sa-soft-line);
+  text-align: left;
+}
+.prof-course-bar-stat > *:last-child { border-right: 0; }
+.prof-course-bar-stat .prof-stat-enrollment { font-size: 12px; }
+.prof-course-bar-stat .prof-stat-enrollment::after,
+.prof-course-bar-stat .prof-stat-term::after,
+.prof-course-bar-stat .prof-stat-drop::before { font-size: 9px; }
+.prof-course-bar-stat .prof-stat-drop.stable { color: #26563a; }
+.prof-course-bar-stat .prof-stat-drop.watch { color: #704a19; }
+.prof-course-bar-stat .prof-stat-drop.risk { color: #7c372b; }
+.prof-course-bar-stat .prof-stat-drop.pending { color: var(--sa-ink-2); }
+.prof-course-bar-track {
+  grid-column: 1;
+  grid-row: 3;
+  height: 4px;
+}
+
+@media (max-width: 380px) {
+  .prof-course-bar-label { grid-template-columns: 100px minmax(0, 1fr); padding-inline: 7px; }
+  .prof-course-bar-label strong { padding-left: 8px; }
+  .prof-course-bar-stat > * { padding-inline: 7px; }
+}
