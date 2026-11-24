@@ -11764,3 +11764,10 @@ body.join-page-open {
 :is(#course-list, #search-results) .course-card .cc-bottom .course-data-lock {
   grid-row: 1;
 }
+
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop { color: #39764c; }
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.mid { color: #9c680b; }
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.high { color: #b12f35; }
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.up { color: #39764c; }
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.flat,
+:is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.muted { color: #73736b; }
