@@ -11647,3 +11647,10 @@ body.join-page-open {
 :is(#course-list, #search-results) .course-card .cc-bottom .card-add-wrap {
   flex: 0 0 38px;
 }
+
+:is(#course-list, #search-results) .course-card .cc-title {
+  display: grid;
+  align-content: center;
+  text-align: center;
+  padding: 4px 10px;
+}
