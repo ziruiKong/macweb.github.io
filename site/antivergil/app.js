@@ -1565,6 +1565,7 @@ function openCourse(code, sectionId = "") {
     });
     $("#modal").hidden = false;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return;
   }
   const folderTabs = [...body.querySelectorAll(".m-folder-tab")];
@@ -1615,6 +1616,7 @@ function openCourse(code, sectionId = "") {
   });
   $("#modal").hidden = false;
   document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
   loadCulpaReviews(c.code, selected.instructor || "");
 }
 

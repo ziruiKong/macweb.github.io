@@ -2173,6 +2173,8 @@ body.sidebar-collapsed .term-chip::before { display: none; }
 
 .modal.is-course-locked {
   overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .course-detail-locked > :not(.course-lock-overlay) {
@@ -2193,6 +2195,8 @@ body.sidebar-collapsed .term-chip::before { display: none; }
   place-items: center;
   padding: 24px;
   background: transparent;
+  overscroll-behavior: none;
+  touch-action: none;
 }
 
 .course-lock-card {
