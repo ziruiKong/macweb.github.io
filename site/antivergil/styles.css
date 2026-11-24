@@ -11568,7 +11568,7 @@ body.join-page-open {
 /* Use the available space when only one standard ticket fits. */
 @media (min-width: 431px) and (max-width: 827px) {
   #course-list, #search-results { grid-template-columns: minmax(0, 1fr); }
-  :is(#course-list, #search-results) > .course-card { width: 100%; }
+  :is(#course-list, #search-results) > .course-card { width: 394px; }
 }
 
 #course-list,
@@ -11599,4 +11599,11 @@ body.join-page-open {
   padding: 0;
   border: 0;
   border-radius: 0;
+}
+
+#course-list, #search-results {
+  grid-auto-rows: calc(188px * var(--ticket-scale, 1));
+}
+:is(#course-list, #search-results) > .course-card {
+  zoom: var(--ticket-scale, 1);
 }

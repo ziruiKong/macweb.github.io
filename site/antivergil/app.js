@@ -6838,3 +6838,16 @@ function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+// Scale the entire standard ticket when the single-column layout expands.
+const ticketResizeObserver = new ResizeObserver((entries) => {
+  for (const entry of entries) {
+    const scale = window.matchMedia("(min-width: 431px) and (max-width: 827px)").matches
+      ? Math.max(1, entry.contentRect.width / 394)
+      : 1;
+    entry.target.style.setProperty("--ticket-scale", String(scale));
+  }
+});
+document.querySelectorAll("#course-list, #search-results").forEach((list) => {
+  ticketResizeObserver.observe(list);
+});
