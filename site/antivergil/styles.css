@@ -3329,6 +3329,11 @@ main {
 .prof-score.strong { --ring-color: #e4a11d; }
 .prof-score.steady { --ring-color: #d66b3b; }
 .prof-score.developing { --ring-color: #ba637c; }
+.prof-score.unrated { --ring-color: #8d9aa7; }
+.prof-score.is-unrated b {
+  font-size: 23px;
+  letter-spacing: .04em;
+}
 
 .prof-dashboard {
   display: grid;

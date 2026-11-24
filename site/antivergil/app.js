@@ -2315,7 +2315,7 @@ function instructorTeachingRows(offerings) {
 }
 
 function instructorMetrics(offerings, profile) {
-  const teaching = instructorTeachingRows(offerings);
+  const teaching = instructorTeachingRows(offerings).filter((row) => row.enrolled > 0);
   const latestTerm = offerings[0]?.term || state.term;
   const completed = teaching.filter((row) =>
     row.term !== latestTerm && row.dropRate != null && row.dropBase >= 10);
@@ -2332,10 +2332,10 @@ function instructorMetrics(offerings, profile) {
   const avgEnrollment = teaching.length ? totalEnrolled / teaching.length : 0;
   const reviewRating = Array.isArray(profile?.r) ? Number(profile.r[0]) : null;
   const reviewCount = Array.isArray(profile?.r) ? Number(profile.r[1]) : 0;
-  const breadthScore = Math.max(0, Math.min(100, 35 + Math.min(courses.length, 10) * 5 + Math.min(terms.length, 12) * 1.25));
+  const breadthScore = Math.max(0, Math.min(100, 45 + Math.min(courses.length, 10) * 4 + Math.min(terms.length, 12)));
   const experienceScore = Math.max(0, Math.min(100, 30 + Math.min(terms.length, 10) * 6.5));
   const classSizeScore = avgEnrollment > 0
-    ? Math.max(0, Math.min(100, Math.log1p(avgEnrollment) / Math.log1p(150) * 100))
+    ? Math.max(0, Math.min(100, 30 + Math.log1p(avgEnrollment) / Math.log1p(100) * 70))
     : 0;
   const axes = [
     { key: "popularity", label: "Demand", value: Math.max(0, Math.min(100, avgFill * 100)) },
@@ -2350,10 +2350,10 @@ function instructorMetrics(offerings, profile) {
   const weights = {
     stability: .3,
     popularity: .25,
-    experience: .2,
-    breadth: .1,
-    scale: .1,
-    rating: .05,
+    experience: .22,
+    breadth: .08,
+    scale: .08,
+    rating: .07,
   };
   const weighted = axes.reduce((sum, axis) => sum + axis.value * weights[axis.key], 0);
   const weightSum = axes.reduce((sum, axis) => sum + weights[axis.key], 0);
@@ -2371,11 +2371,12 @@ function instructorMetrics(offerings, profile) {
     reviewRating,
     reviewCount,
     axes,
-    score: Math.round(weighted / weightSum),
+    score: teaching.length ? Math.round(weighted / weightSum) : null,
   };
 }
 
 function instructorScoreTone(score) {
+  if (!Number.isFinite(score)) return "unrated";
   if (score >= 82) return "excellent";
   if (score >= 68) return "strong";
   if (score >= 52) return "steady";
@@ -2646,8 +2647,8 @@ function renderInstructorProfile() {
             ${reviewTag}
           </div>
         </div>
-        <div class="prof-score ${scoreTone}" style="--score:${metrics.score}">
-          <b>${metrics.score}</b>
+        <div class="prof-score ${scoreTone}${metrics.score == null ? " is-unrated" : ""}" style="--score:${metrics.score || 0}">
+          <b>${metrics.score == null ? "NEW" : metrics.score}</b>
         </div>
       </header>
       <div class="prof-dashboard">
