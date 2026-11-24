@@ -1001,7 +1001,7 @@ function cardHTML(course, opts = {}) {
     }
   }
   const analyticsHTML = authUser
-    ? `${pct != null ? `<div class="enroll-bar ${pctClass}"><span style="width:${pct}%"></span></div>` : `<div class="enroll-bar-spacer"></div>`}
+    ? `${pct != null ? `<div class="enroll-bar ${pctClass}" role="progressbar" aria-label="Seats filled" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" title="${esc(fillTip)}"><span style="width:${pct}%"></span></div>` : `<div class="enroll-bar-spacer"></div>`}
         <div class="cc-enroll-inline ${pctClass}">
           <span class="enroll-box enroll-combo" data-tip="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}" title="${esc(countTip)}${pct != null ? ` · ${esc(fillTip)}` : ""}">
             <b>${hasEnroll ? course.enrolledTotal : "—"}</b>${course.hasCapacity && course.capacityTotal ? `<span class="enroll-capacity">/<b>${course.capacityTotal}</b></span>` : ""}
