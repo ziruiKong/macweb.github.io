@@ -7888,7 +7888,7 @@ body[data-view="calendar"] main {
   padding: 10px 16px 8px;
   border-bottom: 1px solid #edf0f3;
 }
-.calendar-period-nav { display: flex; min-width: 0; align-items: center; gap: 10px; }
+.calendar-period-nav { display: flex; flex: 1; min-width: 0; align-items: center; gap: 10px; }
 .calendar-today-btn {
   height: 34px;
   padding: 0 14px;
@@ -7920,7 +7920,7 @@ body[data-view="calendar"] main {
 .calendar-icon-btn:hover { background: #f1f3f4; }
 .calendar-arrow-group svg,
 .calendar-icon-btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; }
-.calendar-range-block { min-width: 0; }
+.calendar-range-block { min-width: 0; margin-inline-start: auto; text-align: end; }
 .calendar-range-block h1 {
   margin: 0;
   overflow: hidden;
