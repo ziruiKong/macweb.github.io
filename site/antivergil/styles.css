@@ -11075,7 +11075,7 @@ body.join-page-open {
   .course-card .cc-days-row { flex-wrap: wrap; }
 
   :is(#course-list, #search-results) .course-card .cc-days-row .time-chip {
-    margin-left: 0;
+    margin-left: auto;
     min-height: 32px;
   }
 
@@ -11184,7 +11184,8 @@ body.join-page-open {
   .mobile-nav-toggle svg { flex-basis: 10px; width: 10px; height: 10px; }
 
   :is(#course-list, #search-results) .course-card .cc-days-row .time-chip {
-    margin-right: auto;
+    margin-left: auto;
+    margin-right: 0;
   }
 
   .floating-cta-copy { min-width: 0; }
@@ -11218,7 +11219,7 @@ body.join-page-open {
     radial-gradient(circle at 0 50%, transparent 3px, #000 3.5px) 0 0 / 100% 12px repeat-y,
     radial-gradient(circle at 100% 50%, transparent 3px, #000 3.5px) 0 0 / 100% 12px repeat-y;
   mask-composite: intersect;
-  filter: drop-shadow(0 2px 2px rgba(36,36,34,.12));
+  filter: none;
 }
 
 :is(#course-list, #search-results) .course-card > .stamp-shape::before {
@@ -11237,4 +11238,14 @@ body.join-page-open {
     margin: -22px -22px 0;
     padding: 10px 22px 0;
   }
+}
+
+:is(#course-list, #search-results) > .course-card,
+:is(#course-list, #search-results) > .course-card:hover {
+  filter: drop-shadow(0 5px 6px rgba(36, 36, 34, .18));
+}
+
+:is(#course-list, #search-results) .cc-days-row .time-chip {
+  margin-left: auto;
+  margin-right: 0;
 }
