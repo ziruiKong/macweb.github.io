@@ -3120,24 +3120,25 @@ main {
 
 .prof-toolbar {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
   gap: 18px;
   padding: 2px 0 10px;
   border-bottom: 1px solid var(--sa-soft-line);
   color: var(--sa-ink-2);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: .04em;
   text-transform: uppercase;
 }
 
-.prof-toolbar span:nth-child(2) { text-align: center; }
+.prof-toolbar span { justify-self: end; }
 .prof-back {
   padding: 0;
   border: 0;
   background: transparent;
   color: var(--sa-ink);
-  font: inherit;
+  font-family: inherit;
+  font-size: 12px;
   letter-spacing: inherit;
   text-transform: inherit;
   cursor: pointer;
@@ -3171,7 +3172,7 @@ main {
   display: block;
   margin-bottom: 5px;
   color: var(--sa-brown);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: .11em;
   text-transform: uppercase;
 }
@@ -3187,7 +3188,7 @@ main {
 .prof-identity > p {
   margin: 9px 0 13px;
   color: var(--sa-ink-2);
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .prof-identity-tags {
@@ -3197,10 +3198,10 @@ main {
 }
 
 .prof-identity-tags span {
-  padding: 4px 8px;
+  padding: 6px 10px;
   border: 1px solid var(--sa-soft-line);
   color: var(--sa-ink-2);
-  font-size: 9.5px;
+  font-size: 12px;
 }
 
 .prof-score {
@@ -3227,7 +3228,7 @@ main {
 .prof-score span,
 .prof-score small {
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 10px;
   letter-spacing: .07em;
   text-transform: uppercase;
 }
@@ -3246,8 +3247,8 @@ main {
   grid-template-columns: minmax(300px, .78fr) minmax(0, 1.55fr);
   gap: 0;
   margin-top: 20px;
-  border-top: 1px solid var(--sa-soft-line);
-  border-bottom: 1px solid var(--sa-soft-line);
+  border-top: 2px solid var(--sa-soft-line);
+  border-bottom: 2px solid var(--sa-soft-line);
 }
 
 .prof-panel {
@@ -3256,13 +3257,13 @@ main {
 }
 
 .prof-radar-panel {
-  border-right: 1px solid var(--sa-soft-line);
+  border-right: 1.5px solid var(--sa-soft-line);
   padding-left: 0;
 }
 
 .prof-course-panel {
   grid-column: 1 / -1;
-  border-top: 1px solid var(--sa-soft-line);
+  border-top: 1.5px solid var(--sa-soft-line);
   padding-left: 0;
 }
 
@@ -3277,14 +3278,14 @@ main {
 .prof-panel-head span {
   display: block;
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 11px;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
 .prof-panel-head h2 {
   margin: 2px 0 0;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   letter-spacing: -.02em;
 }
@@ -3292,7 +3293,7 @@ main {
 .prof-panel-head small {
   max-width: 230px;
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 11px;
   line-height: 1.45;
   text-align: right;
 }
@@ -3309,30 +3310,30 @@ main {
 .prof-radar-grid {
   fill: none;
   stroke: var(--sa-soft-line);
-  stroke-width: .8;
+  stroke-width: 1.25;
 }
 
 .prof-radar-spoke {
   stroke: var(--sa-soft-line);
-  stroke-width: .7;
+  stroke-width: 1.15;
 }
 
 .prof-radar-area {
   fill: color-mix(in srgb, var(--sa-green) 20%, transparent);
   stroke: var(--sa-green);
-  stroke-width: 1.4;
+  stroke-width: 2.2;
 }
 
 .prof-radar-dot {
   fill: var(--sa-bg);
   stroke: var(--sa-brown);
-  stroke-width: 1.5;
+  stroke-width: 2.2;
 }
 
 .prof-radar-label {
   fill: var(--sa-ink-2);
   font-family: var(--sa-font);
-  font-size: 8.5px;
+  font-size: 11px;
 }
 
 .prof-radar-label tspan {
@@ -3344,7 +3345,7 @@ main {
   max-width: 340px;
   margin: 0 auto;
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 11.5px;
   line-height: 1.55;
   text-align: center;
 }
@@ -3358,6 +3359,7 @@ main {
 .prof-chart-grid {
   stroke: var(--sa-soft-line);
   stroke-dasharray: 2 4;
+  stroke-width: 1.15;
 }
 
 .prof-chart-bar {
@@ -3369,20 +3371,20 @@ main {
 .prof-drop-line {
   fill: none;
   stroke: var(--sa-brown);
-  stroke-width: 1.8;
+  stroke-width: 2.5;
 }
 
 .prof-drop-dot {
   fill: var(--sa-bg);
   stroke: var(--sa-brown);
-  stroke-width: 1.5;
+  stroke-width: 2.2;
 }
 
 .prof-chart-label,
 .prof-chart-axis-label {
   fill: var(--sa-ink-2);
   font-family: var(--sa-font);
-  font-size: 8.5px;
+  font-size: 10.5px;
 }
 
 .prof-chart-axis-label {
@@ -3396,13 +3398,13 @@ main {
   gap: 18px;
   margin-top: -7px;
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 11px;
 }
 
 .prof-chart-key span { display: inline-flex; align-items: center; gap: 6px; }
 .prof-chart-key i { display: block; width: 18px; }
 .prof-chart-key i.bar { height: 8px; background: var(--sa-green); }
-.prof-chart-key i.line { height: 2px; background: var(--sa-brown); }
+.prof-chart-key i.line { height: 3px; background: var(--sa-brown); }
 
 .prof-course-bars {
   display: grid;
@@ -3414,7 +3416,7 @@ main {
   grid-template-columns: minmax(230px, .9fr) minmax(160px, 1.4fr) 110px;
   align-items: center;
   gap: 16px;
-  min-height: 34px;
+  min-height: 44px;
   border-bottom: 1px dotted var(--sa-soft-line);
 }
 
@@ -3427,7 +3429,7 @@ main {
 
 .prof-course-bar-label b,
 .prof-course-bar-stat b {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -3435,13 +3437,13 @@ main {
 .prof-course-bar-stat span {
   overflow: hidden;
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 11.5px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .prof-course-bar-track {
-  height: 8px;
+  height: 12px;
   overflow: hidden;
   background: var(--sa-soft-line);
 }
@@ -3456,11 +3458,11 @@ main {
 
 .prof-history {
   margin-top: 26px;
-  border-top: 2px solid var(--sa-line);
+  border-top: 3px solid var(--sa-line);
 }
 
 .prof-history > .prof-panel-head { padding-top: 16px; }
-.prof-term-group { border-top: 1px solid var(--sa-soft-line); }
+.prof-term-group { border-top: 1.5px solid var(--sa-soft-line); }
 
 .prof-term-head {
   display: flex;
@@ -3468,12 +3470,12 @@ main {
   justify-content: space-between;
   padding: 9px 0;
   color: var(--sa-ink-2);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .prof-term-head b {
   color: var(--sa-ink);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -3485,7 +3487,7 @@ main {
   grid-template-columns: 112px minmax(0, 1fr) 112px 116px;
   align-items: center;
   gap: 16px;
-  min-height: 56px;
+  min-height: 66px;
   padding: 8px 0;
   border-bottom: 1px dotted var(--sa-soft-line);
 }
@@ -3495,7 +3497,7 @@ main {
 
 .prof-offering-code {
   color: var(--sa-brown);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -3508,7 +3510,7 @@ main {
 
 .prof-offering-main b,
 .prof-offering-metric b {
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -3516,7 +3518,7 @@ main {
 .prof-offering-metric span {
   overflow: hidden;
   color: var(--sa-ink-2);
-  font-size: 8.5px;
+  font-size: 11.5px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

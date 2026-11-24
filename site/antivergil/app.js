@@ -2572,15 +2572,10 @@ function renderInstructorProfile() {
     const scoreTone = instructorScoreTone(metrics.score);
     const latest = offerings[0];
     const initials = canonical.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
-    const reviewText = metrics.reviewRating == null
-      ? "No matched CULPA reviews"
-      : `${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews`;
+    const reviewTag = metrics.reviewRating == null
+      ? ""
+      : `<span>${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
     host.innerHTML = `
-      <div class="prof-toolbar">
-        <button class="prof-back" type="button" data-prof-back>← Back</button>
-        <span>All available offerings · 2020–2027</span>
-        <span>${offerings.length} course records</span>
-      </div>
       <header class="prof-hero">
         <div class="prof-monogram" aria-hidden="true">${esc(initials || "?")}</div>
         <div class="prof-identity">
@@ -2590,38 +2585,33 @@ function renderInstructorProfile() {
           <div class="prof-identity-tags">
             <span>${metrics.totalEnrolled.toLocaleString("en-US")} course enrollments</span>
             <span>${metrics.avgDrop == null ? "Drop history pending" : `${(metrics.avgDrop * 100).toFixed(1)}% weighted drop`}</span>
-            <span>${esc(reviewText)}</span>
+            ${reviewTag}
           </div>
         </div>
         <div class="prof-score ${scoreTone}" style="--score:${metrics.score}">
-          <span>Instructor score</span>
           <b>${metrics.score}</b>
           <small>of 100</small>
         </div>
       </header>
       <div class="prof-dashboard">
         <section class="prof-panel prof-radar-panel">
-          <div class="prof-panel-head"><div><span>Profile shape</span><h2>Teaching radar</h2></div><small>0–100 per dimension</small></div>
+          <div class="prof-panel-head"><div><h2>Teaching radar</h2></div></div>
           ${radarChartSVG(metrics.axes)}
-          <p class="prof-score-note">Score weights: retention 30%, demand 25%, experience 15%, breadth 15%, class size 10%${metrics.reviewRating == null ? "" : ", reviews 5%"}.</p>
         </section>
         <section class="prof-panel prof-trend-panel">
-          <div class="prof-panel-head"><div><span>Across available terms</span><h2>Enrollment &amp; drop history</h2></div><small>Registration-phase terms excluded from drop rate</small></div>
+          <div class="prof-panel-head"><div><h2>Enrollment &amp; drop history</h2></div></div>
           ${termChartSVG(metrics.teaching)}
           <div class="prof-chart-key"><span><i class="bar"></i>Course enrollments</span><span><i class="line"></i>Weighted drop rate</span></div>
         </section>
         <section class="prof-panel prof-course-panel">
-          <div class="prof-panel-head"><div><span>Course portfolio</span><h2>Most-taught courses</h2></div><small>Combined offerings</small></div>
+          <div class="prof-panel-head"><div><h2>Most-taught courses</h2></div></div>
           <div class="prof-course-bars">${instructorCourseBarsHTML(metrics.teaching)}</div>
         </section>
       </div>
       <section class="prof-history">
-        <div class="prof-panel-head"><div><span>Complete record</span><h2>Every available course</h2></div><small>All terms in the archive</small></div>
+        <div class="prof-panel-head"><div><h2>Every available course</h2></div></div>
         ${instructorHistoryHTML(offerings)}
       </section>`;
-    host.querySelectorAll("[data-prof-back]").forEach((button) => {
-      button.addEventListener("click", leaveInstructorProfile);
-    });
     host.querySelectorAll(".prof-offering[data-course]").forEach((row) => {
       row.addEventListener("click", () => {
         if (row.dataset.term === state.term) openCourse(row.dataset.course);
