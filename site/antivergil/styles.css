@@ -11790,11 +11790,11 @@ body.join-page-open {
 }
 
 @media (max-width: 560px) {
-  .topbar-search .search { font-size: 14px; }
+  .topbar-search .search { font-size: 13px; }
 }
 
 @media (max-width: 380px) {
-  .topbar-search .search { font-size: 13px; }
+  .topbar-search .search { font-size: 12px; }
 }
 
 main:has(> #view-browse:not([hidden])) {

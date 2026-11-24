@@ -6836,6 +6836,20 @@ function init() {
 
 document.addEventListener("DOMContentLoaded", init);
 
+const responsiveSearchField = document.querySelector("#search");
+if (responsiveSearchField) {
+  const fullSearchPlaceholder = responsiveSearchField.getAttribute("placeholder") || "";
+  const updateSearchPlaceholder = () => {
+    responsiveSearchField.placeholder = window.innerWidth <= 380
+      ? "Search courses…"
+      : window.innerWidth <= 560
+        ? "Search courses, depts & instructors…"
+        : fullSearchPlaceholder;
+  };
+  updateSearchPlaceholder();
+  window.addEventListener("resize", updateSearchPlaceholder, { passive: true });
+}
+
 // Scale the entire standard ticket when the single-column layout expands.
 const ticketResizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
@@ -6843,8 +6857,7 @@ const ticketResizeObserver = new ResizeObserver((entries) => {
     const narrow = window.matchMedia("(max-width: 827px)").matches;
     const gap = 0;
     const columns = narrow ? 1 : Math.max(1, Math.min(3, Math.floor((width + gap) / (394 + gap))));
-    const maxScale = narrow ? 1.8 : 1.35;
-    const scale = Math.min(maxScale, (width - (columns - 1) * gap) / (columns * 394));
+    const scale = (width - (columns - 1) * gap) / (columns * 394);
     entry.target.style.setProperty("--ticket-scale", String(scale));
   }
 });
