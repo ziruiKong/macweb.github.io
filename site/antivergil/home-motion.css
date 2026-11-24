@@ -33,3 +33,9 @@ footer { padding-block: min(1rem, 1.5dvh); }
   .intro p { margin: 0 0 .35em; font-size: 14px; }
   .tile-caption { font-size: 16px; }
 }
+
+.gallery {
+  overflow: hidden !important;
+  scrollbar-width: none;
+  touch-action: pan-y;
+}

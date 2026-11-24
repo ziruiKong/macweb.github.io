@@ -101,11 +101,16 @@ for(const event of ['pointerenter','pointerleave','focusin'])gallery.addEventLis
 gallery.addEventListener('focusout',()=>requestAnimationFrame(syncPlayback));
 reduced.addEventListener('change',syncPlayback);
 document.addEventListener('visibilitychange',syncPlayback);
-gallery.addEventListener('scroll',()=>{
-  motion.pause();
-  const period=track.offsetWidth/3;
-  if(period && gallery.scrollLeft>=period)gallery.scrollLeft-=period;
-  clearTimeout(resumeTimer);
-  resumeTimer=setTimeout(syncPlayback,1400);
-},{passive:true});
 syncPlayback();
+
+const footerMenu = document.querySelector('footer details');
+if (footerMenu) {
+  let closeTimer;
+  footerMenu.addEventListener('pointerenter', () => {
+    clearTimeout(closeTimer);
+    footerMenu.open = true;
+  });
+  footerMenu.addEventListener('pointerleave', () => {
+    closeTimer = setTimeout(() => { footerMenu.open = false; }, 140);
+  });
+}
