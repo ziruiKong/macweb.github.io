@@ -11842,3 +11842,74 @@ main:has(> #view-browse:not([hidden])) {
 @media (max-width: 375px) {
   .topbar-meta-row > .mobile-nav-toggle { font-size: 14px; }
 }
+
+/* Collapse the full navigation before the top row runs out of room. */
+@media (max-width: 1200px) {
+  .topbar-meta-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .topbar-meta-row > .topbar-term { grid-column: 3; justify-self: end; }
+  .topbar-meta-row > .topbar-actions { grid-column: 1; justify-self: start; }
+  .topbar-meta-row > .mobile-nav-toggle {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    font-size: 16px;
+  }
+  .topbar .nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: none;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 4px;
+    width: 100%;
+    overflow: visible;
+  }
+  .mobile-nav-toggle[aria-expanded="true"] + .nav { display: grid; }
+  .topbar .nav button {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    padding-inline: 3px;
+    font-size: clamp(12px, 2vw, 15px);
+  }
+  .topbar .nav button:not(:last-child)::after { content: none; }
+  .topbar .nav .nav-label { display: inline-flex; }
+}
+
+@media (max-width: 760px) {
+  .search-head {
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-bottom: 10px;
+  }
+  .search-head-row { flex: 0 0 auto; }
+  .search-head h1 { font-size: 20px; line-height: 1.2; white-space: nowrap; }
+  .search-summary {
+    min-width: 0;
+    flex-wrap: nowrap;
+    gap: 4px;
+    padding-left: 8px;
+    font-size: 10px;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+  .search-count,
+  .search-for,
+  .search-query { font-size: 10px; }
+  .search-count b { font-size: 11px; }
+}
+
+@media (max-width: 375px) {
+  .search-head { gap: 6px; }
+  .search-head h1 { font-size: 18px; }
+  .search-summary { gap: 3px; padding-left: 6px; font-size: 9px; }
+  .search-count,
+  .search-for,
+  .search-query { font-size: 9px; }
+  .search-count b { font-size: 10px; }
+}

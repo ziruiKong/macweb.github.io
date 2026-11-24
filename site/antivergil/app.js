@@ -697,7 +697,7 @@ function renderTermSwitch() {
 function syncTermMenuLabel() {
   const labelEl = $("#term-menu-label");
   if (!labelEl) return;
-  labelEl.textContent = window.matchMedia("(max-width: 560px)").matches
+  labelEl.textContent = window.matchMedia("(max-width: 1200px)").matches
     ? (labelEl.dataset.shortLabel || labelEl.dataset.fullLabel || "")
     : (labelEl.dataset.fullLabel || "");
 }
