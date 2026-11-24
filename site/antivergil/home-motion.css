@@ -10,3 +10,26 @@ dialog{width:min(680px,92vw);padding:0;border:0;border-radius:8px;box-shadow:0 1
 .gallery-track .tile:nth-child(5n){height:48svh}
 @media(max-width:650px){.gallery-track .tile{width:56vw}}
 .gallery-track{padding-bottom:4.8rem}.gallery-track .tile{overflow:visible;background:none;text-decoration:none;color:inherit}.photo-window{height:100%;overflow:hidden;position:relative}.photo-window img{display:block;transform:scale(1.04);transition:transform .7s cubic-bezier(.16,1,.3,1)}.tile:is(:hover,:focus-visible) .photo-window img{transform:translate3d(var(--pan,0%),var(--lift,0%),0) scale(1.14)}.tile-caption{padding:.55rem 1rem 0;text-transform:uppercase;font-size:clamp(18px,2vw,32px);line-height:.9;letter-spacing:-.06em}.tile-caption div{overflow:hidden}.tile-caption strong{display:block;transform:translateY(105%);transition:transform .42s cubic-bezier(.16,1,.3,1)}.tile-caption div:nth-child(2) strong{transition-delay:55ms}.tile:is(:hover,:focus-visible) strong{transform:none}.tile:nth-child(n){animation-fill-mode:backwards}footer nav{min-width:min(290px,85vw);padding:1rem;transform-origin:bottom right}details[open] nav{animation:menu-open .32s cubic-bezier(.16,1,.3,1)}footer nav a{font-weight:bold;text-decoration:none;font-size:clamp(18px,2vw,28px);padding:.45em 0;border-bottom:1px solid #555}footer nav a:is(:hover,:focus-visible){color:#fff28a}@keyframes menu-open{from{opacity:0;transform:translateY(10px) scale(.95)}}@media(hover:none){.tile-caption strong{transform:none}}@media(prefers-reduced-motion:reduce){.tile:is(:hover,:focus-visible) .photo-window img{transform:none}}
+
+html, body { margin: 0; height: 100%; overflow: hidden; }
+main {
+  height: 100dvh;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+}
+.gallery { min-height: 0; container-type: size; }
+.gallery-track { padding-bottom: 0; }
+.gallery-track .tile:nth-child(n) { height: calc(100cqh - 4.8rem); }
+.gallery-track .tile:nth-child(5n+1),
+.gallery-track .tile:nth-child(5n) { height: calc(78cqh - 3.75rem); }
+.gallery-track .tile:nth-child(5n+2) { height: calc(85cqh - 4.08rem); }
+.gallery-track .tile:nth-child(5n+3) { height: calc(93cqh - 4.47rem); }
+.intro { padding-block: min(3vw, 3dvh); }
+footer { padding-block: min(1rem, 1.5dvh); }
+@media (max-height: 480px) {
+  .intro { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+  .intro h1 { font-size: min(7vw, 14dvh); }
+  .intro p { margin: 0 0 .35em; font-size: 14px; }
+  .tile-caption { font-size: 16px; }
+}
