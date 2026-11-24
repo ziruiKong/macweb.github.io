@@ -62,32 +62,14 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 .login-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
   color: var(--ink);
-  font-size: clamp(17px, 1.7vw, 24px);
-  font-weight: 900;
+  font-size: clamp(18px, 1.65vw, 22px);
+  font-weight: 800;
   line-height: 1;
-  letter-spacing: -.045em;
+  letter-spacing: -.04em;
   text-decoration: none;
+  text-transform: lowercase;
 }
-
-.brand-mark {
-  width: 1.3em;
-  height: 1.3em;
-  display: grid;
-  place-items: center;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: Georgia, serif;
-  font-size: .9em;
-  font-style: italic;
-  letter-spacing: 0;
-  transition: transform 220ms ease;
-}
-
-.login-brand:hover .brand-mark { transform: rotate(6deg); }
 
 .login-main {
   position: relative;
@@ -136,7 +118,7 @@ a { -webkit-tap-highlight-color: transparent; }
   bottom: clamp(64px, 9vh, 92px);
   left: 20px;
   z-index: 3;
-  width: min(390px, calc(100% - 40px));
+  width: min(320px, calc(100% - 40px));
   max-height: calc(100% - 40px);
   margin: 0 auto;
   overflow-y: auto;
@@ -149,7 +131,7 @@ a { -webkit-tap-highlight-color: transparent; }
 
 .google-login-mount {
   width: 100%;
-  min-height: 60px;
+  min-height: 52px;
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -167,16 +149,16 @@ a { -webkit-tap-highlight-color: transparent; }
 
 .google-login {
   width: 100%;
-  min-height: 60px;
+  min-height: 52px;
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 10px 15px;
+  gap: 11px;
+  padding: 8px 13px;
   border: 1.5px solid var(--ink);
   border-radius: 0;
   background: transparent;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   text-align: left;
   cursor: pointer;
@@ -184,9 +166,9 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 .google-icon {
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
   display: grid;
   place-items: center;
   background: transparent;
@@ -194,13 +176,13 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 .google-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 }
 
 .button-arrow {
   margin-left: auto;
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 400;
   transition: transform 220ms ease;
 }
@@ -341,7 +323,6 @@ a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 420px) {
   .login-brand {
-    gap: 8px;
     font-size: 17px;
   }
 
@@ -352,8 +333,8 @@ a { -webkit-tap-highlight-color: transparent; }
   }
 
   .google-login {
-    min-height: 56px;
-    font-size: 13px;
+    min-height: 50px;
+    font-size: 12px;
   }
 
   .email-form input { font-size: 16px; }
