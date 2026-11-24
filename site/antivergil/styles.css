@@ -11570,3 +11570,6 @@ body.join-page-open {
   #course-list, #search-results { grid-template-columns: minmax(0, 1fr); }
   :is(#course-list, #search-results) > .course-card { width: 100%; }
 }
+
+#course-list,
+#search-results { max-width: 1182px; }
