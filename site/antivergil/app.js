@@ -678,12 +678,28 @@ function renderTermSwitch() {
     return m ? `${m[2]} ${m[1]}` : t;
   };
   const labelEl = $("#term-menu-label");
-  if (labelEl) labelEl.textContent = labelText(state.term);
+  if (labelEl) {
+    const fullLabel = labelText(state.term);
+    const m = String(state.term).match(/^(\d{4})-(Spring|Summer|Fall)$/);
+    const shortSeason = { Spring: "SP", Summer: "SU", Fall: "AU" };
+    labelEl.dataset.fullLabel = fullLabel;
+    labelEl.dataset.shortLabel = m ? `${shortSeason[m[2]]} ${m[1]}` : fullLabel;
+    syncTermMenuLabel();
+    $("#term-menu-btn")?.setAttribute("aria-label", `Term: ${fullLabel}`);
+  }
   const menu = $("#term-menu");
   if (menu) {
     menu.innerHTML = selectTerms.map((t) =>
       `<button type="button" role="option" data-term-option="${esc(t)}" class="${state.term === t ? "active" : ""}" aria-selected="${state.term === t}">${esc(labelText(t))}</button>`).join("");
   }
+}
+
+function syncTermMenuLabel() {
+  const labelEl = $("#term-menu-label");
+  if (!labelEl) return;
+  labelEl.textContent = window.matchMedia("(max-width: 560px)").matches
+    ? (labelEl.dataset.shortLabel || labelEl.dataset.fullLabel || "")
+    : (labelEl.dataset.fullLabel || "");
 }
 
 function setTerm(term) {
@@ -6769,6 +6785,7 @@ function init() {
   buildNav();
   renderRailBrand();
   renderTermSwitch();
+  window.addEventListener("resize", syncTermMenuLabel, { passive: true });
   buildFilters();
   renderBrowse();
   renderHistory();
