@@ -3273,7 +3273,6 @@ function openCalendarCourseEvent(event) {
           <div class="form-kicker" style="color:${eventColor}">Course on your calendar</div>
           <h2>${esc(event.courseCode || section?.code || "Course")}</h2>
         </div>
-        <span class="calendar-course-status"><i></i>On calendar</span>
       </div>
       <div class="calendar-course-event-grid">
         <div class="wide"><b>${esc(section?.title || event.title.split("·").slice(1).join("·").trim() || "Course")}</b></div>

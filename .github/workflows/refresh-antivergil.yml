@@ -17,8 +17,9 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.commit.outputs.changed }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out the site repository
         uses: actions/checkout@v4
@@ -55,27 +56,17 @@ jobs:
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-  deploy:
-    needs: refresh
-    if: needs.refresh.outputs.changed == 'true'
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Check out refreshed site
-        uses: actions/checkout@v4
-        with:
-          ref: main
-
       - name: Configure Pages
+        if: steps.commit.outputs.changed == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload static site
+        if: steps.commit.outputs.changed == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
 
       - name: Deploy refreshed site
+        if: steps.commit.outputs.changed == 'true'
         id: deployment
         uses: actions/deploy-pages@v4

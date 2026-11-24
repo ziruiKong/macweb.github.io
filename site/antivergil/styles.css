@@ -6616,27 +6616,6 @@ body[data-view="calendar"] { overflow-y: auto; }
 .calendar-event-form .form-head,
 .calendar-event-form .form-actions { border-color: #cecec8; }
 
-.calendar-course-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  border: 1px solid #bfbfb8;
-  border-radius: 999px;
-  color: var(--sa-ink-2);
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-
-.calendar-course-status i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #315ba6;
-}
-
 .calendar-course-event-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
