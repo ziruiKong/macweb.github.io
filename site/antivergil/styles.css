@@ -10966,6 +10966,7 @@ body.join-page-open {
     left: 0;
     right: auto;
     max-height: min(340px, 65dvh);
+    scrollbar-width: none;
     transform-origin: top left;
   }
 
@@ -10987,7 +10988,10 @@ body.join-page-open {
     cursor: pointer;
   }
 
+  .topbar-term .term-menu::-webkit-scrollbar { display: none; }
+
   .mobile-nav-toggle span {
+    font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
