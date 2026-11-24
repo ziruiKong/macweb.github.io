@@ -6839,9 +6839,12 @@ document.addEventListener("DOMContentLoaded", init);
 // Scale the entire standard ticket when the single-column layout expands.
 const ticketResizeObserver = new ResizeObserver((entries) => {
   for (const entry of entries) {
-    const scale = window.matchMedia("(max-width: 827px)").matches
-      ? entry.contentRect.width / 394
-      : 1;
+    const width = entry.contentRect.width;
+    const narrow = window.matchMedia("(max-width: 827px)").matches;
+    const gap = 0;
+    const columns = narrow ? 1 : Math.max(1, Math.min(3, Math.floor((width + gap) / (394 + gap))));
+    const maxScale = narrow ? 1.8 : 1.35;
+    const scale = Math.min(maxScale, (width - (columns - 1) * gap) / (columns * 394));
     entry.target.style.setProperty("--ticket-scale", String(scale));
   }
 });

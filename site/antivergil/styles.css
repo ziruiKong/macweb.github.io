@@ -11772,3 +11772,47 @@ body.join-page-open {
 :is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.up { color: #39764c; }
 :is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.flat,
 :is(#course-list, #search-results) .course-card .cc-bottom .enroll-box.drop.muted { color: #73736b; }
+
+/* Keep the mobile header balanced and let ticket cards grow with the grid. */
+.topbar .nav-arrow { display: none !important; }
+
+@media (max-width: 760px) {
+  .topbar-meta-row > .topbar-term {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  .topbar-meta-row > .topbar-actions {
+    grid-column: 1;
+    justify-self: start;
+    flex-direction: row-reverse;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar-search .search { font-size: 14px; }
+}
+
+@media (max-width: 380px) {
+  .topbar-search .search { font-size: 13px; }
+}
+
+main:has(> #view-browse:not([hidden])) {
+  max-width: 1600px;
+  padding-inline: 12px;
+}
+
+#course-list,
+#search-results {
+  width: 100%;
+  max-width: 1575px;
+  gap: 0;
+  grid-template-columns: repeat(auto-fit, minmax(394px, 1fr));
+  grid-auto-rows: calc(188px * var(--ticket-scale, 1));
+  justify-content: center;
+}
+
+@media (max-width: 827px) {
+  #course-list,
+  #search-results { grid-template-columns: minmax(0, 1fr); }
+}
