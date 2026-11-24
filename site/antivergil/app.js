@@ -3123,17 +3123,18 @@ function radarChartSVG(axes, size = 420) {
     const unitX = Math.cos(angle);
     const unitY = Math.sin(angle);
     const anchor = unitX > .45 ? "end" : unitX < -.45 ? "start" : "middle";
+    const labelAnchor = unitX > .45 ? "start" : unitX < -.45 ? "end" : "middle";
     const scoreX = x + unitX * 18;
     const scoreY = y + unitY * 18;
     const labelAngle = Math.abs(unitY) < .05
       ? angle
       : angle + (unitY < 0 ? (angle < 0 ? -1 : 1) : (angle < Math.PI / 2 ? 1 : -1)) * (Math.PI / 15);
-    const labelX = center + Math.cos(labelAngle) * (radius + 48);
-    const labelY = center + Math.sin(labelAngle) * (radius + 48);
+    const labelX = center + Math.cos(labelAngle) * (radius + 34);
+    const labelY = center + Math.sin(labelAngle) * (radius + 34);
     const value = Math.round(axis.value);
     return `
       <circle class="prof-radar-marker" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"/>
-      <text class="prof-radar-axis-label" x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${esc(axis.label)}</text>
+      <text class="prof-radar-axis-label" x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${labelAnchor}" dominant-baseline="middle">${esc(axis.label)}</text>
       <text class="prof-radar-axis-score" x="${scoreX.toFixed(1)}" y="${scoreY.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${value}</text>`;
   }).join("");
   return `
