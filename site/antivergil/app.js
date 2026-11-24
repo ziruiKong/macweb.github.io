@@ -2403,10 +2403,10 @@ function radarChartSVG(axes, size = 338) {
   const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
   const points = dataPoints.map(([x, y], index) => {
     const axis = axes[index];
-    const valueX = x + (center - x) * .085;
-    const valueY = y + (center - y) * .085;
+    const valueX = x;
+    const valueY = y;
     const value = Math.round(axis.value);
-    const badgeRadius = String(value).length >= 3 ? 10 : 9;
+    const badgeRadius = String(value).length >= 3 ? 9 : 8;
     return `
       <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100" data-label="${esc(axis.label)}" data-value="${value}">
         <circle class="prof-radar-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>
@@ -2482,7 +2482,7 @@ function termChartSVG(offerings) {
     .sort((a, b) => a.term.localeCompare(b.term));
   if (!rows.length) return "";
   const width = 900;
-  const height = 500;
+  const height = 720;
   const left = 54;
   const right = 48;
   const top = 28;
