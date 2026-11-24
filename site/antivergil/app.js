@@ -3061,7 +3061,7 @@ function radarChartSVG(axes, size = 338) {
 
 function bindInstructorRadar(root) {
   const chart = root.querySelector(".prof-radar-chart");
-  const panel = chart?.closest(".prof-radar-panel");
+  const panel = chart?.closest(".prof-score-popover") || chart?.closest(".prof-radar-panel");
   if (!chart || !panel) return;
   const tip = document.createElement("div");
   tip.className = "prof-radar-tip";
@@ -3275,6 +3275,11 @@ function renderInstructorProfile() {
     const scoreTone = instructorScoreTone(metrics.score);
     const latest = offerings[0];
     const instructorDepartments = [...new Set(offerings.map((row) => departmentCodeForCourse(row.code)).filter(Boolean))];
+    const primaryDepartment = metrics.departments[0] || "Columbia University";
+    const otherDepartments = metrics.departments.slice(1);
+    const departmentExtras = otherDepartments.length
+      ? `<details class="prof-department-more"><summary aria-label="Show ${otherDepartments.length} more affiliations">+${otherDepartments.length}</summary><div class="prof-department-menu">${otherDepartments.map((department) => `<span>${esc(department)}</span>`).join("")}</div></details>`
+      : "";
     const reviewTag = metrics.reviewRating == null
       ? ""
       : `<span class="is-review"><b>${metrics.reviewRating.toFixed(1)} / 5</b><small>${metrics.reviewCount} reviews</small></span>`;
@@ -3282,13 +3287,17 @@ function renderInstructorProfile() {
     host.innerHTML = `
       <header class="prof-hero">
         <div class="prof-identity">
-          <button class="prof-department" type="button" data-department="${esc(instructorDepartments[0] || "")}">${esc(metrics.departments.join(" / ") || "Columbia University")} ↗</button>
+          <div class="prof-dept-line"><button class="prof-department" type="button" data-department="${esc(instructorDepartments[0] || "")}">${esc(primaryDepartment)} ↗</button>${departmentExtras}</div>
           <h1>${esc(canonical)}</h1>
         </div>
-        <div class="prof-score ${scoreTone}${metrics.score == null ? " is-unrated" : ""}" style="--score:${metrics.score || 0}">
+        <div class="prof-score ${scoreTone}${metrics.score == null ? " is-unrated" : ""}" style="--score-target:${metrics.score || 0}%" tabindex="0" aria-label="Instructor score ${metrics.score == null ? "not available" : metrics.score}; hover or focus to view the radar breakdown">
           <b>${metrics.score == null ? "NEW" : metrics.score}</b>
+          <div class="prof-score-popover">
+            <div class="prof-score-popover-head">Teaching radar</div>
+            ${radarChartSVG(metrics.axes)}
+          </div>
         </div>
-        <div class="prof-identity-tags" aria-label="Instructor summary">
+        <div class="prof-identity-tags${metrics.reviewRating == null ? "" : " has-review"}" aria-label="Instructor summary">
           <span class="is-courses"><b>${metrics.courses.length}</b><small>Courses</small></span>
           <span class="is-terms"><b>${metrics.terms.length}</b><small>Terms</small></span>
           <span class="is-enrollment"><b>${metrics.totalEnrolled.toLocaleString("en-US")}</b><small>Enrollments</small></span>
@@ -3297,10 +3306,6 @@ function renderInstructorProfile() {
         </div>
       </header>
       <div class="prof-dashboard">
-        <section class="prof-panel prof-radar-panel">
-          <div class="prof-panel-head"><div><h2>Teaching radar</h2></div></div>
-          ${radarChartSVG(metrics.axes)}
-        </section>
         <section class="prof-panel prof-trend-panel">
           <div class="prof-panel-head">
             <div><h2>Enrollment &amp; drop history</h2></div>
