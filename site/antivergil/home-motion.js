@@ -73,7 +73,8 @@ gallery.addEventListener('pointermove',event=>{
 });
 for(const link of document.querySelectorAll('nav a')){
   link.addEventListener('pointerenter',()=>scramble({currentTarget:link}));
-}\nconst originals=[...gallery.children];
+}
+const originals=[...gallery.children];
 for(const tile of originals){const copy=tile.cloneNode(true);copy.tabIndex=-1;copy.setAttribute('aria-hidden','true');gallery.append(copy);}
 const track=document.createElement('div');
 track.className='gallery-track';
