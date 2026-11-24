@@ -85,6 +85,8 @@ const state = {
   searchDepartment: "all",
   searchInstructor: "",
   searchPage: 0,
+  instructorName: "",
+  instructorReturn: null,
   calendarView: "week",
   calendarSelected: null,
   calendarMiniMonth: null,
@@ -99,6 +101,9 @@ const state = {
   googleCalendarSyncedAt: null,
   modalCourse: null,
 };
+
+let instructorIndexCache = null;
+let instructorIndexPromise = null;
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => Array.from(document.querySelectorAll(s));
@@ -190,6 +195,11 @@ function termLabel(term) {
 function semesterStart(term) {
   const m = String(term || "").match(/^(\d{4})-(Spring|Summer|Fall)$/);
   if (!m) return null;
+  const knownStart = typeof CALENDAR_ACADEMIC_DATES !== "undefined"
+    ? CALENDAR_ACADEMIC_DATES.find((event) =>
+        event.date.startsWith(`${m[1]}-`) && /classes begin/i.test(event.title))
+    : null;
+  if (knownStart) return knownStart.date;
   const md = { Spring: "01-18", Summer: "05-27", Fall: "09-02" }[m[2]];
   return `${m[1]}-${md}`;
 }
@@ -249,45 +259,80 @@ function pointAt(series, dateStr) {
   return { d: p[0], e: p[1] };
 }
 
-/** 选课人数对比：开学（约）/ 第1周 / 第2周 / 最新。 */
+/**
+ * 退课率只使用开学后至 drop deadline 的数据：
+ * - base 取开学前 14 天内的最高在册人数，避免把报名阶段增长算成退课；
+ * - end 取 drop deadline 或当前最后一个有效点；
+ * - 少于 10 人或样本不足时标记 lowSample，不用它做教师评价。
+ */
 function enrollAnalysis(course, term = state.term) {
-  const series = course.series || [];
+  const series = [...(course.series || [])].sort(([a], [b]) => a.localeCompare(b));
   const startDate = semesterStart(term);
   if (!series.length || !startDate) return null;
-  if (series.length === 1) {
-    const point = { d: series[0][0], e: series[0][1] };
+  const deadline = termDropDeadline(term);
+  const endBoundary = deadline || series.at(-1)[0];
+  const postStart = series.filter(([date]) => date >= startDate && date <= endBoundary);
+  const latest = { d: series.at(-1)[0], e: series.at(-1)[1] };
+  if (!postStart.length) {
+    const point = pointAt(series, startDate) || latest;
     return {
       start: point,
       week1: point,
       week2: point,
-      end: point,
-      base: point.e,
+      end: latest,
+      base: 0,
       drop: 0,
       rate: 0,
-      ended: point.e === 0,
-      hasPostStart: point.d >= startDate,
+      ended: latest.e === 0,
+      lowSample: true,
+      hasPostStart: false,
       startDate,
+      deadline,
+      samplePoints: 0,
     };
   }
-  let start = pointAt(series, startDate);
-  let week1 = pointAt(series, addDaysStr(startDate, 7));
-  let week2 = pointAt(series, addDaysStr(startDate, 14));
-  const end = { d: series[series.length - 1][0], e: series[series.length - 1][1] };
-  let base = Math.max(start.e, week1.e, week2.e);
+  const start = pointAt(postStart, startDate) || postStart[0];
+  const week1 = pointAt(postStart, addDaysStr(startDate, 7)) || start;
+  const week2 = pointAt(postStart, addDaysStr(startDate, 14)) || week1;
+  const end = postStart.at(-1);
+  const opening = postStart.filter(([date]) => date <= addDaysStr(startDate, 14));
+  const base = Math.max(0, ...opening.map(([, enrolled]) => enrolled || 0));
   if (!base) {
-    const firstPos = series.find(([, e]) => e > 0);
-    if (firstPos) {
-      start = { d: firstPos[0], e: firstPos[1] };
-      week1 = start;
-      week2 = start;
-      base = firstPos[1];
-    }
+    return {
+      start,
+      week1,
+      week2,
+      end,
+      base: 0,
+      drop: 0,
+      rate: 0,
+      ended: end.e === 0,
+      lowSample: true,
+      hasPostStart: true,
+      startDate,
+      deadline,
+      samplePoints: postStart.length,
+    };
   }
-  if (!base) return null;
   const drop = base - end.e;
   const rate = drop / base;
   const ended = end.e === 0 || (base >= 20 && end.e < base * 0.15);
-  return { start, week1, week2, end, base, drop, rate, ended, lowSample: base < 5, hasPostStart: end.d >= startDate, startDate };
+  return {
+    start,
+    week1,
+    week2,
+    end,
+    base,
+    drop,
+    rate,
+    ended,
+    lowSample: base < 10 || postStart.length < 2,
+    hasPostStart: true,
+    startDate,
+    deadline,
+    complete: Boolean(deadline && end.d >= deadline),
+    samplePoints: postStart.length,
+  };
 }
 
 function difficultySignal(rate, ended = false) {
@@ -458,12 +503,15 @@ function goView(delta) {
     state.searchInstructor = entry.instructor || "";
     syncSearchFields();
   }
+  if (entry.view === "instructor") {
+    state.instructorName = entry.instructorName || "";
+  }
   switchView(entry.view, { noHistory: true });
 }
 
 function switchView(id, opts = {}) {
   $$(".view").forEach((v) => (v.hidden = v.id !== `view-${id}`));
-  const navId = id === "search" ? "browse" : id;
+  const navId = id === "search" || id === "instructor" ? "browse" : id;
   $$(".nav button").forEach((b) => b.classList.toggle("active", b.dataset.view === navId));
   if (id !== "browse") setFilterPanelOpen(false);
   document.body.dataset.view = id;
@@ -477,19 +525,25 @@ function switchView(id, opts = {}) {
       q: id === "search" ? (opts.q ?? state.searchQuery) : null,
       dept: id === "search" ? state.searchDepartment : null,
       instructor: id === "search" ? state.searchInstructor : null,
+      instructorName: id === "instructor" ? state.instructorName : null,
     };
     const cur = viewStack[viewIndex];
-    if (!cur || cur.view !== entry.view || cur.q !== entry.q) {
+    if (!cur || cur.view !== entry.view || cur.q !== entry.q || cur.instructorName !== entry.instructorName) {
       viewStack.length = viewIndex + 1;
       viewStack.push(entry);
       viewIndex = viewStack.length - 1;
     }
   }
   updateViewNav();
-  const hash = id === "search" ? `#/search${searchHash() ? `?${searchHash()}` : ""}` : `#/${id}`;
+  const hash = id === "search"
+    ? `#/search${searchHash() ? `?${searchHash()}` : ""}`
+    : id === "instructor"
+      ? `#/instructor/${encodeURIComponent(state.instructorName)}`
+      : `#/${id}`;
   if (location.hash !== hash) history.replaceState(null, "", hash);
   if (id === "map") { initMap(); refreshMapPins(); }
   if (id === "search") renderSearchResults();
+  if (id === "instructor") renderInstructorProfile();
   if (id === "analysis") renderAnalysis();
   if (id === "planner") renderPlanner();
   if (id === "calendar") {
@@ -854,13 +908,13 @@ function cardHTML(course, opts = {}) {
       const ratePct = Math.round(an.rate * 100);
       if (ratePct > 0) {
         const dropClass = ratePct >= 25 ? "high" : ratePct >= 12 ? "mid" : "";
-        dropTip = `Enrollment fell ${ratePct}% since the start of the term.`;
+        dropTip = `Enrollment fell ${ratePct}% from its opening peak to ${an.complete ? "the drop deadline" : "the latest available point"}.`;
         dropChip = `<span class="enroll-box drop ${dropClass}" data-tip="${esc(dropTip)}" title="${esc(dropTip)}">${arrowDown}${ratePct}%</span>`;
       } else if (ratePct < 0) {
-        dropTip = `Enrollment grew ${Math.abs(ratePct)}% since the start of the term.`;
+        dropTip = `Enrollment grew ${Math.abs(ratePct)}% from its opening peak to ${an.complete ? "the drop deadline" : "the latest available point"}.`;
         dropChip = `<span class="enroll-box drop up" data-tip="${esc(dropTip)}" title="${esc(dropTip)}">${arrowUp}${Math.abs(ratePct)}%</span>`;
       } else {
-        dropTip = "Enrollment is unchanged since the start of the term.";
+        dropTip = "Enrollment is unchanged from its opening peak through the measured period.";
         dropChip = `<span class="enroll-box drop flat" data-tip="${esc(dropTip)}" title="${esc(dropTip)}">0%</span>`;
       }
     }
@@ -878,7 +932,7 @@ function cardHTML(course, opts = {}) {
         </div>
         <div class="cc-meta">
           ${instructors.length
-            ? `<button class="info-pill instructor-pill" data-instructor="${esc(instructors[0])}" title="Filter by instructor">
+            ? `<button class="info-pill instructor-pill" data-instructor="${esc(instructors[0])}" title="Open instructor profile">
                 <span>${esc(instructors[0])}${instructors.length > 1 ? ` +${instructors.length - 1}` : ""}</span>
               </button>`
             : ""}
@@ -1195,15 +1249,15 @@ function renderEnrollAnalysis(course, an) {
   }
   return `
     <div class="enroll-analysis">
-      <div class="ea-head"><h3>Enrollment trend</h3><span>${esc(an.end.d)}</span></div>
+      <div class="ea-head"><h3>Post-start enrollment</h3><span>${esc(an.end.d)}</span></div>
       <div class="ea-stats">
-        <div><b>Start (approx.)</b><span>${an.start.e}</span></div>
+        <div><b>Opening peak</b><span>${an.base}</span></div>
         <div><b>Week 1</b><span>${an.week1.e}</span></div>
         <div><b>Week 2</b><span>${an.week2.e}</span></div>
-        <div><b>Latest</b><span>${an.end.e}</span></div>
+        <div><b>${an.complete ? "At drop deadline" : "Latest"}</b><span>${an.end.e}</span></div>
       </div>
       ${sparklineSVG(course.series, 600, 100, course.code, true)}
-      <div class="ea-hint">Hover the chart points to inspect daily values.</div>
+      <div class="ea-hint">Drop rate compares the opening 14-day peak with the drop deadline${an.complete ? "" : " or latest available point"}.</div>
     </div>`;
 }
 
@@ -1312,8 +1366,7 @@ function openCourse(code, sectionId = "") {
     button.addEventListener("click", () => {
       const instructor = button.dataset.instructor;
       closeModal();
-      openSearch("", { instructor });
-      toast(`Searching ${instructor}`);
+      openInstructor(instructor);
     });
   });
   body.querySelectorAll(".prereq-link").forEach((a) =>
@@ -2183,6 +2236,401 @@ function renderAnalysis() {
   const visible = sorted.slice(0, 80);
   $("#analysis-list").innerHTML = visible.map(({ c, an }) => analysisRowHTML(c, an)).join("")
     || `<div class="notice info">No data available.</div>`;
+}
+
+/* ============================================================
+ * 教师档案
+ * ============================================================ */
+function loadInstructorIndex() {
+  if (instructorIndexCache) return Promise.resolve(instructorIndexCache);
+  if (instructorIndexPromise) return instructorIndexPromise;
+  instructorIndexPromise = fetch("data/instructors.json", { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Instructor index unavailable (${response.status})`);
+      return response.json();
+    })
+    .then((data) => {
+      instructorIndexCache = data;
+      return data;
+    })
+    .catch((error) => {
+      instructorIndexPromise = null;
+      throw error;
+    });
+  return instructorIndexPromise;
+}
+
+function openInstructor(name) {
+  const instructor = String(name || "").trim();
+  if (!instructor) return;
+  const currentView = document.body.dataset.view || "browse";
+  if (currentView !== "instructor") {
+    state.instructorReturn = {
+      view: currentView,
+      q: state.searchQuery,
+      dept: state.searchDepartment,
+      instructor: state.searchInstructor,
+    };
+  }
+  state.instructorName = instructor;
+  switchView("instructor");
+}
+
+function leaveInstructorProfile() {
+  const destination = state.instructorReturn;
+  state.instructorReturn = null;
+  if (destination?.view === "search") {
+    state.searchQuery = destination.q || "";
+    state.searchDepartment = destination.dept || "all";
+    state.searchInstructor = destination.instructor || "";
+    syncSearchFields();
+    switchView("search");
+    return;
+  }
+  switchView(destination?.view && destination.view !== "instructor" ? destination.view : "browse");
+}
+
+function instructorOfferings(profile) {
+  return (profile?.o || []).map((row) => ({
+    term: row[0],
+    code: row[1],
+    title: row[2],
+    enrolled: Number(row[3]) || 0,
+    capacity: Number(row[4]) || 0,
+    dropRate: row[5] == null ? null : Number(row[5]),
+    points: Number(row[6]) || 0,
+    sections: Number(row[7]) || 1,
+    schedule: row[8] || "Time TBA",
+    dropBase: Number(row[9]) || 0,
+    dropComplete: row[10] === 1,
+  })).sort((a, b) => b.term.localeCompare(a.term) || a.code.localeCompare(b.code));
+}
+
+function instructorTeachingRows(offerings) {
+  const teaching = offerings.filter((row) =>
+    row.points > 0 &&
+    !/independent|fieldwork|practica|research|recitation/i.test(row.title) &&
+    !/GR(?:5999|8001|8101)/i.test(row.code));
+  return teaching.length ? teaching : offerings;
+}
+
+function instructorMetrics(offerings, profile) {
+  const teaching = instructorTeachingRows(offerings);
+  const completed = teaching.filter((row) =>
+    row.term !== state.term && row.dropRate != null && row.dropBase >= 10);
+  const totalEnrolled = teaching.reduce((sum, row) => sum + row.enrolled, 0);
+  const totalCapacity = teaching.reduce((sum, row) => sum + row.capacity, 0);
+  const avgFill = totalCapacity ? totalEnrolled / totalCapacity : 0;
+  const dropBase = completed.reduce((sum, row) => sum + row.dropBase, 0);
+  const avgDrop = dropBase
+    ? completed.reduce((sum, row) => sum + row.dropRate * row.dropBase, 0) / dropBase
+    : null;
+  const terms = [...new Set(teaching.map((row) => row.term))];
+  const courses = [...new Set(teaching.map((row) => row.code))];
+  const departments = [...new Set(profile?.d || [])];
+  const avgEnrollment = teaching.length ? totalEnrolled / teaching.length : 0;
+  const reviewRating = Array.isArray(profile?.r) ? Number(profile.r[0]) : null;
+  const reviewCount = Array.isArray(profile?.r) ? Number(profile.r[1]) : 0;
+  const axes = [
+    { key: "popularity", label: "Demand", value: Math.max(0, Math.min(100, avgFill * 100)) },
+    { key: "stability", label: "Retention", value: avgDrop == null ? 50 : Math.max(0, Math.min(100, (1 - Math.min(.5, avgDrop) / .5) * 100)) },
+    { key: "experience", label: "Experience", value: Math.max(0, Math.min(100, terms.length / 10 * 100)) },
+    { key: "breadth", label: "Breadth", value: Math.max(0, Math.min(100, courses.length / 8 * 100)) },
+    { key: "scale", label: "Class size", value: Math.max(0, Math.min(100, avgEnrollment / 150 * 100)) },
+  ];
+  if (reviewRating != null) {
+    axes.push({ key: "rating", label: "Reviews", value: Math.max(0, Math.min(100, reviewRating / 5 * 100)) });
+  }
+  const weighted = axes.reduce((sum, axis) => {
+    const weight = axis.key === "stability" ? .3
+      : axis.key === "popularity" ? .25
+        : axis.key === "rating" ? .05
+          : axis.key === "experience" || axis.key === "breadth" ? .15
+            : .1;
+    return sum + axis.value * weight;
+  }, 0);
+  const weightSum = axes.reduce((sum, axis) => {
+    return sum + (axis.key === "stability" ? .3
+      : axis.key === "popularity" ? .25
+        : axis.key === "rating" ? .05
+          : axis.key === "experience" || axis.key === "breadth" ? .15
+            : .1);
+  }, 0);
+  return {
+    teaching,
+    completed,
+    totalEnrolled,
+    totalCapacity,
+    avgFill,
+    avgDrop,
+    avgEnrollment,
+    terms,
+    courses,
+    departments,
+    reviewRating,
+    reviewCount,
+    axes,
+    score: Math.round(weighted / weightSum),
+  };
+}
+
+function instructorScoreTone(score) {
+  if (score >= 82) return "excellent";
+  if (score >= 68) return "strong";
+  if (score >= 52) return "steady";
+  return "developing";
+}
+
+function radarChartSVG(axes, size = 338) {
+  if (!axes.length) return "";
+  const center = size / 2;
+  const radius = size * .31;
+  const labelRadius = radius + 34;
+  const angleFor = (index) => -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
+  const pointFor = (index, ratio) => [
+    center + Math.cos(angleFor(index)) * radius * ratio,
+    center + Math.sin(angleFor(index)) * radius * ratio,
+  ];
+  const polygon = (ratio) => axes.map((_, index) => pointFor(index, ratio).map((n) => n.toFixed(1)).join(",")).join(" ");
+  const levels = [.25, .5, .75, 1].map((ratio) =>
+    `<polygon class="prof-radar-grid" points="${polygon(ratio)}"/>`).join("");
+  const spokes = axes.map((_, index) => {
+    const [x, y] = pointFor(index, 1);
+    return `<line class="prof-radar-spoke" x1="${center}" y1="${center}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
+  }).join("");
+  const dataPoints = axes.map((axis, index) =>
+    pointFor(index, Math.max(.06, Math.min(1, axis.value / 100)))) ;
+  const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+  const labels = axes.map((axis, index) => {
+    const [x, y] = pointFor(index, 1);
+    const dx = Math.cos(angleFor(index)) * (labelRadius - radius);
+    const dy = Math.sin(angleFor(index)) * (labelRadius - radius);
+    const anchor = Math.abs(dx) < 5 ? "middle" : dx > 0 ? "start" : "end";
+    return `<text class="prof-radar-label" x="${(x + dx).toFixed(1)}" y="${(y + dy + 4).toFixed(1)}" text-anchor="${anchor}">${esc(axis.label)} <tspan>${Math.round(axis.value)}</tspan></text>`;
+  }).join("");
+  return `
+    <svg class="prof-radar-chart" viewBox="0 0 ${size} ${size}" role="img" aria-label="Instructor profile radar chart">
+      ${levels}${spokes}
+      <polygon class="prof-radar-area" points="${dataPolygon}"/>
+      ${dataPoints.map(([x, y]) => `<circle class="prof-radar-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>`).join("")}
+      ${labels}
+    </svg>`;
+}
+
+function termChartSVG(offerings) {
+  const grouped = new Map();
+  for (const row of offerings) {
+    const current = grouped.get(row.term) || { term: row.term, enrolled: 0, capacity: 0, dropBase: 0, dropWeighted: 0 };
+    current.enrolled += row.enrolled;
+    current.capacity += row.capacity;
+    if (row.dropRate != null && row.dropBase) {
+      current.dropBase += row.dropBase;
+      current.dropWeighted += row.dropRate * row.dropBase;
+    }
+    grouped.set(row.term, current);
+  }
+  const rows = [...grouped.values()]
+    .map((row) => ({ ...row, fill: row.capacity ? row.enrolled / row.capacity : null, drop: row.dropBase ? row.dropWeighted / row.dropBase : null }))
+    .sort((a, b) => a.term.localeCompare(b.term));
+  if (!rows.length) return "";
+  const width = 900;
+  const height = 300;
+  const left = 54;
+  const right = 48;
+  const top = 28;
+  const bottom = 42;
+  const plotW = width - left - right;
+  const plotH = height - top - bottom;
+  const maxEnrolled = Math.max(...rows.map((row) => row.enrolled), 1);
+  const slot = plotW / rows.length;
+  const barW = Math.max(12, Math.min(34, slot * .48));
+  const grid = [0, .5, 1].map((ratio) => {
+    const y = top + plotH * ratio;
+    return `<line class="prof-chart-grid" x1="${left}" y1="${y}" x2="${width - right}" y2="${y}"/>`;
+  }).join("");
+  const bars = rows.map((row, index) => {
+    const x = left + slot * index + slot / 2 - barW / 2;
+    const h = row.enrolled / maxEnrolled * plotH;
+    return `<rect class="prof-chart-bar" x="${x.toFixed(1)}" y="${(top + plotH - h).toFixed(1)}" width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="2"><title>${esc(row.term)} · ${row.enrolled} enrolled</title></rect>`;
+  }).join("");
+  const dropPoints = rows.map((row, index) => {
+    if (row.drop == null) return null;
+    return [left + slot * index + slot / 2, top + Math.min(.5, row.drop) / .5 * plotH];
+  });
+  const dropPaths = [];
+  let currentPath = [];
+  dropPoints.forEach((point) => {
+    if (!point) {
+      if (currentPath.length > 1) dropPaths.push(currentPath.join(" "));
+      currentPath = [];
+      return;
+    }
+    const [x, y] = point;
+    currentPath.push(`${currentPath.length ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`);
+  });
+  if (currentPath.length > 1) dropPaths.push(currentPath.join(" "));
+  const labels = rows.map((row, index) => {
+    if (rows.length > 8 && index % 2 && index !== rows.length - 1) return "";
+    const x = left + slot * index + slot / 2;
+    return `<text class="prof-chart-label" x="${x.toFixed(1)}" y="${height - 14}" text-anchor="middle">${esc(row.term.replace("-", " ").replace("20", "'"))}</text>`;
+  }).join("");
+  return `
+    <svg class="prof-term-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Enrollment and drop-rate history by term">
+      ${grid}
+      ${bars}
+      ${dropPaths.map((path) => `<path class="prof-drop-line" d="${path}"/>`).join("")}
+      ${rows.map((row, index) => {
+        const point = dropPoints[index];
+        return point
+          ? `<circle class="prof-drop-dot" cx="${point[0].toFixed(1)}" cy="${point[1].toFixed(1)}" r="3"><title>${esc(row.term)} · ${(row.drop * 100).toFixed(1)}% drop</title></circle>`
+          : "";
+      }).join("")}
+      ${labels}
+      <text class="prof-chart-axis-label" x="${left}" y="16">Enrollment</text>
+      <text class="prof-chart-axis-label prof-chart-axis-right" x="${width - right}" y="16" text-anchor="end">Drop line · 0–50%</text>
+    </svg>`;
+}
+
+function instructorCourseBarsHTML(offerings) {
+  const byCourse = new Map();
+  for (const row of offerings) {
+    const current = byCourse.get(row.code) || {
+      code: row.code,
+      title: row.title,
+      total: 0,
+      terms: new Set(),
+      dropBase: 0,
+      dropWeighted: 0,
+    };
+    current.total += row.enrolled;
+    current.terms.add(row.term);
+    if (row.dropRate != null && row.dropBase) {
+      current.dropBase += row.dropBase;
+      current.dropWeighted += row.dropRate * row.dropBase;
+    }
+    byCourse.set(row.code, current);
+  }
+  const rows = [...byCourse.values()]
+    .map((row) => ({ ...row, drop: row.dropBase ? row.dropWeighted / row.dropBase : null }))
+    .sort((a, b) => b.total - a.total)
+    .slice(0, 10);
+  const max = Math.max(...rows.map((row) => row.total), 1);
+  return rows.map((row) => `
+    <div class="prof-course-bar-row">
+      <div class="prof-course-bar-label"><b>${esc(row.code)}</b><span>${esc(row.title)}</span></div>
+      <div class="prof-course-bar-track"><i style="width:${Math.max(2, row.total / max * 100)}%"></i></div>
+      <div class="prof-course-bar-stat"><b>${row.total.toLocaleString("en-US")}</b><span>${row.terms.size} term${row.terms.size === 1 ? "" : "s"}${row.drop == null ? "" : ` · ${(row.drop * 100).toFixed(1)}% drop`}</span></div>
+    </div>`).join("");
+}
+
+function instructorHistoryHTML(offerings) {
+  const byTerm = new Map();
+  for (const row of offerings) {
+    if (!byTerm.has(row.term)) byTerm.set(row.term, []);
+    byTerm.get(row.term).push(row);
+  }
+  return [...byTerm.entries()].map(([term, rows]) => `
+    <section class="prof-term-group">
+      <div class="prof-term-head"><b>${esc(termShort(term))}</b><span>${rows.length} offering${rows.length === 1 ? "" : "s"}</span></div>
+      <div class="prof-offering-list">
+        ${rows.map((row) => `
+          <article class="prof-offering${term === state.term ? " current" : ""}" data-course="${esc(row.code)}" data-term="${esc(term)}">
+            <div class="prof-offering-code">${esc(row.code)}</div>
+            <div class="prof-offering-main">
+              <b>${esc(row.title)}</b>
+              <span>${esc(row.schedule)}</span>
+            </div>
+            <div class="prof-offering-metric"><b>${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}</b><span>${row.capacity ? `${Math.round(row.enrolled / row.capacity * 100)}% filled` : "capacity n/a"}</span></div>
+            <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b><span>${row.dropRate == null ? "pre-term" : "post-start drop"}</span></div>
+          </article>`).join("")}
+      </div>
+    </section>`).join("");
+}
+
+function renderInstructorProfile() {
+  const host = $("#instructor-page");
+  if (!host) return;
+  const requested = state.instructorName;
+  host.innerHTML = `<div class="instructor-loading"><span></span><b>Building instructor dossier</b><small>Loading all available course history…</small></div>`;
+  loadInstructorIndex().then((index) => {
+    if (!state.instructorName || $("#view-instructor").hidden) return;
+    const profiles = index.instructors || {};
+    let canonical = Object.prototype.hasOwnProperty.call(profiles, state.instructorName) ? state.instructorName : null;
+    if (!canonical) {
+      const needle = normalizeSearchText(state.instructorName);
+      canonical = Object.keys(profiles).find((name) => normalizeSearchText(name) === needle) || null;
+    }
+    if (!canonical) {
+      host.innerHTML = `<div class="notice info"><b>Instructor not found.</b><span>No teaching history is available for “${esc(state.instructorName)}”.</span><button class="btn small ghost" data-prof-back>Back</button></div>`;
+      host.querySelector("[data-prof-back]")?.addEventListener("click", leaveInstructorProfile);
+      return;
+    }
+    state.instructorName = canonical;
+    const profile = profiles[canonical];
+    const offerings = instructorOfferings(profile);
+    const metrics = instructorMetrics(offerings, profile);
+    const scoreTone = instructorScoreTone(metrics.score);
+    const latest = offerings[0];
+    const initials = canonical.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+    const reviewText = metrics.reviewRating == null
+      ? "No matched CULPA reviews"
+      : `${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews`;
+    host.innerHTML = `
+      <div class="prof-toolbar">
+        <button class="prof-back" type="button" data-prof-back>← Back</button>
+        <span>All available offerings · 2020–2027</span>
+        <span>${offerings.length} course records</span>
+      </div>
+      <header class="prof-hero">
+        <div class="prof-monogram" aria-hidden="true">${esc(initials || "?")}</div>
+        <div class="prof-identity">
+          <span class="prof-kicker">Instructor dossier · ${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
+          <h1>${esc(canonical)}</h1>
+          <p>${metrics.courses.length} courses across ${metrics.terms.length} terms${latest ? ` · Latest ${esc(termShort(latest.term))}` : ""}</p>
+          <div class="prof-identity-tags">
+            <span>${metrics.totalEnrolled.toLocaleString("en-US")} course enrollments</span>
+            <span>${metrics.avgDrop == null ? "Drop history pending" : `${(metrics.avgDrop * 100).toFixed(1)}% weighted drop`}</span>
+            <span>${esc(reviewText)}</span>
+          </div>
+        </div>
+        <div class="prof-score ${scoreTone}" style="--score:${metrics.score}">
+          <span>Instructor score</span>
+          <b>${metrics.score}</b>
+          <small>of 100</small>
+        </div>
+      </header>
+      <div class="prof-dashboard">
+        <section class="prof-panel prof-radar-panel">
+          <div class="prof-panel-head"><div><span>Profile shape</span><h2>Teaching radar</h2></div><small>0–100 per dimension</small></div>
+          ${radarChartSVG(metrics.axes)}
+          <p class="prof-score-note">Score weights: retention 30%, demand 25%, experience 15%, breadth 15%, class size 10%${metrics.reviewRating == null ? "" : ", reviews 5%"}.</p>
+        </section>
+        <section class="prof-panel prof-trend-panel">
+          <div class="prof-panel-head"><div><span>Across available terms</span><h2>Enrollment &amp; drop history</h2></div><small>Registration-phase terms excluded from drop rate</small></div>
+          ${termChartSVG(metrics.teaching)}
+          <div class="prof-chart-key"><span><i class="bar"></i>Course enrollments</span><span><i class="line"></i>Weighted drop rate</span></div>
+        </section>
+        <section class="prof-panel prof-course-panel">
+          <div class="prof-panel-head"><div><span>Course portfolio</span><h2>Most-taught courses</h2></div><small>Combined offerings</small></div>
+          <div class="prof-course-bars">${instructorCourseBarsHTML(metrics.teaching)}</div>
+        </section>
+      </div>
+      <section class="prof-history">
+        <div class="prof-panel-head"><div><span>Complete record</span><h2>Every available course</h2></div><small>All terms in the archive</small></div>
+        ${instructorHistoryHTML(offerings)}
+      </section>`;
+    host.querySelectorAll("[data-prof-back]").forEach((button) => {
+      button.addEventListener("click", leaveInstructorProfile);
+    });
+    host.querySelectorAll(".prof-offering[data-course]").forEach((row) => {
+      row.addEventListener("click", () => {
+        if (row.dataset.term === state.term) openCourse(row.dataset.course);
+      });
+    });
+  }).catch((error) => {
+    host.innerHTML = `<div class="notice error"><b>Instructor history unavailable.</b><span>${esc(error.message)}</span><button class="btn small ghost" data-prof-back>Back</button></div>`;
+    host.querySelector("[data-prof-back]")?.addEventListener("click", leaveInstructorProfile);
+  });
 }
 
 /* ============================================================
@@ -5069,7 +5517,7 @@ function applySuggestion(it) {
   if (it.type === "department") {
     openSearch("", { department: it.value });
   } else if (it.type === "instructor") {
-    openSearch("", { instructor: it.value });
+    openInstructor(it.value);
   } else {
     openSearch(it.value);
   }
@@ -5268,8 +5716,7 @@ function bindGlobal() {
     const inst = e.target.closest("button[data-instructor]");
     if (inst) {
       e.stopPropagation();
-      openSearch("", { instructor: inst.dataset.instructor });
-      toast(`Searching ${inst.dataset.instructor}`);
+      openInstructor(inst.dataset.instructor);
       return;
     }
     const addBtn = e.target.closest(".card-add");
@@ -5602,6 +6049,14 @@ function init() {
     state.searchDepartment = params.get("dept") || "all";
     state.searchInstructor = params.get("instructor") || "";
     initial = "search";
+  }
+  if (initialView.startsWith("instructor/")) {
+    try {
+      state.instructorName = decodeURIComponent(initialView.slice("instructor/".length));
+      initial = "instructor";
+    } catch {
+      state.instructorName = "";
+    }
   }
   switchView(initial);
   fitCourseCardTitles();

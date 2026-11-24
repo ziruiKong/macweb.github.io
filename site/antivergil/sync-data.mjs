@@ -174,6 +174,7 @@ async function main() {
     ];
     copyPairs.forEach(([source, target]) => copyIntoPlace(source, target));
     updateHistoryIndex(latest);
+    await runNode([path.join(ROOT, "build-instructor-index.mjs")]);
 
     const completedAt = new Date().toISOString();
     writeStatus({
