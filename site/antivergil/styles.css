@@ -11530,7 +11530,7 @@ body.join-page-open {
   min-height: 188px;
   grid-template-columns: 72px minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) 40px 34px 34px;
-  padding: 12px;
+  padding: 8px;
 }
 :is(#course-list, #search-results) .course-card .cc-title {
   font-size: 18px;

@@ -697,9 +697,7 @@ function renderTermSwitch() {
 function syncTermMenuLabel() {
   const labelEl = $("#term-menu-label");
   if (!labelEl) return;
-  labelEl.textContent = window.matchMedia("(max-width: 1200px)").matches
-    ? (labelEl.dataset.shortLabel || labelEl.dataset.fullLabel || "")
-    : (labelEl.dataset.fullLabel || "");
+  labelEl.textContent = labelEl.dataset.shortLabel || labelEl.dataset.fullLabel || "";
 }
 
 function setTerm(term) {
@@ -6785,7 +6783,6 @@ function init() {
   buildNav();
   renderRailBrand();
   renderTermSwitch();
-  window.addEventListener("resize", syncTermMenuLabel, { passive: true });
   buildFilters();
   renderBrowse();
   renderHistory();
