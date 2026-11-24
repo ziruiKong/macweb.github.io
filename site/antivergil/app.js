@@ -27,6 +27,29 @@ const enrollHistoryLoading = new Set();
 const MIRROR_BASE = "https://raw.githubusercontent.com/soid/columbia-catalog-data/master";
 const CUSTOM_TERMS_KEY = "cu-custom-terms";
 const TERM_STORAGE_KEY = "cu-selected-term";
+const COURSE_RATINGS_KEY = "cu-course-ratings-v1";
+let courseRatingCache = null;
+
+function readCourseRatings() {
+  if (courseRatingCache) return courseRatingCache;
+  try {
+    const stored = JSON.parse(localStorage.getItem(COURSE_RATINGS_KEY) || "{}");
+    courseRatingCache = stored && typeof stored === "object" ? stored : {};
+  } catch {
+    courseRatingCache = {};
+  }
+  return courseRatingCache;
+}
+
+function setCourseRating(code, value) {
+  const key = normCode(code);
+  if (!key) return;
+  const ratings = { ...readCourseRatings() };
+  if (value == null) delete ratings[key];
+  else ratings[key] = { value: Math.max(1, Math.min(5, Number(value))), updatedAt: new Date().toISOString() };
+  courseRatingCache = ratings;
+  try { localStorage.setItem(COURSE_RATINGS_KEY, JSON.stringify(ratings)); } catch { /* ignore storage errors */ }
+}
 
 function readSavedTerm() {
   try { return localStorage.getItem(TERM_STORAGE_KEY); } catch { return null; }
@@ -90,6 +113,9 @@ const state = {
   departmentCode: "",
   departmentReturn: null,
   calendarView: "week",
+  rankingsMode: "score",
+  rankingsQuery: "",
+  rankingsLimit: 100,
   calendarSelected: null,
   calendarMiniMonth: null,
   calendarQuery: "",
@@ -478,6 +504,7 @@ function getSections() {
 /* ---------- 路由 / 导航 ---------- */
 const NAV = [
   ["browse", "Browse"],
+  ["rankings", "Rankings"],
   ["analysis", "Enrollment"],
   ["planner", "Plan"],
   ["calendar", "Calendar"],
@@ -553,6 +580,7 @@ function switchView(id, opts = {}) {
   if (id === "search") renderSearchResults();
   if (id === "instructor") renderInstructorProfile();
   if (id === "department") renderDepartmentProfile();
+  if (id === "rankings") renderRankings();
   if (id === "analysis") renderAnalysis();
   if (id === "planner") renderPlanner();
   if (id === "calendar") {
@@ -1270,6 +1298,39 @@ function renderEnrollAnalysis(course, an) {
     </div>`;
 }
 
+function renderCourseRatingPanel(host, code) {
+  if (!host) return;
+  const key = normCode(code);
+  const current = Number(readCourseRatings()[key]?.value) || 0;
+  host.innerHTML = `
+    <section class="course-rating-card" aria-label="Your course rating">
+      <div class="course-rating-copy">
+        <span>Your rating</span>
+        <b>${current ? `You rated this course ${current} out of 5` : "How was this course?"}</b>
+        <small>Saved locally on this device. Tap a star to update your rating.</small>
+      </div>
+      <div class="course-rating-controls">
+        <div class="course-rating-stars" role="radiogroup" aria-label="Course rating out of five">
+          ${[1, 2, 3, 4, 5].map((value) => `
+            <button type="button" data-course-rating="${value}" role="radio" aria-checked="${current === value}" aria-label="${value} star${value === 1 ? "" : "s"}" class="${value <= current ? "active" : ""}">★</button>`).join("")}
+        </div>
+        <button class="course-rating-clear" type="button" data-course-rating-clear ${current ? "" : "hidden"}>Clear</button>
+      </div>
+    </section>`;
+  host.querySelectorAll("[data-course-rating]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setCourseRating(key, Number(button.dataset.courseRating));
+      renderCourseRatingPanel(host, code);
+      toast(`Saved your ${button.dataset.courseRating}-star rating for ${code}.`);
+    });
+  });
+  host.querySelector("[data-course-rating-clear]")?.addEventListener("click", () => {
+    setCourseRating(key, null);
+    renderCourseRatingPanel(host, code);
+    toast(`Cleared your rating for ${code}.`);
+  });
+}
+
 /* ---------- 课程详情 ---------- */
 function openCourse(code, sectionId = "") {
   const sections = state.courses.filter((c) => normCode(c.code) === normCode(code));
@@ -1315,6 +1376,7 @@ function openCourse(code, sectionId = "") {
         <div class="culpa-review-host" id="culpa-review-host">
           <div class="culpa-review-loading">Loading CULPA reviews…</div>
         </div>
+        <div id="course-rating-host"></div>
         ${renderComparison(comp)}
       </section>
       <section class="m-folder-panel" id="m-panel-materials" role="tabpanel" aria-labelledby="m-tab-materials" data-mpanel="materials" hidden>
@@ -1387,6 +1449,7 @@ function openCourse(code, sectionId = "") {
     a.addEventListener("click", () => openCourse(a.dataset.code)));
   body.querySelectorAll(".loc-link").forEach((btn) =>
     btn.addEventListener("click", () => showLocation(btn.dataset.loc)));
+  renderCourseRatingPanel($("#course-rating-host"), c.code);
   bindSparklines(body);
   body.querySelector("[data-addcal]")?.addEventListener("click", () => {
     addSectionsToSchedule(c.code, selected.classId);
@@ -2407,7 +2470,7 @@ function instructorMetrics(offerings, profile) {
     reviewRating,
     reviewCount,
     axes,
-    score: teaching.length ? Math.round(weighted / weightSum) : null,
+    score: reportedTeaching.length ? Math.round(weighted / weightSum) : null,
   };
 }
 
@@ -2483,10 +2546,237 @@ function aggregateDepartment(index, departmentCode) {
         row.dropBase >= 20 &&
         row.enrolled >= 40 &&
         !/independent|fieldwork|practica|research|recitation|\brec\b|mentored/i.test(row.title) &&
+        !/^RESI\b/i.test(row.code) &&
         !/GR(?:5999|8001|8101)/i.test(row.code))
       .sort((a, b) => a.drop - b.drop || b.enrolled - a.enrolled || a.code.localeCompare(b.code))
       .slice(0, 8),
   };
+}
+
+let schoolRankingCache = null;
+
+function schoolRankings(index) {
+  if (schoolRankingCache?.generatedAt === index.generatedAt) return schoolRankingCache;
+  const instructors = [];
+  const courses = new Map();
+  for (const [name, profile] of Object.entries(index.instructors || {})) {
+    const offerings = instructorOfferings(profile);
+    if (!offerings.length) continue;
+    const metrics = instructorMetrics(offerings, profile);
+    if (metrics.score != null && metrics.reportedTeaching.length &&
+        !/^(faculty|staff|tba|to be announced|not available)$/i.test(name.trim())) {
+      instructors.push({
+        name,
+        score: metrics.score,
+        courses: metrics.courses.length,
+        terms: metrics.terms.length,
+        enrolled: metrics.totalEnrolled,
+        drop: metrics.avgDrop,
+        reviewRating: metrics.reviewRating,
+        reviewCount: metrics.reviewCount,
+      });
+    }
+    for (const row of offerings) {
+      const code = normCode(row.code);
+      const current = courses.get(code) || {
+        code,
+        title: row.title,
+        terms: new Set(),
+        totals: new Set(),
+        enrolled: 0,
+        capacity: 0,
+        dropBase: 0,
+        dropWeighted: 0,
+        latestTerm: row.term,
+      };
+      current.terms.add(row.term);
+      current.totals.add(name);
+      if (row.term > current.latestTerm) {
+        current.latestTerm = row.term;
+        current.title = row.title || current.title;
+      }
+      if (Number.isFinite(row.enrolled) && row.enrolled > 0) current.enrolled += row.enrolled;
+      if (Number.isFinite(row.capacity) && row.capacity > 0) current.capacity += row.capacity;
+      if (row.dropRate != null && row.dropBase >= 10) {
+        current.dropBase += row.dropBase;
+        current.dropWeighted += row.dropRate * row.dropBase;
+      }
+      courses.set(code, current);
+    }
+  }
+  const courseRows = [...courses.values()].map((row) => ({
+    ...row,
+    drop: row.dropBase ? row.dropWeighted / row.dropBase : null,
+    instructors: row.totals.size,
+  }));
+  instructors.sort((a, b) =>
+    b.score - a.score || b.enrolled - a.enrolled || a.name.localeCompare(b.name));
+  schoolRankingCache = {
+    generatedAt: index.generatedAt,
+    instructors,
+    courseCount: courseRows.length,
+    mostEnrolled: [...courseRows]
+      .filter((row) => row.enrolled > 0)
+      .sort((a, b) => b.enrolled - a.enrolled || a.code.localeCompare(b.code))
+      .slice(0, 8),
+    lowestDrop: [...courseRows]
+      .filter((row) =>
+        row.drop != null &&
+        row.dropBase >= 20 &&
+        row.enrolled >= 40 &&
+        !/independent|fieldwork|practica|research|recitation|\brec\b|mentored/i.test(row.title) &&
+        !/^RESI\b/i.test(row.code) &&
+        !/GR(?:5999|8001|8101)/i.test(row.code))
+      .sort((a, b) => a.drop - b.drop || b.enrolled - a.enrolled || a.code.localeCompare(b.code))
+      .slice(0, 8),
+  };
+  return schoolRankingCache;
+}
+
+function rankingInstructorRowsHTML(rows, mode) {
+  if (!rows.length) return `<div class="dept-empty">No instructors match this ranking.</div>`;
+  return `
+    <div class="school-rank-head" aria-hidden="true">
+      <span>Rank</span><span>Instructor</span><span>Measure</span><span>Result</span>
+    </div>
+    ${rows.map((row, index) => {
+      const review = mode === "reviews";
+      const retention = mode === "drop";
+      const value = review
+        ? `${row.reviewRating.toFixed(1)} / 5`
+        : retention
+          ? `${(row.drop * 100).toFixed(1)}%`
+          : row.score;
+      const width = review
+        ? row.reviewRating / 5 * 100
+        : retention
+          ? Math.max(3, (1 - Math.min(.35, row.drop) / .35) * 100)
+          : row.score;
+      return `
+        <button class="school-rank-row" type="button" data-instructor="${esc(row.name)}">
+          <span class="school-rank-index">${String(index + 1).padStart(2, "0")}</span>
+          <span class="school-rank-person">
+            <b>${esc(row.name)}</b>
+            <span>${row.courses} course${row.courses === 1 ? "" : "s"} · ${row.terms} term${row.terms === 1 ? "" : "s"}${row.reviewCount ? ` · ${row.reviewCount} review${row.reviewCount === 1 ? "" : "s"}` : ""}</span>
+          </span>
+          <span class="school-rank-meter"><i style="width:${Math.max(3, width)}%"></i></span>
+          <span class="school-rank-result ${instructorScoreTone(row.score)}">${esc(value)}</span>
+        </button>`;
+    }).join("")}`;
+}
+
+function rankingInstructorList() {
+  const data = schoolRankingCache;
+  if (!data) return "";
+  const query = normalizeSearchText(state.rankingsQuery);
+  let rows = data.instructors.filter((row) => !query || normalizeSearchText(row.name).includes(query));
+  if (state.rankingsMode === "reviews") {
+    rows = rows.filter((row) => row.reviewRating != null && row.reviewCount > 0)
+      .sort((a, b) => b.reviewRating - a.reviewRating || b.reviewCount - a.reviewCount || a.name.localeCompare(b.name));
+  } else if (state.rankingsMode === "drop") {
+    rows = rows.filter((row) => row.drop != null)
+      .sort((a, b) => a.drop - b.drop || b.score - a.score || a.name.localeCompare(b.name));
+  } else {
+    rows.sort((a, b) => b.score - a.score || b.enrolled - a.enrolled || a.name.localeCompare(b.name));
+  }
+  const total = rows.length;
+  const visible = rows.slice(0, state.rankingsLimit);
+  return `${rankingInstructorRowsHTML(visible, state.rankingsMode)}
+    ${total > visible.length ? `
+      <div class="school-rank-more">
+        <span>${visible.length.toLocaleString("en-US")} of ${total.toLocaleString("en-US")}</span>
+        <button type="button" data-ranking-more>Show ${Math.min(100, total - visible.length)} more</button>
+      </div>` : ""}`;
+}
+
+function renderRankings() {
+  const host = $("#rankings-page");
+  if (!host) return;
+  host.innerHTML = `
+    <div class="instructor-loading">
+      <span></span><b>Building campus rankings</b>
+      <small>Comparing instructors and courses across all available terms…</small>
+    </div>`;
+  loadInstructorIndex().then((index) => {
+    if ($("#view-rankings").hidden) return;
+    const data = schoolRankings(index);
+    const ratedCourses = Object.keys(readCourseRatings()).length;
+    host.innerHTML = `
+      <header class="rankings-hero">
+        <div>
+          <span class="dept-kicker">Campus-wide dossier · ${index.terms.length} terms</span>
+          <h1>Columbia<br>leaderboard</h1>
+          <p>Instructor scores, popular courses, and the classes students keep.</p>
+        </div>
+        <div class="rankings-stats">
+          <div><b>${data.instructors.length.toLocaleString("en-US")}</b><span>ranked teachers</span></div>
+          <div><b>${data.courseCount.toLocaleString("en-US")}</b><span>course records</span></div>
+          <div><b>${ratedCourses.toLocaleString("en-US")}</b><span>your ratings</span></div>
+        </div>
+      </header>
+      <section class="school-ranking-panel">
+        <div class="rankings-toolbar">
+          <div>
+            <span class="dept-kicker">All departments</span>
+            <h2>Instructor leaderboard</h2>
+          </div>
+          <div class="rankings-controls">
+            <input class="rankings-search" id="rankings-search" type="search" placeholder="Find an instructor…" value="${esc(state.rankingsQuery)}" />
+            <div class="rankings-modes" role="group" aria-label="Instructor ranking method">
+              <button type="button" data-ranking-mode="score" class="${state.rankingsMode === "score" ? "active" : ""}">Overall</button>
+              <button type="button" data-ranking-mode="reviews" class="${state.rankingsMode === "reviews" ? "active" : ""}">Reviews</button>
+              <button type="button" data-ranking-mode="drop" class="${state.rankingsMode === "drop" ? "active" : ""}">Lowest drop</button>
+            </div>
+          </div>
+        </div>
+        <div id="school-instructor-list" class="school-instructor-list">${rankingInstructorList()}</div>
+      </section>
+      <div class="dept-section-head">
+        <div><span>Across every department</span><h2>Course leaderboard</h2></div>
+        <p>Ranked using reported enrollment and post-start drop history.</p>
+      </div>
+      <div class="dept-course-rank-grid">
+        <section class="dept-rank-panel">
+          <div class="dept-rank-title"><h3>Most enrolled</h3><span>All available terms</span></div>
+          ${departmentCourseRankHTML(data.mostEnrolled, "enrollment")}
+        </section>
+        <section class="dept-rank-panel">
+          <div class="dept-rank-title"><h3>Lowest drop</h3><span>Drop base ≥20 · 40 enrolled</span></div>
+          ${departmentCourseRankHTML(data.lowestDrop, "drop")}
+        </section>
+      </div>`;
+    const refreshList = () => {
+      const list = $("#school-instructor-list");
+      list.innerHTML = rankingInstructorList();
+      list.scrollTop = 0;
+    };
+    $("#school-instructor-list")?.addEventListener("click", (event) => {
+      const more = event.target.closest("[data-ranking-more]");
+      if (more) {
+        state.rankingsLimit += 100;
+        refreshList();
+        return;
+      }
+      const button = event.target.closest("[data-instructor]");
+      if (button) openInstructor(button.dataset.instructor);
+    });
+    host.querySelectorAll("[data-ranking-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.rankingsMode = button.dataset.rankingMode;
+        state.rankingsLimit = 100;
+        host.querySelectorAll("[data-ranking-mode]").forEach((item) =>
+          item.classList.toggle("active", item.dataset.rankingMode === state.rankingsMode));
+        refreshList();
+      });
+    });
+    $("#rankings-search")?.addEventListener("input", (event) => {
+      state.rankingsQuery = event.target.value;
+      state.rankingsLimit = 100;
+      refreshList();
+    });
+  }).catch((error) => {
+    host.innerHTML = `<div class="notice error"><b>Campus ranking unavailable.</b><span>${esc(error.message)}</span></div>`;
+  });
 }
 
 function departmentCourseRankHTML(rows, mode) {
@@ -2519,7 +2809,7 @@ function departmentProfessorHTML(rows) {
         <span class="dept-prof-rank">${String(index + 1).padStart(2, "0")}</span>
         <span class="dept-prof-identity">
           <b>${esc(row.name)}</b>
-          <span>${row.courses} course${row.courses === 1 ? "" : "s"} · ${row.terms} term${row.terms === 1 ? "" : "s"}${row.reviews ? ` · ${row.reviews} reviews` : ""}</span>
+          <span>${row.courses} course${row.courses === 1 ? "" : "s"} · ${row.terms} term${row.terms === 1 ? "" : "s"}${row.reviews ? ` · ${row.reviews} review${row.reviews === 1 ? "" : "s"}` : ""}</span>
         </span>
         <span class="dept-prof-scale"><i style="width:${Math.max(4, row.score)}%"></i></span>
         <span class="dept-prof-score ${instructorScoreTone(row.score)}">${row.score}</span>
@@ -2954,7 +3244,7 @@ function renderInstructorProfile() {
       <section class="prof-history">
         <div class="prof-panel-head">
           <div><h2>Every available course</h2></div>
-          ${missingEnrollmentCount ? `<small>${missingEnrollmentCount} pre-2020 offering${missingEnrollmentCount === 1 ? "" : "s"} have catalog records but no public enrollment count; they are excluded from scoring.</small>` : ""}
+          ${missingEnrollmentCount ? `<small>${missingEnrollmentCount} pre-2020 offering${missingEnrollmentCount === 1 ? "" : "s"} have catalog records but no public enrollment count. They still count toward experience and breadth, but not demand, retention, or class size.</small>` : ""}
         </div>
         ${instructorHistoryHTML(offerings)}
       </section>`;

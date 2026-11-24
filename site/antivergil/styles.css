@@ -4398,6 +4398,366 @@ main {
   font-weight: 700;
 }
 
+/* ---------- Campus leaderboard ---------- */
+.rankings-page {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.rankings-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, .75fr);
+  align-items: end;
+  gap: 42px;
+  padding: 10px 0 30px;
+  border-bottom: 3px solid var(--sa-line);
+}
+
+.rankings-hero h1 {
+  margin: 0;
+  font-size: clamp(54px, 7vw, 92px);
+  font-weight: 800;
+  line-height: .88;
+  letter-spacing: -.07em;
+}
+
+.rankings-hero p {
+  max-width: 560px;
+  margin: 15px 0 0;
+  color: var(--sa-ink-2);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rankings-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1.5px solid var(--sa-ink);
+  border-bottom: 1.5px solid var(--sa-ink);
+}
+
+.rankings-stats > div {
+  min-width: 0;
+  padding: 17px 13px 15px;
+  border-right: 1px solid var(--sa-soft-line);
+}
+
+.rankings-stats > div:first-child { padding-left: 0; }
+.rankings-stats > div:last-child { border-right: 0; }
+
+.rankings-stats b {
+  display: block;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.035em;
+}
+
+.rankings-stats span {
+  display: block;
+  margin-top: 6px;
+  color: var(--sa-ink-2);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.school-ranking-panel {
+  margin-top: 28px;
+  border-top: 3px solid var(--sa-line);
+}
+
+.rankings-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0 13px;
+  border-bottom: 2px solid var(--sa-line);
+}
+
+.rankings-toolbar h2 {
+  margin: 3px 0 0;
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: -.025em;
+}
+
+.rankings-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rankings-search {
+  width: 210px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1.5px solid var(--sa-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sa-ink);
+  font-family: var(--sa-font);
+  font-size: 11px;
+}
+
+.rankings-search:focus {
+  border-color: var(--sa-brown);
+  outline: none;
+}
+
+.rankings-modes {
+  display: flex;
+  gap: 4px;
+}
+
+.rankings-modes button {
+  height: 34px;
+  padding: 0 11px;
+  border: 1.5px solid var(--sa-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sa-ink);
+  font-family: var(--sa-font);
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.rankings-modes button:hover,
+.rankings-modes button.active {
+  background: var(--sa-ink);
+  color: var(--sa-bg);
+}
+
+.school-instructor-list {
+  max-height: 690px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #aaa397 transparent;
+}
+
+.school-rank-head,
+.school-rank-row {
+  display: grid;
+  grid-template-columns: 44px minmax(260px, 1fr) minmax(180px, .55fr) 92px;
+  align-items: center;
+  gap: 15px;
+}
+
+.school-rank-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-height: 31px;
+  border-bottom: 1.5px solid var(--sa-ink);
+  background: var(--sa-bg);
+  color: var(--sa-ink-2);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.school-rank-head span:nth-child(3),
+.school-rank-head span:last-child { text-align: right; }
+
+.school-rank-row {
+  width: 100%;
+  min-height: 52px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dotted var(--sa-soft-line);
+  background: transparent;
+  color: var(--sa-ink);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.school-rank-row:hover { background: color-mix(in srgb, var(--sa-green) 5%, transparent); }
+
+.school-rank-index {
+  color: #9b9487;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.school-rank-person {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.school-rank-person b {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.school-rank-person span {
+  color: var(--sa-ink-2);
+  font-size: 9px;
+}
+
+.school-rank-meter {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--sa-soft-line);
+}
+
+.school-rank-meter i {
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: #3b88d4;
+}
+
+.school-rank-row:nth-child(2n) .school-rank-meter i { background: #2f9164; }
+
+.school-rank-result {
+  min-width: 54px;
+  display: grid;
+  place-items: center;
+  justify-self: end;
+  padding: 7px 9px;
+  border: 1.5px solid #79a0c8;
+  border-radius: 999px;
+  background: #e8f0f8;
+  color: #1c4f7d;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.school-rank-result.strong {
+  border-color: #caa04a;
+  background: #f7ead0;
+  color: #73500b;
+}
+
+.school-rank-result.steady {
+  border-color: #cf9078;
+  background: #f4e2db;
+  color: #773a29;
+}
+
+.school-rank-more {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 11px 0 2px;
+}
+
+.school-rank-more span {
+  color: var(--sa-ink-2);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.school-rank-more button {
+  padding: 5px 10px;
+  border: 1.5px solid var(--sa-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--sa-ink);
+  font-family: var(--sa-font);
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.school-rank-more button:hover {
+  background: var(--sa-ink);
+  color: var(--sa-bg);
+}
+
+/* ---------- Personal course rating ---------- */
+.course-rating-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 18px 0;
+  padding: 16px 0;
+  border-top: 1.5px solid var(--sa-soft-line);
+  border-bottom: 1.5px solid var(--sa-soft-line);
+}
+
+.course-rating-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.course-rating-copy > span {
+  color: var(--sa-brown);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.course-rating-copy b {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.course-rating-copy small {
+  color: var(--sa-ink-2);
+  font-size: 9.5px;
+}
+
+.course-rating-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-rating-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.course-rating-stars button {
+  width: 31px;
+  height: 34px;
+  padding: 0;
+  border: 1.5px solid #c8c3b8;
+  border-radius: 6px;
+  background: transparent;
+  color: #b5b0a6;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.course-rating-stars button:hover,
+.course-rating-stars button.active {
+  border-color: #d49b1e;
+  background: #f5e8c7;
+  color: #b87900;
+}
+
+.course-rating-clear {
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  color: var(--sa-ink-2);
+  font-family: var(--sa-font);
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.course-rating-clear:hover { color: var(--sa-brown); }
+
 @media (max-width: 980px) {
   .prof-dashboard { grid-template-columns: 1fr; }
   .prof-radar-panel {
@@ -4416,6 +4776,15 @@ main {
   .dept-course-table-head,
   .dept-course-row {
     grid-template-columns: 110px minmax(230px, 1fr) minmax(150px, .45fr) 100px;
+  }
+  .rankings-hero { grid-template-columns: 1fr; gap: 24px; }
+  .rankings-stats { max-width: 560px; }
+  .rankings-toolbar { align-items: flex-start; flex-direction: column; }
+  .rankings-controls { width: 100%; }
+  .rankings-search { flex: 1; width: auto; }
+  .school-rank-head,
+  .school-rank-row {
+    grid-template-columns: 38px minmax(210px, 1fr) minmax(140px, .45fr) 82px;
   }
 }
 
@@ -4490,6 +4859,31 @@ main {
   .dept-course-enrollment {
     grid-column: 3;
     grid-row: 1 / span 2;
+  }
+  .rankings-hero h1 { font-size: 54px; }
+  .rankings-stats > div { padding: 13px 8px; }
+  .rankings-stats b { font-size: 22px; }
+  .rankings-controls { align-items: flex-start; flex-direction: column; }
+  .rankings-modes { width: 100%; }
+  .rankings-modes button { flex: 1; }
+  .school-ranking-panel { margin-top: 22px; }
+  .school-instructor-list { max-height: 620px; }
+  .school-rank-head { display: none; }
+  .school-rank-row {
+    grid-template-columns: 30px minmax(0, 1fr) 64px;
+    gap: 9px;
+    padding: 8px 0;
+  }
+  .school-rank-meter { display: none; }
+  .school-rank-result { grid-column: 3; }
+  .course-rating-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .course-rating-stars button {
+    width: 38px;
+    height: 38px;
   }
 }
 
