@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    let visitor = true;
+    try { visitor = !JSON.parse(localStorage.getItem("cu-auth-user")); } catch {}
+    if (visitor) location.replace("home.html" + location.search + location.hash);
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ANTIVERGIL · Columbia Course Planner</title>
