@@ -2921,7 +2921,7 @@ function renderDepartmentProfile() {
           <div><span>Faculty index</span><h2>Instructor ranking</h2></div>
           <div class="dept-ranking-actions">
             <p>${instructorCount.toLocaleString("en-US")} instructors teaching in ${esc(departmentCode)}.</p>
-            ${instructorCount > 5 ? `<button class="dept-ranking-toggle" type="button" data-dept-instructor-toggle aria-expanded="${state.departmentInstructorsExpanded}">${state.departmentInstructorsExpanded ? "收起" : `展开全部 ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>` : ""}
+            ${instructorCount > 5 ? `<button class="dept-ranking-toggle" type="button" data-dept-instructor-toggle aria-expanded="${state.departmentInstructorsExpanded}">${state.departmentInstructorsExpanded ? "Collapse" : `Show all ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>` : ""}
           </div>
         </div>
         <div id="dept-instructor-list">${departmentProfessorHTML(aggregate.instructors, state.departmentInstructorsExpanded)}</div>
@@ -2945,7 +2945,7 @@ function renderDepartmentProfile() {
         host.querySelector("#dept-instructor-list").innerHTML =
           departmentProfessorHTML(aggregate.instructors, state.departmentInstructorsExpanded);
         toggle.setAttribute("aria-expanded", String(state.departmentInstructorsExpanded));
-        toggle.innerHTML = `${state.departmentInstructorsExpanded ? "收起" : `展开全部 ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>`;
+        toggle.innerHTML = `${state.departmentInstructorsExpanded ? "Collapse" : `Show all ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>`;
         return;
       }
       const instructor = event.target.closest(".dept-prof-row[data-instructor]");
