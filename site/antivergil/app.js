@@ -2407,7 +2407,7 @@ function radarChartSVG(axes, size = 338) {
     const dx = Math.cos(angleFor(index)) * (labelRadius - radius);
     const dy = Math.sin(angleFor(index)) * (labelRadius - radius);
     const anchor = Math.abs(dx) < 5 ? "middle" : dx > 0 ? "start" : "end";
-    return `<text class="prof-radar-label" x="${(x + dx).toFixed(1)}" y="${(y + dy + 4).toFixed(1)}" text-anchor="${anchor}">${esc(axis.label)} <tspan>${Math.round(axis.value)}</tspan></text>`;
+    return `<text class="prof-radar-label" x="${(x + dx).toFixed(1)}" y="${(y + dy + 4).toFixed(1)}" text-anchor="${anchor}">${esc(axis.label.toUpperCase())}<tspan dx="4">${Math.round(axis.value)}</tspan></text>`;
   }).join("");
   return `
     <svg class="prof-radar-chart" viewBox="0 0 ${size} ${size}" role="img" aria-label="Instructor profile radar chart">
@@ -2435,7 +2435,7 @@ function termChartSVG(offerings) {
     .sort((a, b) => a.term.localeCompare(b.term));
   if (!rows.length) return "";
   const width = 900;
-  const height = 300;
+  const height = 388;
   const left = 54;
   const right = 48;
   const top = 28;
@@ -2517,12 +2517,21 @@ function instructorCourseBarsHTML(offerings) {
     .sort((a, b) => b.total - a.total)
     .slice(0, 10);
   const max = Math.max(...rows.map((row) => row.total), 1);
-  return rows.map((row) => `
+  return `
+    <div class="prof-course-bar-head" aria-hidden="true">
+      <span>Course</span><span>Teaching volume</span>
+      <span class="prof-course-bar-head-stats"><i>Enrolled</i><i>Terms</i><i>Drop</i></span>
+    </div>
+    ${rows.map((row) => `
     <div class="prof-course-bar-row">
       <div class="prof-course-bar-label"><b>${esc(row.code)}</b><strong>${esc(row.title)}</strong></div>
       <div class="prof-course-bar-track"><i class="${row.drop == null ? "pre" : row.drop >= .2 ? "risk" : row.drop >= .1 ? "watch" : "stable"}" style="width:${Math.max(2, row.total / max * 100)}%"></i></div>
-      <div class="prof-course-bar-stat"><b>${row.total.toLocaleString("en-US")}</b><span class="prof-stat-term">${row.terms.size} term${row.terms.size === 1 ? "" : "s"}</span>${row.drop == null ? "" : `<span class="prof-stat-drop ${row.drop >= .2 ? "risk" : row.drop >= .1 ? "watch" : "stable"}">${(row.drop * 100).toFixed(1)}% drop</span>`}</div>
-    </div>`).join("");
+      <div class="prof-course-bar-stat">
+        <b class="prof-stat-enrollment">${row.total.toLocaleString("en-US")}</b>
+        <span class="prof-stat-term">${row.terms.size}</span>
+        <span class="prof-stat-drop ${row.drop == null ? "pending" : row.drop >= .2 ? "risk" : row.drop >= .1 ? "watch" : "stable"}">${row.drop == null ? "—" : `${(row.drop * 100).toFixed(1)}%`}</span>
+      </div>
+    </div>`).join("")}`;
 }
 
 function instructorHistoryHTML(offerings) {
