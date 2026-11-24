@@ -12265,6 +12265,24 @@ body[data-view="search"] .topbar {
   stroke-width: 2;
   pointer-events: none;
 }
+.prof-radar-axis-label,
+.prof-radar-axis-score {
+  font-family: var(--sa-font);
+  pointer-events: none;
+}
+.prof-radar-axis-label {
+  fill: var(--sa-ink-2);
+  font-size: 14px;
+  font-weight: 700;
+}
+.prof-radar-axis-score {
+  fill: #1f5f9d;
+  stroke: var(--sa-bg);
+  stroke-width: 4px;
+  paint-order: stroke;
+  font-size: 20px;
+  font-weight: 800;
+}
 
 /* Course history rows open a compact detail panel instead of showing metrics inline. */
 .prof-offering {
@@ -12531,45 +12549,9 @@ body[data-view="search"] .topbar {
 .prof-score-popover .prof-radar-chart {
   display: block;
   width: 100%;
-  max-width: 188px;
+  max-width: 220px;
   height: auto;
   margin: 0 auto;
-}
-.prof-radar-key {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid var(--sa-soft-line);
-}
-.prof-radar-key > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  min-width: 0;
-  padding: 5px 3px;
-  border-bottom: 1px dotted var(--sa-soft-line);
-}
-.prof-radar-key > div:nth-child(odd) { border-right: 1px solid var(--sa-soft-line); padding-right: 7px; }
-.prof-radar-key > div:nth-child(even) { padding-left: 7px; }
-.prof-radar-key span {
-  overflow: hidden;
-  color: var(--sa-ink-2);
-  font-size: 9px;
-  line-height: 1.2;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.prof-radar-key b {
-  flex: none;
-  font-size: 10px;
-  font-weight: 800;
-  white-space: nowrap;
-}
-.prof-radar-key small {
-  margin-left: 1px;
-  color: var(--sa-ink-2);
-  font-size: 8px;
-  font-weight: 600;
 }
 
 .prof-identity-tags {

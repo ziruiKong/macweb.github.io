@@ -3098,10 +3098,10 @@ function instructorScoreTone(score) {
   return "developing";
 }
 
-function radarChartSVG(axes, size = 338) {
+function radarChartSVG(axes, size = 420) {
   if (!axes.length) return "";
   const center = size / 2;
-  const radius = size * .37;
+  const radius = size * .31;
   const angleFor = (index) => -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
   const pointFor = (index, ratio) => [
     center + Math.cos(angleFor(index)) * radius * ratio,
@@ -3117,8 +3117,24 @@ function radarChartSVG(axes, size = 338) {
   const dataPoints = axes.map((axis, index) =>
     pointFor(index, Math.max(.06, Math.min(1, axis.value / 100)))) ;
   const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-  const points = dataPoints.map(([x, y]) => {
-    return `<circle class="prof-radar-marker" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"/>`;
+  const points = dataPoints.map(([x, y], index) => {
+    const axis = axes[index];
+    const angle = angleFor(index);
+    const unitX = Math.cos(angle);
+    const unitY = Math.sin(angle);
+    const anchor = unitX > .45 ? "end" : unitX < -.45 ? "start" : "middle";
+    const scoreX = x + unitX * 18;
+    const scoreY = y + unitY * 18;
+    const labelAngle = Math.abs(unitY) < .05
+      ? angle
+      : angle + (unitY < 0 ? (angle < 0 ? -1 : 1) : (angle < Math.PI / 2 ? 1 : -1)) * (Math.PI / 15);
+    const labelX = center + Math.cos(labelAngle) * (radius + 48);
+    const labelY = center + Math.sin(labelAngle) * (radius + 48);
+    const value = Math.round(axis.value);
+    return `
+      <circle class="prof-radar-marker" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"/>
+      <text class="prof-radar-axis-label" x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${esc(axis.label)}</text>
+      <text class="prof-radar-axis-score" x="${scoreX.toFixed(1)}" y="${scoreY.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${value}</text>`;
   }).join("");
   return `
     <svg class="prof-radar-chart" viewBox="0 0 ${size} ${size}" role="img" aria-label="Instructor score breakdown radar chart">
@@ -3320,9 +3336,6 @@ function renderInstructorProfile() {
           <b>${metrics.score == null ? "NEW" : metrics.score}</b>
           <div class="prof-score-popover">
             ${radarChartSVG(metrics.axes)}
-            <div class="prof-radar-key" role="list" aria-label="Instructor score breakdown">
-              ${metrics.axes.map((axis) => `<div role="listitem"><span>${esc(axis.label)}</span><b>${Math.round(axis.value)}<small>/100</small></b></div>`).join("")}
-            </div>
           </div>
         </div>
         <div class="prof-identity-tags${metrics.reviewRating == null ? "" : " has-review"}" aria-label="Instructor summary">
