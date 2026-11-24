@@ -995,6 +995,7 @@ body.sidebar-collapsed .term-chip::before { display: none; }
 .enroll-bar-spacer { flex: 1; }
 .cc-bottom .cc-enroll-inline { flex: 0 0 auto; margin-left: 0; }
 .card-add-wrap { position: relative; }
+.course-card .card-add-wrap { margin-left: auto; }
 .card-add {
   width: 28px;
   height: 28px;
