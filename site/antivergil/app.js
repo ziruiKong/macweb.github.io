@@ -1360,13 +1360,7 @@ function renderCourseRatingPanel(host, code) {
 
 /* ---------- 课程详情 ---------- */
 function openCourse(code, sectionId = "") {
-  if (!authUser) {
-    try {
-      sessionStorage.setItem(PENDING_COURSE_KEY, JSON.stringify({ code, sectionId }));
-    } catch { /* ignore storage errors */ }
-    redirectToLogin(location.hash);
-    return;
-  }
+  const locked = !authUser;
   const sections = state.courses.filter((c) => normCode(c.code) === normCode(code));
   if (!sections.length) return;
   state.modalCourse = { code, sectionId };
@@ -1380,7 +1374,7 @@ function openCourse(code, sectionId = "") {
   const an = enrollAnalysis(selectedCard);
   const comp = comparisonFor(c.code);
   body.innerHTML = `
-    <div class="m-folder">
+    <div class="m-folder${locked ? " course-detail-locked" : ""}">
       <div class="m-folder-tabs" role="tablist" aria-label="Course details">
         <button class="m-folder-tab active" type="button" role="tab" id="m-tab-overview" aria-controls="m-panel-overview" aria-selected="true" data-mtab="overview">Overview</button>
         <button class="m-folder-tab" type="button" role="tab" id="m-tab-materials" aria-controls="m-panel-materials" aria-selected="false" data-mtab="materials">Course materials</button>
@@ -1443,8 +1437,30 @@ function openCourse(code, sectionId = "") {
         <button class="btn ghost" data-addplan="${esc(c.code)}">Add to plan</button>
         ${c.sections[0].link ? `<a class="btn ghost m-course-link" href="${esc(c.sections[0].link)}" target="_blank" rel="noopener">Official course page ↗</a>` : ""}
       </div>
+      ${locked ? `
+        <div class="course-lock-overlay">
+          <div class="course-lock-card">
+            <span class="course-lock-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            </span>
+            <b>Sign in to unlock course details</b>
+            <span>Enrollment history, reviews, section data, and comparisons are available to Columbia students.</span>
+            <button class="btn primary course-lock-signin" type="button">Continue with Google</button>
+          </div>
+        </div>` : ""}
     </div>
   `;
+  if (locked) {
+    body.querySelector(".course-lock-signin")?.addEventListener("click", () => {
+      try {
+        sessionStorage.setItem(PENDING_COURSE_KEY, JSON.stringify({ code, sectionId }));
+      } catch { /* ignore storage errors */ }
+      redirectToLogin(location.hash);
+    });
+    $("#modal").hidden = false;
+    document.body.style.overflow = "hidden";
+    return;
+  }
   const folderTabs = [...body.querySelectorAll(".m-folder-tab")];
   const selectFolderTab = (name) => {
     folderTabs.forEach((tab) => {

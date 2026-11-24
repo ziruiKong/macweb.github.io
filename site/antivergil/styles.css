@@ -2165,6 +2165,84 @@ body.sidebar-collapsed .term-chip::before { display: none; }
 }
 .modal-actions .btn { white-space: nowrap; }
 
+.course-detail-locked {
+  position: relative;
+  isolation: isolate;
+  min-height: min(620px, calc(86vh - 60px));
+}
+
+.course-detail-locked > :not(.course-lock-overlay) {
+  pointer-events: none;
+  user-select: none;
+  opacity: .58;
+  filter: blur(5px);
+}
+
+.course-lock-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: min(620px, calc(86vh - 60px));
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(243, 243, 240, .48);
+}
+
+.course-lock-card {
+  position: relative;
+  z-index: 21;
+  width: min(360px, 100%);
+  display: grid;
+  justify-items: center;
+  gap: 9px;
+  padding: 26px 24px 23px;
+  border: 2px solid var(--sa-ink);
+  border-radius: 12px;
+  background: var(--sa-bg);
+  color: var(--sa-ink);
+  text-align: center;
+  box-shadow: 5px 6px 0 rgba(36, 36, 34, 0.12);
+}
+
+.course-lock-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 2px;
+  border-radius: 50%;
+  background: #dfeaf6;
+  color: #344f70;
+}
+
+.course-lock-icon svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.course-lock-card b {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.course-lock-card > span:not(.course-lock-icon) {
+  color: var(--sa-ink-2);
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.course-lock-card .btn {
+  margin-top: 6px;
+}
+
 /* Enrollment analysis in modal */
 .enroll-analysis {
   margin: 18px 0;
