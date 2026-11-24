@@ -11391,8 +11391,7 @@ body.join-page-open {
 :is(#course-list, #search-results) .course-card > .stamp-shape {
   background-color: #fefefd;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23555555' opacity='.055' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E"),
-    linear-gradient(110deg, #ffffff, #f8f8f6);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23555555' opacity='.055' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
 }
 :is(#course-list, #search-results) .course-card > .stamp-shape::before { content: none; }
 :is(#course-list, #search-results) .course-card {
@@ -11514,4 +11513,14 @@ body.join-page-open {
   }
   :is(#course-list, #search-results) .course-card .cc-meta > :nth-child(2n) { border-right: 0; }
   :is(#course-list, #search-results) .course-card .cc-meta > :nth-child(n + 3) { border-top: 1px solid #b5b5ac; }
+}
+
+:is(#course-list, #search-results) .course-card .cc-meta {
+  align-items: stretch;
+}
+:is(#course-list, #search-results) .course-card .cc-meta > .chip,
+:is(#course-list, #search-results) .course-card .cc-meta .instructor-pill {
+  height: auto;
+  align-self: stretch;
+  font-weight: 700;
 }
