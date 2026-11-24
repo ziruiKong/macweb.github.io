@@ -2332,31 +2332,31 @@ function instructorMetrics(offerings, profile) {
   const avgEnrollment = teaching.length ? totalEnrolled / teaching.length : 0;
   const reviewRating = Array.isArray(profile?.r) ? Number(profile.r[0]) : null;
   const reviewCount = Array.isArray(profile?.r) ? Number(profile.r[1]) : 0;
+  const breadthScore = Math.max(0, Math.min(100, 35 + Math.min(courses.length, 10) * 5 + Math.min(terms.length, 12) * 1.25));
+  const experienceScore = Math.max(0, Math.min(100, 30 + Math.min(terms.length, 10) * 6.5));
+  const classSizeScore = avgEnrollment > 0
+    ? Math.max(0, Math.min(100, Math.log1p(avgEnrollment) / Math.log1p(150) * 100))
+    : 0;
   const axes = [
     { key: "popularity", label: "Demand", value: Math.max(0, Math.min(100, avgFill * 100)) },
-    { key: "stability", label: "Retention", value: avgDrop == null ? 50 : Math.max(0, Math.min(100, (1 - Math.min(.5, avgDrop) / .5) * 100)) },
-    { key: "experience", label: "Experience", value: Math.max(0, Math.min(100, terms.length / 10 * 100)) },
-    { key: "breadth", label: "Breadth", value: Math.max(0, Math.min(100, courses.length / 8 * 100)) },
-    { key: "scale", label: "Class size", value: Math.max(0, Math.min(100, avgEnrollment / 150 * 100)) },
+    { key: "stability", label: "Retention", value: avgDrop == null ? 65 : Math.max(0, Math.min(100, (1 - Math.min(.35, avgDrop) / .35) * 100)) },
+    { key: "experience", label: "Experience", value: experienceScore },
+    { key: "breadth", label: "Breadth", value: breadthScore },
+    { key: "scale", label: "Class size", value: classSizeScore },
   ];
   if (reviewRating != null) {
     axes.push({ key: "rating", label: "Reviews", value: Math.max(0, Math.min(100, reviewRating / 5 * 100)) });
   }
-  const weighted = axes.reduce((sum, axis) => {
-    const weight = axis.key === "stability" ? .3
-      : axis.key === "popularity" ? .25
-        : axis.key === "rating" ? .05
-          : axis.key === "experience" || axis.key === "breadth" ? .15
-            : .1;
-    return sum + axis.value * weight;
-  }, 0);
-  const weightSum = axes.reduce((sum, axis) => {
-    return sum + (axis.key === "stability" ? .3
-      : axis.key === "popularity" ? .25
-        : axis.key === "rating" ? .05
-          : axis.key === "experience" || axis.key === "breadth" ? .15
-            : .1);
-  }, 0);
+  const weights = {
+    stability: .3,
+    popularity: .25,
+    experience: .2,
+    breadth: .1,
+    scale: .1,
+    rating: .05,
+  };
+  const weighted = axes.reduce((sum, axis) => sum + axis.value * weights[axis.key], 0);
+  const weightSum = axes.reduce((sum, axis) => sum + weights[axis.key], 0);
   return {
     teaching,
     completed,
