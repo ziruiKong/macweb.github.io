@@ -324,7 +324,8 @@ function enrollAnalysis(course, term = state.term) {
   const start = pointAt(postStart, startDate) || postStart[0];
   const week1 = pointAt(postStart, addDaysStr(startDate, 7)) || start;
   const week2 = pointAt(postStart, addDaysStr(startDate, 14)) || week1;
-  const end = postStart.at(-1);
+  const [endDate, endEnrollment] = postStart.at(-1);
+  const end = { d: endDate, e: endEnrollment };
   const opening = postStart.filter(([date]) => date <= addDaysStr(startDate, 14));
   const base = Math.max(0, ...opening.map(([, enrolled]) => enrolled || 0));
   if (!base) {
