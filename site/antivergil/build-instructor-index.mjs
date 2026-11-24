@@ -58,7 +58,7 @@ function scheduleLabel(section) {
     ? `${section.startLabel}–${section.endLabel}`
     : "Time TBA";
   const sectionId = String(section.classId || "").split("-").at(-1) || String(section.callNumber || "");
-  return `${sectionId ? `${sectionId} · ` : ""}${days ? `${days} ` : ""}${time}${section.location ? ` · ${section.location}` : ""}`;
+  return `${sectionId ? `${sectionId} · ` : ""}${days ? `${days} ` : ""}${time}`;
 }
 
 function analyzeDrop(series, term) {

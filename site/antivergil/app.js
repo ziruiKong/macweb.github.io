@@ -2518,7 +2518,7 @@ function instructorCourseBarsHTML(offerings) {
   const max = Math.max(...rows.map((row) => row.total), 1);
   return rows.map((row) => `
     <div class="prof-course-bar-row">
-      <div class="prof-course-bar-label"><b>${esc(row.code)}</b><span>${esc(row.title)}</span></div>
+      <div class="prof-course-bar-label"><b>${esc(row.code)}</b><strong>${esc(row.title)}</strong></div>
       <div class="prof-course-bar-track"><i style="width:${Math.max(2, row.total / max * 100)}%"></i></div>
       <div class="prof-course-bar-stat"><b>${row.total.toLocaleString("en-US")}</b><span>${row.terms.size} term${row.terms.size === 1 ? "" : "s"}${row.drop == null ? "" : ` · ${(row.drop * 100).toFixed(1)}% drop`}</span></div>
     </div>`).join("");
@@ -2541,8 +2541,8 @@ function instructorHistoryHTML(offerings) {
               <b>${esc(row.title)}</b>
               <span>${esc(row.schedule)}</span>
             </div>
-            <div class="prof-offering-metric"><b>${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}</b><span>${row.capacity ? `${Math.round(row.enrolled / row.capacity * 100)}% filled` : "capacity n/a"}</span></div>
-            <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b><span>${row.dropRate == null ? "pre-term" : "post-start drop"}</span></div>
+            <div class="prof-offering-metric"><b>${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}</b></div>
+            <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b></div>
           </article>`).join("")}
       </div>
     </section>`).join("");
@@ -2581,7 +2581,6 @@ function renderInstructorProfile() {
       <header class="prof-hero">
         <div class="prof-monogram" aria-hidden="true">${esc(initials || "?")}</div>
         <div class="prof-identity">
-          <span class="prof-kicker">Instructor dossier · ${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
           <h1>${esc(canonical)}</h1>
           <p>${latest ? `Latest teaching · ${esc(termShort(latest.term))}` : "Teaching history"}</p>
           <div class="prof-identity-tags">
@@ -2591,6 +2590,7 @@ function renderInstructorProfile() {
             <span class="is-drop-${dropTone}">${metrics.avgDrop == null ? "Drop history pending" : `${(metrics.avgDrop * 100).toFixed(1)}% weighted drop`}</span>
             ${reviewTag}
           </div>
+          <span class="prof-kicker">Instructor dossier · ${esc(metrics.departments.join(" / ") || "Columbia University")}</span>
         </div>
         <div class="prof-score ${scoreTone}" style="--score:${metrics.score}">
           <b>${metrics.score}</b>

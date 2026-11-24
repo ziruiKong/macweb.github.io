@@ -3172,7 +3172,7 @@ main {
   width: max-content;
   max-width: 100%;
   display: inline-flex;
-  margin-bottom: 8px;
+  margin: 10px 0 0;
   padding: 6px 10px;
   border: 1.5px solid #9fb1c5;
   border-radius: 999px;
@@ -3477,7 +3477,7 @@ main {
 
 .prof-course-bar-row {
   display: grid;
-  grid-template-columns: minmax(230px, .9fr) minmax(160px, 1.4fr) 110px;
+  grid-template-columns: minmax(320px, 1.1fr) minmax(160px, 1.4fr) 110px;
   align-items: center;
   gap: 16px;
   min-height: 44px;
@@ -3491,6 +3491,12 @@ main {
   min-width: 0;
 }
 
+.prof-course-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .prof-course-bar-label b,
 .prof-course-bar-stat b {
   font-size: 13px;
@@ -3499,11 +3505,28 @@ main {
 
 .prof-course-bar-label b {
   width: max-content;
+  flex: 0 0 auto;
   padding: 2px 7px;
   border: 1.5px solid #9eb1c7;
   border-radius: 999px;
   background: #e7edf5;
   color: #344f70;
+}
+
+.prof-course-bar-label strong {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  padding: 3px 8px;
+  border: 1.5px solid #c1b9ab;
+  border-radius: 999px;
+  background: #f0ede6;
+  color: #3d3932;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .prof-course-bar-label span,
@@ -3560,7 +3583,7 @@ main {
   grid-template-columns: 112px minmax(0, 1fr) 112px 116px;
   align-items: center;
   gap: 16px;
-  min-height: 66px;
+  min-height: 56px;
   padding: 8px 0;
   border-bottom: 1px dotted var(--sa-soft-line);
 }
@@ -3606,7 +3629,7 @@ main {
 .prof-offering-metric span {
   overflow: hidden;
   color: var(--sa-ink-2);
-  font-size: 11.5px;
+  font-size: 12.5px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
