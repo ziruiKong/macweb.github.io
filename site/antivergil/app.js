@@ -2507,13 +2507,13 @@ function departmentCourseRankHTML(rows, mode) {
     </div>`).join("");
 }
 
-function departmentProfessorHTML(rows, total) {
+function departmentProfessorHTML(rows) {
   if (!rows.length) return `<div class="dept-empty">Instructor ranking is still being built.</div>`;
   return `
     <div class="dept-prof-head" aria-hidden="true">
       <span>Rank</span><span>Instructor</span><span>Scale</span><span>Score</span>
     </div>
-    ${rows.slice(0, 20).map((row, index) => `
+    ${rows.map((row, index) => `
       <button class="dept-prof-row" type="button" data-instructor="${esc(row.name)}">
         <span class="dept-prof-rank">${String(index + 1).padStart(2, "0")}</span>
         <span class="dept-prof-identity">
@@ -2522,8 +2522,7 @@ function departmentProfessorHTML(rows, total) {
         </span>
         <span class="dept-prof-scale"><i style="width:${Math.max(4, row.score)}%"></i></span>
         <span class="dept-prof-score ${instructorScoreTone(row.score)}">${row.score}</span>
-      </button>`).join("")}
-    ${total > 20 ? `<div class="dept-ranking-note">Showing the top 20 of ${total.toLocaleString("en-US")} ranked instructors.</div>` : ""}`;
+      </button>`).join("")}`;
 }
 
 function departmentCourseRowsHTML(courses) {
@@ -2628,7 +2627,7 @@ function renderDepartmentProfile() {
           <div><span>Faculty index</span><h2>Instructor ranking</h2></div>
           <p>${instructorCount.toLocaleString("en-US")} instructors teaching in ${esc(departmentCode)}.</p>
         </div>
-        ${departmentProfessorHTML(aggregate.instructors, instructorCount)}
+        ${departmentProfessorHTML(aggregate.instructors)}
       </section>
       <section class="dept-term-panel">
         <div class="dept-section-head compact">
