@@ -124,13 +124,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 .login-auth { margin-top: 27px; }
 .google-login-mount {
+  width: min(392px, 100%);
+  min-height: 42px;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(22, 32, 52, .035);
 }
 .google-login-mount:empty { display: none; }
 .google-login-mount > div,
 .google-login-mount iframe {
+  width: 100% !important;
   max-width: 100%;
+  display: block;
 }
 .google-login {
   width: 100%;
