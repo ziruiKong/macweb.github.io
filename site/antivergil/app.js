@@ -3044,15 +3044,11 @@ function radarChartSVG(axes, size = 338) {
   const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
   const points = dataPoints.map(([x, y], index) => {
     const axis = axes[index];
-    const valueX = x;
-    const valueY = y;
     const value = Math.round(axis.value);
-    const badgeRadius = String(value).length >= 3 ? 9 : 8;
     return `
       <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100" data-label="${esc(axis.label)}" data-value="${value}">
         <circle class="prof-radar-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>
-        <circle class="prof-radar-value-bg" cx="${valueX.toFixed(1)}" cy="${valueY.toFixed(1)}" r="${badgeRadius}"/>
-        <text class="prof-radar-value" x="${valueX.toFixed(1)}" y="${(valueY + .5).toFixed(1)}">${value}</text>
+        <circle class="prof-radar-marker" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"/>
       </g>`;
   }).join("");
   return `
@@ -3234,14 +3230,22 @@ function instructorHistoryHTML(offerings) {
       <div class="prof-term-head"><b>${esc(termShort(term))}</b><span>${rows.length} offering${rows.length === 1 ? "" : "s"}</span></div>
       <div class="prof-offering-list">
         ${rows.map((row) => `
-          <article class="prof-offering${term === state.term ? " current" : ""}" data-course="${esc(row.code)}" data-term="${esc(term)}">
-            <div class="prof-offering-code">${esc(row.code)}</div>
-            <div class="prof-offering-main">
-              <b>${esc(row.title)}</b>
+          <details class="prof-offering${term === state.term ? " current" : ""}" data-course="${esc(row.code)}" data-term="${esc(term)}">
+            <summary class="prof-offering-summary">
+              <span class="prof-offering-code">${esc(row.code)}</span>
+              <span class="prof-offering-main"><b>${esc(row.title)}</b></span>
+              <svg class="prof-offering-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+            </summary>
+            <div class="prof-offering-details">
+              <div class="prof-offering-detail"><span>Enrollment</span><b${row.enrolled == null ? ` title="Enrollment count is not in the public dataset"` : ""}>${row.enrolled == null ? "Not reported" : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
+              <div class="prof-offering-detail"><span>Drop rate</span><b class="${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}">${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b></div>
+              <div class="prof-offering-detail"><span>Credits</span><b>${row.points || "—"}</b></div>
+              <div class="prof-offering-detail"><span>Sections</span><b>${row.sections || "—"}</b></div>
+              <div class="prof-offering-detail is-schedule"><span>Schedule</span><b>${esc(row.schedule || "Time TBA")}</b></div>
+              ${row.archive ? `<a class="prof-archive-link" href="${esc(row.archive)}" target="_blank" rel="noopener">Archived course record ↗</a>` : ""}
+              ${term === state.term ? `<button class="prof-offering-open" type="button" data-prof-course-open="${esc(row.code)}">Open course details</button>` : ""}
             </div>
-            <div class="prof-offering-metric"${row.enrolled == null ? ` title="Enrollment count is not in the public dataset; open the archived directory page for the snapshot"` : ""}><b>${row.enrolled == null ? (row.archive ? `— <a class="prof-archive-link" href="${esc(row.archive)}" target="_blank" rel="noopener">Count ↗</a>` : "—") : `${row.enrolled}${row.capacity ? ` / ${row.capacity}` : ""}`}</b></div>
-            <div class="prof-offering-metric ${row.dropRate != null && row.dropRate >= .2 ? "warn" : ""}"><b>${row.dropRate == null ? "—" : `${(row.dropRate * 100).toFixed(1)}%`}</b></div>
-          </article>`).join("")}
+          </details>`).join("")}
       </div>
     </section>`).join("");
 }
@@ -3273,23 +3277,23 @@ function renderInstructorProfile() {
     const instructorDepartments = [...new Set(offerings.map((row) => departmentCodeForCourse(row.code)).filter(Boolean))];
     const reviewTag = metrics.reviewRating == null
       ? ""
-      : `<span class="is-review">${metrics.reviewRating.toFixed(1)} / 5 · ${metrics.reviewCount} reviews</span>`;
+      : `<span class="is-review"><b>${metrics.reviewRating.toFixed(1)} / 5</b><small>${metrics.reviewCount} reviews</small></span>`;
     const dropTone = metrics.avgDrop == null ? "pending" : metrics.avgDrop <= .1 ? "good" : metrics.avgDrop <= .2 ? "mid" : "high";
     host.innerHTML = `
       <header class="prof-hero">
         <div class="prof-identity">
           <button class="prof-department" type="button" data-department="${esc(instructorDepartments[0] || "")}">${esc(metrics.departments.join(" / ") || "Columbia University")} ↗</button>
           <h1>${esc(canonical)}</h1>
-          <div class="prof-identity-tags">
-            <span class="is-courses">${metrics.courses.length} courses</span>
-            <span class="is-terms">${metrics.terms.length} terms</span>
-            <span class="is-enrollment">${metrics.totalEnrolled.toLocaleString("en-US")} enrollments</span>
-            <span class="is-drop-${dropTone}">${metrics.avgDrop == null ? "Drop history pending" : `${(metrics.avgDrop * 100).toFixed(1)}% weighted drop`}</span>
-            ${reviewTag}
-          </div>
         </div>
         <div class="prof-score ${scoreTone}${metrics.score == null ? " is-unrated" : ""}" style="--score:${metrics.score || 0}">
           <b>${metrics.score == null ? "NEW" : metrics.score}</b>
+        </div>
+        <div class="prof-identity-tags" aria-label="Instructor summary">
+          <span class="is-courses"><b>${metrics.courses.length}</b><small>Courses</small></span>
+          <span class="is-terms"><b>${metrics.terms.length}</b><small>Terms</small></span>
+          <span class="is-enrollment"><b>${metrics.totalEnrolled.toLocaleString("en-US")}</b><small>Enrollments</small></span>
+          <span class="is-drop-${dropTone}"><b>${metrics.avgDrop == null ? "—" : `${(metrics.avgDrop * 100).toFixed(1)}%`}</b><small>${metrics.avgDrop == null ? "Drop history pending" : "Weighted drop"}</small></span>
+          ${reviewTag}
         </div>
       </header>
       <div class="prof-dashboard">
@@ -3313,9 +3317,11 @@ function renderInstructorProfile() {
         <div class="prof-panel-head"><div><h2>Every available course</h2></div></div>
         ${instructorHistoryHTML(offerings)}
       </section>`;
-    host.querySelectorAll(".prof-offering[data-course]").forEach((row) => {
-      row.addEventListener("click", () => {
-        if (row.dataset.term === state.term) openCourse(row.dataset.course);
+    host.querySelectorAll("[data-prof-course-open]").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        openCourse(button.dataset.profCourseOpen);
       });
     });
     host.querySelector(".prof-department[data-department]")?.addEventListener("click", (event) => {
