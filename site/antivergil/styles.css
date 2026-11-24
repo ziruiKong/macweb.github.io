@@ -3528,116 +3528,6 @@ main {
   stroke-width: 2.7;
 }
 
-.prof-radar-dot {
-  fill: #fffaf2;
-  stroke: #ef8f1f;
-  stroke-width: 2.4;
-}
-
-.prof-radar-point {
-  cursor: pointer;
-  outline: none;
-}
-
-.prof-radar-hit {
-  fill: transparent;
-  stroke: transparent;
-}
-
-.prof-radar-value-bg {
-  fill: #f7f1e6;
-  stroke: #7eb8e8;
-  stroke-width: 1.4;
-}
-
-.prof-radar-value {
-  fill: #163e64;
-  font-family: var(--sa-font);
-  font-size: 8px;
-  font-weight: 800;
-  text-anchor: middle;
-  dominant-baseline: middle;
-  pointer-events: none;
-}
-
-.prof-radar-point:hover .prof-radar-value-bg,
-.prof-radar-point:focus .prof-radar-value-bg {
-  fill: #ffd450;
-  stroke: #f3a81d;
-}
-
-.prof-radar-point:hover .prof-radar-value,
-.prof-radar-point:focus .prof-radar-value {
-  fill: #2a2418;
-}
-
-.prof-radar-tip {
-  position: absolute;
-  z-index: 4;
-  width: 148px;
-  padding: 10px 11px;
-  border: 1px solid #c6d4e3;
-  border-radius: 10px;
-  background: #fffaf2;
-  color: #263746;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, .22);
-  pointer-events: none;
-}
-
-.prof-radar-tip span {
-  display: block;
-  color: #3b6f9f;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-.prof-radar-tip b {
-  display: block;
-  margin: 1px 0 5px;
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.prof-radar-tip small {
-  margin-left: 2px;
-  color: #6a7884;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.prof-radar-tip i {
-  height: 4px;
-  display: block;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #d8e0e7;
-}
-
-.prof-radar-tip i em {
-  height: 100%;
-  display: block;
-  border-radius: inherit;
-  background: #2f8b62;
-}
-
-.prof-radar-label {
-  fill: var(--sa-ink-2);
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: .055em;
-}
-
-.prof-radar-label tspan {
-  fill: var(--sa-ink);
-  font-family: var(--sa-font);
-  font-size: 14px;
-  font-weight: 800;
-}
-
 .prof-score-note {
   max-width: 340px;
   margin: 0 auto;
@@ -12302,6 +12192,7 @@ body[data-view="search"] .topbar {
   grid-template-rows: auto auto;
   align-items: center;
   gap: 16px 24px;
+  border-bottom: 0;
 }
 .prof-identity { grid-column: 1; grid-row: 1; min-width: 0; }
 .prof-score {
@@ -12368,24 +12259,11 @@ body[data-view="search"] .topbar {
   text-transform: uppercase;
 }
 
-/* Radar values stay quiet until a data point is hovered or focused. */
-.prof-radar-value-bg,
-.prof-radar-value { display: none; }
 .prof-radar-marker {
   fill: var(--sa-bg);
   stroke: #2f76bd;
   stroke-width: 2;
   pointer-events: none;
-}
-.prof-radar-point:hover .prof-radar-marker,
-.prof-radar-point:focus .prof-radar-marker { fill: #2f76bd; }
-.prof-radar-tip {
-  width: 148px;
-  padding: 10px 12px;
-  border: 1px solid #c6d4e3;
-  border-radius: 7px;
-  background: #fffaf2;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
 }
 
 /* Course history rows open a compact detail panel instead of showing metrics inline. */
@@ -12653,11 +12531,46 @@ body[data-view="search"] .topbar {
 .prof-score-popover .prof-radar-chart {
   display: block;
   width: 100%;
-  max-width: 220px;
+  max-width: 188px;
   height: auto;
   margin: 0 auto;
 }
-.prof-score-popover .prof-radar-tip { z-index: 2; }
+.prof-radar-key {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--sa-soft-line);
+}
+.prof-radar-key > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+  padding: 5px 3px;
+  border-bottom: 1px dotted var(--sa-soft-line);
+}
+.prof-radar-key > div:nth-child(odd) { border-right: 1px solid var(--sa-soft-line); padding-right: 7px; }
+.prof-radar-key > div:nth-child(even) { padding-left: 7px; }
+.prof-radar-key span {
+  overflow: hidden;
+  color: var(--sa-ink-2);
+  font-size: 9px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.prof-radar-key b {
+  flex: none;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.prof-radar-key small {
+  margin-left: 1px;
+  color: var(--sa-ink-2);
+  font-size: 8px;
+  font-weight: 600;
+}
 
 .prof-identity-tags {
   grid-template-columns: repeat(4, minmax(0, 1fr));

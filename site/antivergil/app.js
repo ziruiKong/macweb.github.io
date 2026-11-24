@@ -3117,64 +3117,15 @@ function radarChartSVG(axes, size = 338) {
   const dataPoints = axes.map((axis, index) =>
     pointFor(index, Math.max(.06, Math.min(1, axis.value / 100)))) ;
   const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-  const points = dataPoints.map(([x, y], index) => {
-    const axis = axes[index];
-    const value = Math.round(axis.value);
-    return `
-      <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100" data-label="${esc(axis.label)}" data-value="${value}">
-        <circle class="prof-radar-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>
-        <circle class="prof-radar-marker" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"/>
-      </g>`;
+  const points = dataPoints.map(([x, y]) => {
+    return `<circle class="prof-radar-marker" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"/>`;
   }).join("");
   return `
-    <svg class="prof-radar-chart" viewBox="0 0 ${size} ${size}" role="img" aria-label="Instructor profile radar chart">
+    <svg class="prof-radar-chart" viewBox="0 0 ${size} ${size}" role="img" aria-label="Instructor score breakdown radar chart">
       ${levels}${spokes}
       <polygon class="prof-radar-area" points="${dataPolygon}"/>
       ${points}
     </svg>`;
-}
-
-function bindInstructorRadar(root) {
-  const chart = root.querySelector(".prof-radar-chart");
-  const panel = chart?.closest(".prof-score-popover") || chart?.closest(".prof-radar-panel");
-  if (!chart || !panel) return;
-  const tip = document.createElement("div");
-  tip.className = "prof-radar-tip";
-  tip.hidden = true;
-  panel.appendChild(tip);
-  let pinned = null;
-  chart.querySelectorAll(".prof-radar-point").forEach((point) => {
-    const show = () => {
-      const panelRect = panel.getBoundingClientRect();
-      const pointRect = point.getBoundingClientRect();
-      const value = Number(point.dataset.value) || 0;
-      tip.innerHTML = `
-        <span>${esc(point.dataset.label)}</span>
-        <b>${value}<small>/100</small></b>
-        <i><em style="width:${value}%"></em></i>`;
-      tip.hidden = false;
-      tip.style.left = `${Math.max(8, Math.min(panelRect.width - 154, pointRect.left - panelRect.left + pointRect.width / 2 - 66))}px`;
-      tip.style.top = `${Math.max(8, pointRect.top - panelRect.top - 72)}px`;
-    };
-    const hide = () => {
-      if (!pinned) tip.hidden = true;
-    };
-    point.addEventListener("pointerenter", show);
-    point.addEventListener("pointerleave", hide);
-    point.addEventListener("focus", show);
-    point.addEventListener("blur", () => {
-      if (pinned !== point) tip.hidden = true;
-    });
-    point.addEventListener("click", () => {
-      if (pinned === point) {
-        pinned = null;
-        tip.hidden = true;
-      } else {
-        pinned = point;
-        show();
-      }
-    });
-  });
 }
 
 function termChartSVG(offerings) {
@@ -3369,6 +3320,9 @@ function renderInstructorProfile() {
           <b>${metrics.score == null ? "NEW" : metrics.score}</b>
           <div class="prof-score-popover">
             ${radarChartSVG(metrics.axes)}
+            <div class="prof-radar-key" role="list" aria-label="Instructor score breakdown">
+              ${metrics.axes.map((axis) => `<div role="listitem"><span>${esc(axis.label)}</span><b>${Math.round(axis.value)}<small>/100</small></b></div>`).join("")}
+            </div>
           </div>
         </div>
         <div class="prof-identity-tags${metrics.reviewRating == null ? "" : " has-review"}" aria-label="Instructor summary">
@@ -3406,7 +3360,6 @@ function renderInstructorProfile() {
     host.querySelector(".prof-department[data-department]")?.addEventListener("click", (event) => {
       openDepartment(event.currentTarget.dataset.department);
     });
-    bindInstructorRadar(host);
   }).catch((error) => {
     host.innerHTML = `<div class="notice error"><b>Instructor history unavailable.</b><span>${esc(error.message)}</span><button class="btn small ghost" data-prof-back>Back</button></div>`;
     host.querySelector("[data-prof-back]")?.addEventListener("click", leaveInstructorProfile);
