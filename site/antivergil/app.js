@@ -2385,8 +2385,7 @@ function instructorScoreTone(score) {
 function radarChartSVG(axes, size = 338) {
   if (!axes.length) return "";
   const center = size / 2;
-  const radius = size * .31;
-  const labelRadius = radius + 34;
+  const radius = size * .37;
   const angleFor = (index) => -Math.PI / 2 + (Math.PI * 2 * index) / axes.length;
   const pointFor = (index, ratio) => [
     center + Math.cos(angleFor(index)) * radius * ratio,
@@ -2402,19 +2401,25 @@ function radarChartSVG(axes, size = 338) {
   const dataPoints = axes.map((axis, index) =>
     pointFor(index, Math.max(.06, Math.min(1, axis.value / 100)))) ;
   const dataPolygon = dataPoints.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
-  const labels = axes.map((axis, index) => {
-    const [x, y] = pointFor(index, 1);
-    const dx = Math.cos(angleFor(index)) * (labelRadius - radius);
-    const dy = Math.sin(angleFor(index)) * (labelRadius - radius);
-    const anchor = Math.abs(dx) < 5 ? "middle" : dx > 0 ? "start" : "end";
-    return `<text class="prof-radar-label" x="${(x + dx).toFixed(1)}" y="${(y + dy + 4).toFixed(1)}" text-anchor="${anchor}">${esc(axis.label.toUpperCase())}<tspan dx="4">${Math.round(axis.value)}</tspan></text>`;
+  const points = dataPoints.map(([x, y], index) => {
+    const axis = axes[index];
+    const valueX = x + (center - x) * .085;
+    const valueY = y + (center - y) * .085;
+    const value = Math.round(axis.value);
+    const valueWidth = String(value).length >= 3 ? 30 : 24;
+    return `
+      <g class="prof-radar-point" tabindex="0" role="button" aria-label="${esc(axis.label)}: ${value} out of 100">
+        <circle class="prof-radar-hit" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="17"/>
+        <circle class="prof-radar-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>
+        <rect class="prof-radar-value-bg" x="${(valueX - valueWidth / 2).toFixed(1)}" y="${(valueY - 9).toFixed(1)}" width="${valueWidth}" height="18" rx="9"/>
+        <text class="prof-radar-value" x="${valueX.toFixed(1)}" y="${(valueY + .5).toFixed(1)}">${value}</text>
+      </g>`;
   }).join("");
   return `
     <svg class="prof-radar-chart" viewBox="0 0 ${size} ${size}" role="img" aria-label="Instructor profile radar chart">
       ${levels}${spokes}
       <polygon class="prof-radar-area" points="${dataPolygon}"/>
-      ${dataPoints.map(([x, y]) => `<circle class="prof-radar-dot" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5"/>`).join("")}
-      ${labels}
+      ${points}
     </svg>`;
 }
 
@@ -2435,7 +2440,7 @@ function termChartSVG(offerings) {
     .sort((a, b) => a.term.localeCompare(b.term));
   if (!rows.length) return "";
   const width = 900;
-  const height = 388;
+  const height = 440;
   const left = 54;
   const right = 48;
   const top = 28;
@@ -2609,11 +2614,14 @@ function renderInstructorProfile() {
         <section class="prof-panel prof-radar-panel">
           <div class="prof-panel-head"><div><h2>Teaching radar</h2></div></div>
           ${radarChartSVG(metrics.axes)}
+          <div class="prof-radar-legend">${metrics.axes.map((axis) => `<span>${esc(axis.label)}</span>`).join("")}</div>
         </section>
         <section class="prof-panel prof-trend-panel">
-          <div class="prof-panel-head"><div><h2>Enrollment &amp; drop history</h2></div></div>
+          <div class="prof-panel-head">
+            <div><h2>Enrollment &amp; drop history</h2></div>
+            <div class="prof-chart-key"><span><i class="bar"></i>Enrollment</span><span><i class="line"></i>Drop rate</span></div>
+          </div>
           ${termChartSVG(metrics.teaching)}
-          <div class="prof-chart-key"><span><i class="bar"></i>Course enrollments</span><span><i class="line"></i>Weighted drop rate</span></div>
         </section>
         <section class="prof-panel prof-course-panel">
           <div class="prof-panel-head"><div><h2>Most-taught courses</h2></div></div>

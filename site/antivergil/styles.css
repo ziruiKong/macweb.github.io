@@ -3303,13 +3303,13 @@ main {
   font-weight: 800;
   line-height: 1;
 }
-.prof-score.strong { --ring-color: #94783e; }
-.prof-score.steady { --ring-color: var(--sa-brown); }
-.prof-score.developing { --ring-color: #9b7165; }
+.prof-score.strong { --ring-color: #e4a11d; }
+.prof-score.steady { --ring-color: #d66b3b; }
+.prof-score.developing { --ring-color: #ba637c; }
 
 .prof-dashboard {
   display: grid;
-  grid-template-columns: minmax(300px, .78fr) minmax(0, 1.55fr);
+  grid-template-columns: minmax(330px, .95fr) minmax(0, 1.45fr);
   gap: 0;
   margin-top: 20px;
   border-top: 2px solid var(--sa-soft-line);
@@ -3365,34 +3365,92 @@ main {
 
 .prof-radar-chart {
   width: 100%;
-  max-width: 350px;
+  max-width: 390px;
   height: auto;
   display: block;
   margin: 2px auto 0;
   overflow: visible;
 }
 
+.prof-radar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.prof-radar-legend span {
+  padding: 3px 7px;
+  border: 1px solid #bdc9d7;
+  border-radius: 999px;
+  background: #edf2f8;
+  color: #40566d;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
 .prof-radar-grid {
   fill: none;
-  stroke: var(--sa-soft-line);
-  stroke-width: 1.25;
+  stroke: #bac8d8;
+  stroke-width: 1.4;
 }
 
 .prof-radar-spoke {
-  stroke: var(--sa-soft-line);
-  stroke-width: 1.15;
+  stroke: #c8d2dd;
+  stroke-width: 1.3;
 }
 
 .prof-radar-area {
-  fill: color-mix(in srgb, #4f7392 22%, transparent);
-  stroke: #3e6687;
-  stroke-width: 2.2;
+  fill: #2d76c5;
+  fill-opacity: .24;
+  stroke: #1f6fc4;
+  stroke-width: 2.7;
 }
 
 .prof-radar-dot {
-  fill: var(--sa-bg);
-  stroke: #9b6436;
-  stroke-width: 2.2;
+  fill: #fffaf2;
+  stroke: #ef8f1f;
+  stroke-width: 2.4;
+}
+
+.prof-radar-point {
+  cursor: pointer;
+  outline: none;
+}
+
+.prof-radar-hit {
+  fill: transparent;
+  stroke: transparent;
+}
+
+.prof-radar-value-bg {
+  fill: #fbf8f1;
+  stroke: #256fbb;
+  stroke-width: 1.2;
+}
+
+.prof-radar-value {
+  fill: #1c4f82;
+  font-family: var(--sa-font);
+  font-size: 11px;
+  font-weight: 800;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.prof-radar-point:hover .prof-radar-value-bg,
+.prof-radar-point:focus .prof-radar-value-bg {
+  fill: #1f6fc4;
+  stroke: #164f8f;
+}
+
+.prof-radar-point:hover .prof-radar-value,
+.prof-radar-point:focus .prof-radar-value {
+  fill: #fffdf7;
 }
 
 .prof-radar-label {
@@ -3488,6 +3546,18 @@ main {
 .prof-chart-key i { display: block; width: 18px; }
 .prof-chart-key i.bar { height: 8px; background: var(--sa-green); }
 .prof-chart-key i.line { height: 3px; background: var(--sa-brown); }
+
+.prof-panel-head .prof-chart-key {
+  gap: 5px;
+  margin: 1px 0 0;
+}
+
+.prof-panel-head .prof-chart-key span {
+  padding: 3px 6px;
+  font-size: 9px;
+}
+
+.prof-panel-head .prof-chart-key i { width: 12px; }
 
 .prof-course-bars {
   display: grid;
