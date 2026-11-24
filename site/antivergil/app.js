@@ -507,7 +507,7 @@ function getSections() {
 /* ---------- 路由 / 导航 ---------- */
 const NAV = [
   ["browse", "Browse"],
-  ["rankings", "Rankings"],
+  ["rankings", "Ranking"],
   ["analysis", "Enrollment"],
   ["planner", "Plan"],
   ["calendar", "Calendar"],
@@ -2945,7 +2945,7 @@ function departmentCourseRankHTML(rows, mode) {
 }
 
 function departmentProfessorHTML(rows, expanded = false) {
-  if (!rows.length) return `<div class="dept-empty">Instructor ranking is still being built.</div>`;
+  if (!rows.length) return `<div class="dept-empty">Ranking is still being built.</div>`;
   const visibleRows = expanded ? rows : rows.slice(0, 5);
   return `
     <div class="dept-prof-head" aria-hidden="true">
@@ -3048,7 +3048,7 @@ function renderDepartmentProfile() {
       </header>
       <section class="dept-prof-panel">
         <div class="dept-section-head compact">
-          <div><span>Faculty index</span><h2>Instructor ranking</h2></div>
+          <div><span>Faculty index</span><h2>Ranking</h2></div>
           <div class="dept-ranking-actions">
             <p>${instructorCount.toLocaleString("en-US")} instructors teaching in ${esc(departmentCode)}.</p>
             ${instructorCount > 5 ? `<button class="dept-ranking-toggle" type="button" data-dept-instructor-toggle aria-expanded="${state.departmentInstructorsExpanded}">${state.departmentInstructorsExpanded ? "Collapse" : `Show all ${instructorCount}`}<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>` : ""}
