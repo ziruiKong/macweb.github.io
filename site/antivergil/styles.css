@@ -11966,13 +11966,15 @@ body[data-view="search"] .topbar {
 
 @media (max-width: 720px) {
   .prof-hero {
-    position: relative;
-    display: block;
-    padding: 20px 0 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 62px;
+    align-items: start;
+    gap: 12px;
+    padding: 18px 0 16px;
   }
   .prof-identity {
     min-width: 0;
-    padding-right: 76px;
+    padding: 0;
   }
   .prof-department {
     max-width: 100%;
@@ -11981,12 +11983,14 @@ body[data-view="search"] .topbar {
     overflow-wrap: anywhere;
   }
   .prof-identity h1 {
-    font-size: clamp(27px, 7vw, 36px);
+    font-size: clamp(26px, 6.2vw, 32px);
     overflow-wrap: anywhere;
   }
   .prof-identity-tags {
-    flex-wrap: wrap;
-    gap: 5px;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: start;
+    gap: 5px 6px;
     margin-top: 8px;
     overflow: visible;
   }
@@ -11995,44 +11999,111 @@ body[data-view="search"] .topbar {
     padding: 3px 6px;
   }
   .prof-score {
-    position: absolute;
-    top: 18px;
-    right: 0;
-    width: 62px;
-    height: 62px;
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    justify-self: end;
+    width: 58px;
+    height: 58px;
     margin: 0;
   }
   .prof-score::before { inset: 5px; }
-  .prof-score b { font-size: 21px; }
+  .prof-score b { font-size: 20px; }
   .prof-score span,
   .prof-score small { font-size: 8px; }
 
   .prof-panel { padding: 12px 0; }
   .prof-radar-panel,
   .prof-course-panel { padding-left: 0; }
+  .prof-panel-head { gap: 8px; margin-bottom: 8px; }
+  .prof-panel-head h2 { font-size: 17px; }
   .prof-radar-chart {
     width: min(100%, 320px);
     max-width: 320px;
     margin: 0 auto;
   }
 
-  .prof-offering {
-    grid-template-columns: max-content minmax(0, 1fr);
-    gap: 6px 10px;
+  .prof-course-bars { gap: 0; }
+  .prof-course-bar-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+    min-height: 0;
     padding: 9px 0;
   }
-  .prof-offering-code {
-    max-width: 100%;
+  .prof-course-bar-label {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    gap: 7px;
+  }
+  .prof-course-bar-label b {
     padding: 3px 7px;
     font-size: 11px;
   }
-  .prof-offering-main b { font-size: 12px; }
+  .prof-course-bar-label strong { font-size: 12px; }
+  .prof-course-bar-stat {
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 7px;
+    text-align: left;
+  }
+  .prof-course-bar-stat .prof-stat-enrollment {
+    justify-self: auto;
+    font-size: 12px;
+  }
+  .prof-course-bar-stat .prof-stat-enrollment::after {
+    content: " enrolled";
+    color: var(--sa-ink-2);
+    font-size: 9px;
+    font-weight: 600;
+  }
+  .prof-course-bar-stat .prof-stat-term::after { content: " terms"; }
+  .prof-course-bar-stat .prof-stat-drop::before { content: "drop "; }
+  .prof-course-bar-stat span { font-size: 10px; }
+  .prof-course-bar-track {
+    grid-column: 1;
+    grid-row: 3;
+    height: 6px;
+  }
+
+  .prof-history { margin-top: 16px; }
+  .prof-history > .prof-panel-head { padding: 12px 0 8px; }
+  .prof-term-head { padding: 7px 0; }
+  .prof-offering {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 5px 8px;
+    padding: 8px 0;
+  }
+  .prof-offering-code {
+    max-width: 100%;
+    padding: 3px 6px;
+    font-size: 10.5px;
+  }
+  .prof-offering-main b {
+    font-size: 11.5px;
+    line-height: 1.25;
+  }
   .prof-offering-metric {
     text-align: left;
   }
   .prof-offering-metric b {
     margin-left: 0;
     font-size: 12px;
+  }
+  .prof-offering-metric:nth-last-child(2) b::after {
+    content: " enrolled";
+    color: var(--sa-ink-2);
+    font-size: 9px;
+    font-weight: 600;
+  }
+  .prof-offering-metric:last-child b::before {
+    content: "drop ";
+    font-size: 9px;
+    font-weight: 600;
   }
   .prof-offering-metric:nth-last-child(2) {
     grid-column: 1;
@@ -12042,4 +12113,14 @@ body[data-view="search"] .topbar {
     grid-column: 2;
     grid-row: 2;
   }
+}
+
+@media (max-width: 380px) {
+  .prof-hero { grid-template-columns: minmax(0, 1fr) 50px; gap: 8px; }
+  .prof-score { width: 48px; height: 48px; }
+  .prof-score::before { inset: 4px; }
+  .prof-score b { font-size: 17px; }
+  .prof-identity h1 { font-size: 25px; }
+  .prof-identity-tags { grid-template-columns: max-content; }
+  .prof-course-bar-label { flex-wrap: wrap; }
 }
