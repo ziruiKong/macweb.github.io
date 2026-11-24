@@ -319,7 +319,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   }
   .login-main { padding: 26px clamp(24px, 8vw, 56px) 34px; }
   .login-panel { width: min(420px, 100%); }
-  .login-panel { transform: translateY(max(125px, 15svh)); }
+  .login-panel { transform: translateY(max(80px, 10svh)); }
   .login-panel h1 { font-size: clamp(22px, 5.4vw, 32px); }
   .login-visual img { object-position: center 48%; }
   .login-visual::before {
@@ -353,7 +353,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .login-main { padding-top: 16px; }
   .login-back { min-height: 44px; top: 10px; }
   .login-panel { padding-top: 10px; }
-  .login-panel { transform: translateY(clamp(70px, 13svh, 110px)); }
+  .login-panel { transform: translateY(clamp(45px, 8svh, 80px)); }
   .google-login,
   .email-submit { min-height: 44px; }
   .email-form input { font-size: 16px; }
