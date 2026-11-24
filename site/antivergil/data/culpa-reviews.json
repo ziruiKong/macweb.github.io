@@ -1,9 +1,63 @@
 {
-  "updatedAt": "2026-11-24T00:54:18.533Z",
+  "updatedAt": "2026-11-24T00:57:37.626Z",
   "term": "2027-Spring",
   "searchedPrefixes": 66,
-  "matchedCourses": 111,
+  "matchedCourses": 167,
   "courses": {
+    "ACCT B8027": {
+      "ok": true,
+      "code": "ACCT B8027",
+      "courseId": 7598,
+      "courseName": "Challenges in Measurement & Disclosure of Environmental, Social and Governance Data",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ACCT B8009": {
+      "ok": true,
+      "code": "ACCT B8009",
+      "courseId": 7601,
+      "courseName": "Financial Statement Analysis a",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ACCT B8008": {
+      "ok": true,
+      "code": "ACCT B8008",
+      "courseId": 7602,
+      "courseName": "Earnings Quality & Fundamental",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ACCT B8007": {
+      "ok": true,
+      "code": "ACCT B8007",
+      "courseId": 7603,
+      "courseName": "Financial Planning & Analysis",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ACCT B8026": {
+      "ok": true,
+      "code": "ACCT B8026",
+      "courseId": 7607,
+      "courseName": "Applied Fundamental Analysis with Alternative Data",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ACCT B8122": {
+      "ok": true,
+      "code": "ACCT B8122",
+      "courseId": 7614,
+      "courseName": "Accounting for Consultants",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
     "AHIS BC1002": {
       "ok": true,
       "code": "AHIS BC1002",
@@ -172,78 +226,6 @@
         }
       ]
     },
-    "ACCT B8027": {
-      "ok": true,
-      "code": "ACCT B8027",
-      "courseId": 7598,
-      "courseName": "Challenges in Measurement & Disclosure of Environmental, Social and Governance Data",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ACCT B8009": {
-      "ok": true,
-      "code": "ACCT B8009",
-      "courseId": 7601,
-      "courseName": "Financial Statement Analysis a",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ACCT B8008": {
-      "ok": true,
-      "code": "ACCT B8008",
-      "courseId": 7602,
-      "courseName": "Earnings Quality & Fundamental",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ACCT B8007": {
-      "ok": true,
-      "code": "ACCT B8007",
-      "courseId": 7603,
-      "courseName": "Financial Planning & Analysis",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ACCT B8026": {
-      "ok": true,
-      "code": "ACCT B8026",
-      "courseId": 7607,
-      "courseName": "Applied Fundamental Analysis with Alternative Data",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ACCT B8122": {
-      "ok": true,
-      "code": "ACCT B8122",
-      "courseId": 7614,
-      "courseName": "Accounting for Consultants",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ANTH BC3999": {
-      "ok": true,
-      "code": "ANTH BC3999",
-      "courseId": 7750,
-      "courseName": "INDIVIDUAL PROJECTS",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "ANTH BC3872": {
-      "ok": true,
-      "code": "ANTH BC3872",
-      "courseId": 7751,
-      "courseName": "SENIOR THESIS SEMINAR II",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
     "AMST BC3704": {
       "ok": true,
       "code": "AMST BC3704",
@@ -273,56 +255,20 @@
         }
       ]
     },
-    "BINF G8010": {
+    "ANTH BC3999": {
       "ok": true,
-      "code": "BINF G8010",
-      "courseId": 8339,
-      "courseName": "M.PHIL TEACHING EXPERIENCE",
+      "code": "ANTH BC3999",
+      "courseId": 7750,
+      "courseName": "INDIVIDUAL PROJECTS",
       "reviewCount": 0,
       "averageRating": null,
       "reviews": []
     },
-    "BINF G6002": {
+    "ANTH BC3872": {
       "ok": true,
-      "code": "BINF G6002",
-      "courseId": 8341,
-      "courseName": "METHODS III: RESEARCH METHODS",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BINF G6001": {
-      "ok": true,
-      "code": "BINF G6001",
-      "courseId": 8342,
-      "courseName": "PROJECTS-BIOMEDICAL INFORMATCS",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BINF G4099": {
-      "ok": true,
-      "code": "BINF G4099",
-      "courseId": 8344,
-      "courseName": "RES SEM IN BIOMED INFORMATICS",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BINF G4013": {
-      "ok": true,
-      "code": "BINF G4013",
-      "courseId": 8345,
-      "courseName": "BIOLOGICAL SEQUENCE ANALYSIS",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BINF G4002": {
-      "ok": true,
-      "code": "BINF G4002",
-      "courseId": 8352,
-      "courseName": "METHODS II:COMPUTATIONL METHOD",
+      "code": "ANTH BC3872",
+      "courseId": 7751,
+      "courseName": "SENIOR THESIS SEMINAR II",
       "reviewCount": 0,
       "averageRating": null,
       "reviews": []
@@ -416,6 +362,195 @@
           "disagreeCount": 0
         }
       ]
+    },
+    "BINF G8010": {
+      "ok": true,
+      "code": "BINF G8010",
+      "courseId": 8339,
+      "courseName": "M.PHIL TEACHING EXPERIENCE",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BINF G6002": {
+      "ok": true,
+      "code": "BINF G6002",
+      "courseId": 8341,
+      "courseName": "METHODS III: RESEARCH METHODS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BINF G6001": {
+      "ok": true,
+      "code": "BINF G6001",
+      "courseId": 8342,
+      "courseName": "PROJECTS-BIOMEDICAL INFORMATCS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BINF G4099": {
+      "ok": true,
+      "code": "BINF G4099",
+      "courseId": 8344,
+      "courseName": "RES SEM IN BIOMED INFORMATICS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BINF G4013": {
+      "ok": true,
+      "code": "BINF G4013",
+      "courseId": 8345,
+      "courseName": "BIOLOGICAL SEQUENCE ANALYSIS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BINF G4002": {
+      "ok": true,
+      "code": "BINF G4002",
+      "courseId": 8352,
+      "courseName": "METHODS II:COMPUTATIONL METHOD",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B7216": {
+      "ok": true,
+      "code": "BUEC B7216",
+      "courseId": 8433,
+      "courseName": "Economics of Strategic Behavio",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B6201": {
+      "ok": true,
+      "code": "BUEC B6201",
+      "courseId": 8434,
+      "courseName": "Global Economic Environment",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B6200": {
+      "ok": true,
+      "code": "BUEC B6200",
+      "courseId": 8435,
+      "courseName": "Managerial Economics",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B5960": {
+      "ok": true,
+      "code": "BUEC B5960",
+      "courseId": 8436,
+      "courseName": "Banking & Monetary Policy in the Global Economy",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8315": {
+      "ok": true,
+      "code": "BUEC B8315",
+      "courseId": 8441,
+      "courseName": "Game Theory and Business",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8216": {
+      "ok": true,
+      "code": "BUEC B8216",
+      "courseId": 8443,
+      "courseName": "ECONOMICS OF STRATEGIC BEHAVIOR",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B7251": {
+      "ok": true,
+      "code": "BUEC B7251",
+      "courseId": 8447,
+      "courseName": "Financial Markets, Central Ban",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B9211": {
+      "ok": true,
+      "code": "BUEC B9211",
+      "courseId": 8453,
+      "courseName": "(PhD) Economic Theory IV",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B9209": {
+      "ok": true,
+      "code": "BUEC B9209",
+      "courseId": 8454,
+      "courseName": "(PhD) Economic Theory III",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8498": {
+      "ok": true,
+      "code": "BUEC B8498",
+      "courseId": 8455,
+      "courseName": "Mergers & Acquisitions in Medi",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8366": {
+      "ok": true,
+      "code": "BUEC B8366",
+      "courseId": 8456,
+      "courseName": "The Media Industries: Public P",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8263": {
+      "ok": true,
+      "code": "BUEC B8263",
+      "courseId": 8457,
+      "courseName": "Anti-Trust in the Modern Economy",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8255": {
+      "ok": true,
+      "code": "BUEC B8255",
+      "courseId": 8459,
+      "courseName": "FinTech: Consumer Financial Services",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B8251": {
+      "ok": true,
+      "code": "BUEC B8251",
+      "courseId": 8460,
+      "courseName": "GLOBAL ECON ENV III",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "BUEC B5008": {
+      "ok": true,
+      "code": "BUEC B5008",
+      "courseId": 8466,
+      "courseName": "Markets and the Economy",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
     },
     "BIOL BC1513": {
       "ok": true,
@@ -1085,15 +1220,6 @@
       "averageRating": null,
       "reviews": []
     },
-    "BUEC B8315": {
-      "ok": true,
-      "code": "BUEC B8315",
-      "courseId": 8441,
-      "courseName": "Game Theory and Business",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
     "DROM B6101": {
       "ok": true,
       "code": "DROM B6101",
@@ -1117,132 +1243,6 @@
       "code": "DROM B8103",
       "courseId": 10789,
       "courseName": "Business Analytics II Half Term",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B7216": {
-      "ok": true,
-      "code": "BUEC B7216",
-      "courseId": 8433,
-      "courseName": "Economics of Strategic Behavio",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B6201": {
-      "ok": true,
-      "code": "BUEC B6201",
-      "courseId": 8434,
-      "courseName": "Global Economic Environment",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B6200": {
-      "ok": true,
-      "code": "BUEC B6200",
-      "courseId": 8435,
-      "courseName": "Managerial Economics",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B5960": {
-      "ok": true,
-      "code": "BUEC B5960",
-      "courseId": 8436,
-      "courseName": "Banking & Monetary Policy in the Global Economy",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B8216": {
-      "ok": true,
-      "code": "BUEC B8216",
-      "courseId": 8443,
-      "courseName": "ECONOMICS OF STRATEGIC BEHAVIOR",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B7251": {
-      "ok": true,
-      "code": "BUEC B7251",
-      "courseId": 8447,
-      "courseName": "Financial Markets, Central Ban",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B9211": {
-      "ok": true,
-      "code": "BUEC B9211",
-      "courseId": 8453,
-      "courseName": "(PhD) Economic Theory IV",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B9209": {
-      "ok": true,
-      "code": "BUEC B9209",
-      "courseId": 8454,
-      "courseName": "(PhD) Economic Theory III",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B8498": {
-      "ok": true,
-      "code": "BUEC B8498",
-      "courseId": 8455,
-      "courseName": "Mergers & Acquisitions in Medi",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B8366": {
-      "ok": true,
-      "code": "BUEC B8366",
-      "courseId": 8456,
-      "courseName": "The Media Industries: Public P",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B8263": {
-      "ok": true,
-      "code": "BUEC B8263",
-      "courseId": 8457,
-      "courseName": "Anti-Trust in the Modern Economy",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B8255": {
-      "ok": true,
-      "code": "BUEC B8255",
-      "courseId": 8459,
-      "courseName": "FinTech: Consumer Financial Services",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B8251": {
-      "ok": true,
-      "code": "BUEC B8251",
-      "courseId": 8460,
-      "courseName": "GLOBAL ECON ENV III",
-      "reviewCount": 0,
-      "averageRating": null,
-      "reviews": []
-    },
-    "BUEC B5008": {
-      "ok": true,
-      "code": "BUEC B5008",
-      "courseId": 8466,
-      "courseName": "Markets and the Economy",
       "reviewCount": 0,
       "averageRating": null,
       "reviews": []
@@ -2119,6 +2119,46 @@
         }
       ]
     },
+    "COMS E6998": {
+      "ok": true,
+      "code": "COMS E6998",
+      "courseId": 7300,
+      "courseName": "Topics in Computer Science: Introduction to Agile Project Management Using Scrum",
+      "reviewCount": 3,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 83564,
+          "rating": null,
+          "content": "A useful course in terms of the material being applied to software development and industry. However, the assessments in the course are very poor, requiring little effort, but with arbitrary outcomes. First, the quizzes are very detail-oriented and require quickly searching through the books - with lots of subtle tricks. Second, the project is graded quite harshly, for example in our class the average was 80 with 75 low and 85 high, lowering everyone's grade as it was a big part of the grade. So don't expect a great grade.",
+          "workload": null,
+          "date": "2021-04-01T00:00:00",
+          "professor": "Tristan Boutros",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 82096,
+          "rating": 2,
+          "content": "This class counts as a tech-light elective for the CS major. There is no coding involved at all.\r\n\r\nThis class goes over the basics Scrum, which is a team management style used in a lot of tech companies. There is a group project involved, and Tristan DOES NOT allow you to choose your own groups. If teaming up with potentially random strangers bothers you and you were planning on taking the class with a friend you know you can depend on, don't bother registering for it at all. The group project ended up being mostly fine, but the instructions were kind of vague and confusing. I took the class already and I still don't really know what they were looking for--I ended up writing a business plan that outlined the production of a make-believe product. We also had a group presentation.\r\n\r\nWe also have tedious, irritating weekly readings and quizzes. The content of the class is the exact same as the content in the book, so I stopped going to class (especially since it was from 8-10PM on a Thursday night). The questions are designed to trick you--Tristan usually writes questions by ripping quotes directly from the book and changing a single word, which makes it very easy to trip up. His insistence on this style of evaluation shows how insecure he is: he is afraid that people don't take his class seriously, so he makes his quizzes difficult to ace so we are forced to take it seriously. The readings were long--if you actually did them and took the careful notes you needed for the quiz, it would probably take about six hours.\r\n\r\nThe content was interesting from an optimizing workflow perspective, but overall painstaking and not a good use of time.",
+          "workload": "Weekly readings and quizzes\r\nFinal project (paper and presentation)",
+          "date": "2020-05-06T17:26:15",
+          "professor": "Tristan Boutros",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 80786,
+          "rating": null,
+          "content": "This is a CS course but there is no need to code.\r\n\r\nThe professor use 4 books:\r\n1. The Basics of Process Improvement by Tristan Boutros & Jennifer Cardella\r\n2. The Process Improvement Handbook: A Blueprint for managing Change & Increasing Organizational Performance by Tristan Boutros & Tim Purdie\r\n3. Essential Scrum: A Practical Guide to the Most Popular Agile Process (Addison-Wesley Signature Series) by Kenneth S. Rubin\r\n4. A Guide to the Project Management Body of Knowledge (PMBOK® Guide)–Fifth Edition\r\nThe lectures covered mostly on the 3rd book: Essential Scrum.\r\nOther books are verbose and quite boring.\r\n\r\nSome events in the lectures are likely to invoke your childhood but those events have nothing to do with grade.\r\n\r\nThere is a project proposal & presentation done in groups at the end of the semester.\r\nThe presentation is likely to take a lot of time but the effort you made will probably be meaningless.\r\nAlthough there are given grading rubrics (copied directly from the last semester without changing the dates in the document), the final scores are quite subjective and the grading rubrics don't really give you the proportion of what item should be covered more in the proposal/presentation.\r\nThere was a voting on team presentations but there was no explicit announcement about whether this will affect the grade. The result was not publicly announced after the grade was released.\r\nUsually, team presentations are divided into two weeks and teams in the 2nd week will do much better on the presentation because they can learn from the 1st week.\r\nYou can get a good grade if you are in the right group even if you seldom go to classes or attend group meetings.\r\n\r\nFind good friends that will notify you which class needs to sign up or sign up for you.\r\n\r\nMost quiz answers are not given at the end of semester so it is hard to learn from your mistake.\r\n\r\nThere is a high probability that you get something around or over 90 before the final proposal/presentation score is released.\r\nThe distribution of the final proposal/presentation is\r\nhigh: 90\r\nmean: around 80\r\nlow: 65\r\nso there is a high probability that it will lower your score.",
+          "workload": "Class Participation: 30%\r\nClass Project Proposal & Presentation: 40%\r\nWeekly Quizzes: 30%\r\nWeekly quizzes (multiple choices) and discussions are online on Canvas.\r\nNot hard but tricky. Most of them are in the books and slides.",
+          "date": "2018-05-03T05:03:36",
+          "professor": "Tristan Boutros",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
     "COMS W4261": {
       "ok": true,
       "code": "COMS W4261",
@@ -2209,6 +2249,86 @@
         }
       ]
     },
+    "COMS W3157": {
+      "ok": true,
+      "code": "COMS W3157",
+      "courseId": 4758,
+      "courseName": "Advanced Programming",
+      "reviewCount": 100,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 90321,
+          "rating": 5,
+          "content": "CANNOT RECOMMEND ENOUGH.  I had Dr. B for AP and cannot recommend him enough. He is so kind and approachable, and you can tell he really wants his students to do well. He explains things clearly, and if something isn’t clicking, he is always someone you can go to for help. The workload is super manageable, and I really appreciated how much he cares about making what we learn relevant and useful beyond the class. He is also really open to student feedback and wants to hear what would make the class better for us. That care for his students comes through in both his teaching and how he treats people.  ",
+          "workload": "The workload is super, super manageable, and Dr. B is very approachable if you ever need help. ",
+          "date": "2026-11-10T12:33:12",
+          "professor": "Brian Borowski",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 90201,
+          "rating": 3,
+          "content": "I was expecting the course to be very difficulty (almost impossible) based on what I had heard going into it. I found the content to be dry and not particularly exciting, especially since I don't love low-level programming. Still, I think the course was worthwhile to take to better understand how code works at a deeper level. Dr. B's teaching style isn't particularly engaging and he requires attendance, but I thought he did a good job at preparing us for his exams. He is also very available to answer questions in lecture or on EdStem.",
+          "workload": "programming assignments (drop lowest): 30%, exam 1: 23%, exam 2: 23%, exam 3: 24%\n",
+          "date": "2026-09-11T10:00:10",
+          "professor": "Brian Borowski",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 89311,
+          "rating": 3,
+          "content": "I went into the class thinking it's the worst thing ever. I think the assignments are pretty similar to data structures and are not as bad. i will say the tests are very hard. expect the class average to be <50. he is not the best at explaining concepts so you will have to do a lot of self studying. he also talks VERY slow so the lectures can be very boring. i would watch the lecture recordings on 2x speed and then he sounds like hes talking at a normal speed",
+          "workload": "programming assignments. 3 exams. ",
+          "date": "2026-04-09T15:39:01",
+          "professor": "Brian Borowski",
+          "agreeCount": 1,
+          "disagreeCount": 2
+        },
+        {
+          "id": 89207,
+          "rating": 5,
+          "content": "This class was genuinely one of the best classes I've taken in my life - probably the most I've ever learned in one class. I would definitely recommend taking this class with Jae as his version really demands deep knowledge of the material, which is super useful not only if you want to understand C and systems well but also for testing your abilities to  understand things deeply in general. That being said, the class can definitely be very difficult. The only reason I would consider not taking this class is if getting a 4.0 really matters a lot to you.",
+          "workload": "7 Labs (the last 2 take a significant amount of time)\n3 exams (all very difficult but very fair in my opinion)\nThe class is curved but the grade breakdown is rough due to his unique cutoffs - you really have to do extremely well to get an A, but average is curved to B+ so anything below an A is very doable.",
+          "date": "2026-03-05T21:08:20",
+          "professor": "Jae Lee",
+          "agreeCount": 10,
+          "disagreeCount": 1
+        },
+        {
+          "id": 89201,
+          "rating": 5,
+          "content": "goated",
+          "workload": "hard",
+          "date": "2026-03-05T00:05:56",
+          "professor": "Jae Lee",
+          "agreeCount": 4,
+          "disagreeCount": 1
+        }
+      ]
+    },
+    "COMS W4995": {
+      "ok": true,
+      "code": "COMS W4995",
+      "courseId": 7099,
+      "courseName": "Topics in Computer Science: Intro to Social Networks",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 79788,
+          "rating": 3,
+          "content": "Augustin is a very enthusiastic, friendly guy. He goes out of his way to encourage people to speak during class, even as far as to buy apples before class and give them to people who raise their hand and participate in any way. You can respond to one of his questions correctly, incorrectly, you can ask him to repeat the question, you can ask \"may I please get an apple\", as long as some sound passes between your lips he will give you an apple.\r\n\r\nThis class was much more theoretical than I anticipated. Augustin attempts to summarize papers on sociology, graph theory, social psychology or other topics related to models of large-scale social behavior. Some of the models make sense, for others he makes no attempt to prove that they reflect real-life trends; they simply seem like one person's interpretation of a complicated phenomenon.\r\n\r\nAfter giving a bit of intuition for the motivation for the model of the day, he dives into a heavily mathematical proof for all sorts of bounds relating to the proof which can quickly become overwhelming. He often lingers on finishing up algebra for longer than necessary, but then makes overestimates our knowledge of certain statistical / linear algebraic theorems and rushes through parts of the proof that seem to fly over most people's heads.\r\n\r\nThe homeworks usually involve taking the ideas covered in class and generalizing them and proving those generalizations, which was almost impossible to do on one's own. Nothing is googleable.\r\n\r\nAs other people have said, Augustin is very disorganized. His homeworks are hodgepodges of older homeworks along with new questions hastily written with minimal proofreading. The data challenges took a while to put together, and when they came out we had relatively little time to prepare our setups. The TAs did not fully understand a lot of the material, and we would often have to \"learn together\" during office hours. For a 4995, this class felt more like a 6998 (which I believe it used to be). ",
+          "workload": "4 HWs: Some proofs in the beginning (all pretty difficult), occasionally a programming question, and then a few short-answer questions at the end that required you to apply some ideas from class to a hypothetical situation (rather easy).\r\nThere was going to be an essay, but due to disorganization he gave it to us as a bonus assignment...to be done over winter break after the class had ended\r\nMidterm: if you looked through the practice midterm carefully you had a decent amount of the material covered. The problem is he has this ridiculous format that involves picking one, multiple, or none of the multiple choice options, and then writing a short justification below of your choices. The short justification did not seem to matter\r\nFinal: Again, look through the practice midterm carefully and you'll have a lot of it covered.\r\nData Challenge: First one was very tricky, took me probably 17-18 hours total, it's very difficult to know how close you are to a good solution until you get there. Second one was stupidly simple in comparison, required very rudimentary data analysis, as long as you made sure to mention a bunch of topics from class and tie them into your findings then you were fine",
+          "date": "2017-01-26T18:48:31",
+          "professor": "Augustin Chaintreau",
+          "agreeCount": 11,
+          "disagreeCount": 8
+        }
+      ]
+    },
     "COMS W4705": {
       "ok": true,
       "code": "COMS W4705",
@@ -2268,6 +2388,35 @@
           "disagreeCount": 0
         }
       ]
+    },
+    "COMS E6156": {
+      "ok": true,
+      "code": "COMS E6156",
+      "courseId": 8757,
+      "courseName": "TOPICS IN SOFTWARE ENGINEERING",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 84660,
+          "rating": 1,
+          "content": "Simply put, this class is a mess, but I suppose that's expected when you're stuck with Prof. Ferguson. I took Databases with him earlier and had an idea of what to expect, but even then I was disappointed. The lectures are a miserable mix of death by PowerPoint and watching Ferguson try to debug his demos live. Several classes were canceled this semester due to Ferguson traveling for his other job, and there weren't any makeup opportunities besides his spontaneous office hour sessions. As such, I don't think this course was worth the tuition.\n\nAside from the subpar teaching quality, the teaching staff is abysmal. It was common to have 20-30 questions on Ed go unanswered for days. This was an unnecessary cause of stress right before sprint deadlines, especially since the office hour schedule was never consistent either.\n\nIf you're used to Ferguson's antics from another one of his classes like Databases and/or you want an easy A/A+ for a 6000-level course, then by all means take Cloud Computing with him. But be warned that you won't learn a thing by the end of the semester.",
+          "workload": "Next to nothing until the monthly sprint deadlines creep up. Ferguson will have a list of tasks for each team to complete for each sprint. However, he insists that the entire grade is based on the final submission, not the intermediary sprints. It's in your best interest to finish as many of these tasks as the semester progresses unless you're willing to grind out the whole thing at the end.",
+          "date": "2024-01-04T14:54:28",
+          "professor": "Donald Ferguson",
+          "agreeCount": 6,
+          "disagreeCount": 1
+        }
+      ]
+    },
+    "COMS W4774": {
+      "ok": true,
+      "code": "COMS W4774",
+      "courseId": 8760,
+      "courseName": "Unsupervised Learning",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
     },
     "COMS W4419": {
       "ok": true,
@@ -2359,6 +2508,15 @@
         }
       ]
     },
+    "COMS E6178": {
+      "ok": true,
+      "code": "COMS E6178",
+      "courseId": 8776,
+      "courseName": "Human-Computer Interaction",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
     "COMS W4732": {
       "ok": true,
       "code": "COMS W4732",
@@ -2408,6 +2566,15 @@
         }
       ]
     },
+    "COMS BC1017": {
+      "ok": true,
+      "code": "COMS BC1017",
+      "courseId": 8782,
+      "courseName": "Introduction to Computational Thinking and Data Science - Lab",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
     "COMS BC3997": {
       "ok": true,
       "code": "COMS BC3997",
@@ -2428,6 +2595,96 @@
         }
       ]
     },
+    "COMS BC3430": {
+      "ok": true,
+      "code": "COMS BC3430",
+      "courseId": 8789,
+      "courseName": "Computational Sound",
+      "reviewCount": 3,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 90065,
+          "rating": 5,
+          "content": "The goat tbh. Class was super fun and you learn a lot about digital sound. Everything from like the basics of picking up sounds to high level stuff like how to incorporate AI in sound creation. He is super nice and the algoraves were honestly a highlight of my whole semester. Really awesome class and learned so much.",
+          "workload": "4 labs, 2 live coding performances, and open ended final project",
+          "date": "2026-06-11T01:35:14",
+          "professor": "Mark Santolucito",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 84973,
+          "rating": 4,
+          "content": "Didn't expect much from this class because I had no prior knowledge about it, but am really glad I took it. It's a great connection between CS and art, which is something I've always been looking for. Prof. Santolucito is so clearly knowledgable and also very understanding as a person. Would definitely recommend since there isn't another CS course like this that I think is offered. Definitely on the easier side, you get what you put into the course.",
+          "workload": "More assignments in the first half of the semester and it tones down after that. Uses javascript. No exams, just homework (not weekly) and a final project. Most exciting/fun part is live coding",
+          "date": "2024-04-13T05:53:05",
+          "professor": "Mark Santolucito",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 84855,
+          "rating": 4,
+          "content": "Computational Sound was definitely a class on the easier side, and Mark is a really good professor who always answers my questions during his office hours really thoroughly. Although I loved the projects I worked on for that class and really put in the effort into it, I didn’t learn as much as I wanted to from the lectures and feel like I could have learned the information taught on my own. ",
+          "workload": "Easy workload - Assignments 60%, Participation 10%, Final project 30%\n",
+          "date": "2024-01-25T22:12:56",
+          "professor": "Mark Santolucito",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "EAAS UN3322": {
+      "ok": true,
+      "code": "EAAS UN3322",
+      "courseId": 7232,
+      "courseName": "East Asian Cinema",
+      "reviewCount": 4,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 88819,
+          "rating": 4,
+          "content": "One of my favorite classes at Columbia. Expected small workload going in, and honestly did not take much to succeed in the class. 2 in-class quizzes that if you watch the weekly assigned films and understand the historical context you'll get 10/10, weekly 400-500 word reviews of required films that you only need to do six out of twelve, and final project with a group or a 10 page essay. Professor Qian is so easygoing and kind, very understanding, and truly understands the student experience. TAs are also very helpful and nice! Also learned a lot about Asian history and culture, had a director as guest lecturer, and caught up on some famous films I haven't watched but have always wanted to. Would recommend this class to anyone, good luck getting off the waitlist. ",
+          "workload": "Grading was very fair, usually done by TAs. They also gave comments and feedback that was super helpful. ",
+          "date": "2026-01-06T16:24:29",
+          "professor": "Ying Qian",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        },
+        {
+          "id": 88476,
+          "rating": 5,
+          "content": "Very interesting topics and films. Professor Qian is very nice! Highly recommend!",
+          "workload": "2 quizes, in total 6 weekly film discussion post, midterm paper, final project",
+          "date": "2025-12-18T21:48:13",
+          "professor": "Ying Qian",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        },
+        {
+          "id": 81818,
+          "rating": 4,
+          "content": "Took this because it was a 4-point global core that met once a week and discussed movies. Sounds chill, and it was. Throughout the semester it was unclear how tough the TA's would be, but turns out they were light graders. This is either because they graded everything at the end of the semester and got tired of it and just passed out A's, or they truly believed we deserved them. Regardless, easy A.\r\n\r\nWe covered a movie every week, which we are responsible for viewing in designated 'viewing party' on Thursdays 7-9pm, (unless you have an excused absence). During class, Professor Qian gave a 1-hour lecture on the history of the Asian culture that the movie covers so that we have further context, followed by a TA-led discussion about scenes from the movie. It ended up being the same 3-4 students talking about their interpretations of the scenes, followed by long monologues by the TAs who just liked to hear themselves speak. Also, I'm pretty sure no one did the readings or watched the additional clips or really even showed up to the film screenings (which, by the way, were supposed to be mandatory... but in a class of ~50, I never saw more than 12 people there). \r\n\r\n1 midterm paper, which was just an analysis of 2 films (4-6 pages, easy). 1 midterm project, where you get into a group of 1-5 students and recreate a scene from one of the films. This project was meant to recreate the filming process, from staging, to considering mis-en-scene, acting, point of view, etc. The film clip was 5-6 minutes and was completed in one saturday for my group. For the final, you had the option to write a 12-page paper or to create your own shortfilm, using the techniques we learned in class. My group and I chose to do this, as none of us wanted to write a 12-page paper, and because filming was pretty fun. We wrote a super loose plot, discussed it with the TA who told us everything to include that she wanted to see, and filmed it all in 1 saturday. Putting it all together took a little longer than the midterm project, but thats because this was 15 minutes. \r\n\r\nThis class was interesting, and super easy. I highly recommedn if youre looking for 4 credits, an easy A, to learn about east asian cinema and how it was influenced by other historical factors and especially Hollywood, or just want to make a short film. I recommend it, but beware, it is not the most engaging lecture you will sit through.",
+          "workload": "5 response posts on the movies of our choice (500 words following a prompt, graded check minus, check, or check plus),\r\n1 midterm paper (4-6 pages on 2 films, following a prompt of choice)\r\n1 midterm project (recreate a scene from one of the films, 5 minute clip)\r\n1 final paper OR project (create your own short film, 15 minutes)",
+          "date": "2020-01-15T01:50:15",
+          "professor": "Ying Qian",
+          "agreeCount": 3,
+          "disagreeCount": 0
+        },
+        {
+          "id": 80531,
+          "rating": null,
+          "content": "This is a very interesting and engaging course that could be used for Global Core requirement. If you're looking for an enjoyable Global Core course or some intro film course, this course would probably fulfill your needs. If you're somewhat knowledgeable on East Asian history, either China, Japan, or Korea, it would be helpful. Background knowledge on film could be useful, but not necessary. The class covers East Asian films from the early 20th century up to the early 21st century, from silent black and white films to modern Hollywood movies. As for class structure, we meet once a week for lecture and there's weekly movie screening, which apparently was optional, but now required. Professor Qian is very nice and approachable, and she works really hard to make the course as enjoyable as it could be. The only downside was that it felt like announcements and grading were often rushed, delayed until the very last minute, but I'm pretty sure it difficult to find a class which isn't (at least that was the case for me).",
+          "workload": "Attendance; lectures and weekly screening (15%)\r\nWeekly posting assigned on required films, but you only need to complete only 5 of them (20%)\r\nMidterm Paper on film of your choice (20%)\r\nVideo group assignment; you get to recreate a scene from a film of your choice, or create original short film 8-10 minutes (10%)\r\nFinal Essay or Creative Project; you either write a paper covering multiple films or do something similar to video group assignment. We were also given the option of video essay (35%)",
+          "date": "2018-01-03T06:31:23",
+          "professor": "Ying Qian",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        }
+      ]
+    },
     "DROM B9151": {
       "ok": true,
       "code": "DROM B9151",
@@ -2437,20 +2694,47 @@
       "averageRating": null,
       "reviews": []
     },
-    "DROM B6102": {
+    "DROM B8154": {
       "ok": true,
-      "code": "DROM B6102",
-      "courseId": 8854,
-      "courseName": "OPERATIONS MANAGEMENT",
+      "code": "DROM B8154",
+      "courseId": 8848,
+      "courseName": "Python for MBAs",
       "reviewCount": 0,
       "averageRating": null,
       "reviews": []
     },
-    "DROM B5102": {
+    "DROM B8131": {
       "ok": true,
-      "code": "DROM B5102",
-      "courseId": 8874,
-      "courseName": "Operations Management & Strate",
+      "code": "DROM B8131",
+      "courseId": 8862,
+      "courseName": "Sports Analytics",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "DROM B8125": {
+      "ok": true,
+      "code": "DROM B8125",
+      "courseId": 8863,
+      "courseName": "DIGITAL LITERACY-DECISION MKRS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "DROM B6100": {
+      "ok": true,
+      "code": "DROM B6100",
+      "courseId": 8873,
+      "courseName": "Managerial Statistics",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "DROM B9120": {
+      "ok": true,
+      "code": "DROM B9120",
+      "courseId": 8881,
+      "courseName": "(PhD) Dynamic Programming",
       "reviewCount": 0,
       "averageRating": null,
       "reviews": []
@@ -2464,14 +2748,74 @@
       "averageRating": null,
       "reviews": []
     },
-    "DROM B8148": {
+    "DROM B8116": {
       "ok": true,
-      "code": "DROM B8148",
-      "courseId": 8883,
-      "courseName": "The Analytics Advantage",
+      "code": "DROM B8116",
+      "courseId": 10765,
+      "courseName": "Risk Management",
       "reviewCount": 0,
       "averageRating": null,
       "reviews": []
+    },
+    "ECON BC1003": {
+      "ok": true,
+      "code": "ECON BC1003",
+      "courseId": 5113,
+      "courseName": "Introduction to Economic Reasoning",
+      "reviewCount": 75,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 90297,
+          "rating": 3,
+          "content": "Going into this class I had so much hope it would be amazing due to the gold nugget on CULPA. I would say I was overconfident. The biggest challenge is the total lack of practical, structured instruction. In class, there are no slides, and the materials the professor shares after class aren't even his own and rarely align with his lectures. To make matters worse he teaches a completely different method for solving every problem than what will be on the test. The test ALWAYS align with the textbook, so why does he spend our class time teaching his own personal shortcut we cannot even use? This class has been an incredibly frustrating experience. If you rely on structured learning, DO NOT TAKE. He is a wonderful person, but a very unstructured prof.  ",
+          "workload": "30%: 12 online quizzes (the two lowest scores get dropped)\n\n30% Midterm \n\n40% Final ",
+          "date": "2026-11-01T14:05:43",
+          "professor": "John Park",
+          "agreeCount": 3,
+          "disagreeCount": 1
+        },
+        {
+          "id": 88982,
+          "rating": 4,
+          "content": "His lectures are quite boring and confusing, but his slides are excellent and cover all the content so no need to open the textbook. Both exams are very similar to the practice tests and he clearly wants students to succeed. I would definitely recommend taking his class, easy A.",
+          "workload": "Light workload, never did reading because slides covered all topics and one assignment a week which takes around 10-30 mins. ",
+          "date": "2026-01-20T14:59:14",
+          "professor": "Mulu Gebreyohannes",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 88692,
+          "rating": 3,
+          "content": "He certainly isn't a bad person (anymore, I guess?) but he's definitely not the best lecturer. He does seem a bit nervous, and he definitely stumbles here and there, but he's pretty kind. I recommend going to lectures anyways, but you can also self-study the material (he uploads slides to Courseworks before every lecture). I knew people who only took notes to stay awake in class. We used a free online textbook—his slides are the EXACT same material, so if you need a more in-depth explanation, you can refer to it. I'd say the exams are more in-depth than the psets and what we cover in class. Take Prof. Dye's class if you have a foundation in Econ and can self study. Recitations were sort of helpful. ",
+          "workload": "Weekly assignments (12, lowest 2 dropped): 25%\nAttendance: 5% \nMidterm: 30%\nFinal: 40% (non-cumulative)\nHis exams aren't as straightforward as Mulu's, but the good news is both our midterm and final were curved (pretty big curve). ",
+          "date": "2025-12-30T15:24:12",
+          "professor": "Alan Dye",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 88480,
+          "rating": 3,
+          "content": "Lowkey a very boring class, concepts are quite simple (especially if you have previous econ experience) and he's not a particularly engaging lecturer. Would def recommend going to recitations (though they're not mandatory), the TAs were better at explaining concepts and answering questions than him. He posts a sample exam for both the midterm and the final, and both tests are almost exactly like the sample",
+          "workload": "Roughly 1 assignment per week, midterm exam, final exam",
+          "date": "2025-12-18T22:31:18",
+          "professor": "Mulu Gebreyohannes",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 88394,
+          "rating": 2,
+          "content": "The worse thing of his class is the real exam never match what he test about. The next worse thing is that is explanation of definitions aren't helpful at all and sometimes if you try to understand his explanation, you will NEVER be able to grasp that.... If you have other choice, then don't take his class. However, he's a kind person. ",
+          "workload": "The workload is okay but I won't say it's easy A",
+          "date": "2025-12-16T23:42:39",
+          "professor": "Alan Dye",
+          "agreeCount": 2,
+          "disagreeCount": 1
+        }
+      ]
     },
     "ECON BC3063": {
       "ok": true,
@@ -2503,6 +2847,193 @@
         }
       ]
     },
+    "ECON BC3019": {
+      "ok": true,
+      "code": "ECON BC3019",
+      "courseId": 6553,
+      "courseName": "Labor Economics",
+      "reviewCount": 2,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 90329,
+          "rating": 3,
+          "content": "i don't get the john hype. he is fine, but his lectures often seem very uninspired. he's so focused on teaching the math behind the concepts that i feel like you lose some of the theory or what makes economics actually interesting. basically the course was very boring even though i like labor economics. \n\nclearly i am in the minority though. there's no doubt he's good at explaining things.",
+          "workload": "midterm, final, group project/presentation",
+          "date": "2026-11-10T21:51:29",
+          "professor": "John Park",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 28418,
+          "rating": 3,
+          "content": "Lalith is definitely a fan of his own research, and prone to telling us about each of his studies and particular areas of interest several times without remembering entire half-lectures on it before.\r\n\r\nBut still. He makes himself very available, encourages discussion in class (although it is true that he isn't too kind to people who get it wrong, so just learn to shake it off). He genuinely loves the topic, and it's obvious. His lectures are clear, he treats students with respect, and there was a definite camaraderie - this is what I came to Barnard for. I think he's pretty funny, too.",
+          "workload": "Nine sporadic ungraded problemsets (not bad at all), straightforward midterm and final. We also had a mini 2 page half-paper during reading week that some people complained about, but was really more interesting and philosophical than difficult although it could have been better timed.",
+          "date": "2013-05-21T01:26:03",
+          "professor": "Lalith Munasinghe",
+          "agreeCount": 5,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ECON BC3039": {
+      "ok": true,
+      "code": "ECON BC3039",
+      "courseId": 6972,
+      "courseName": "Environmental & Natural Resource Economics",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 84045,
+          "rating": 2,
+          "content": "She's not the worst but she's far from the best professor you can have. Take her class if you don't have better options. I think in most aspects she was alright. I found her lectures boring and unengaging, but I know that wasn't the sentiment across the class. Some people really liked her lecture style and thought it was engaging. The workload for her class I would say is very reasonable. There are 3 homework each spaced out with decent time in between and not too long. The GIS portion of the homework can be time-consuming but the ERC workshop videos are helpful enough to get anyone through it without much trouble. There's one midterm and one final. Both tests are online and she gives the entire day for students to complete it. The tests have two portions: an MC portion and a written portion. Her MC questions can be difficult but overall both exams are passable with a decent amount of studying. And there is a group presentation+paper at the end of the semester on a topic of your choice. There is an overwhelming amount of reading for the class but you can get by just skimming a few of them. \nThe biggest problem with her class is that what she teaches in class is very different from what shows up in HW and her tests. She barely covers math examples in her lectures yet 90% of her HW and tests require math. The math examples she does cover in class hardly help. There are a few of them where she does the math on paper and posts it on slides, good luck trying to read her handwriting. The math itself is not difficult math but you will have to teach the concepts to yourself because Professor Archibong will not teach you it. The second problem with her class is that there is no TA for the class to ask for question+guidance and Professor Archibong is the single worst person to go for clarification. If you ask for clarification often time she will tell you to post it on the discussion board instead of clarifying for you even if the clarification is very specific to you. This especially becomes frustrating during the group project when you might need some very specific guidance. ",
+          "workload": "3 HW, 1 Midterm, 1 Final (Cumulative), A group paper+presentation on a topic of your choice",
+          "date": "2023-06-03T19:01:50",
+          "professor": "Belinda Archibong",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ECON BC3033": {
+      "ok": true,
+      "code": "ECON BC3033",
+      "courseId": 9466,
+      "courseName": "INTERMEDTE MACROECONOMC THEORY",
+      "reviewCount": 11,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 89597,
+          "rating": 4,
+          "content": "Professor Gertler adapts as a teacher. Many of the bad reviews are an exaggeration. She is a very conceptual teacher and has improved as a teacher so much the past semester that I have been taking in her class. I struggled in the beginning because I did not understand her phrasing, but once you begin to understand it, it truly helps the way you understand the world of economics. She is as sweet as candy and if you want a class that is not too hard to get an A, this is the class to take. ",
+          "workload": "About one problem set per two lectures, 2 midterms, one final (not cumulative and is the same weight as the other midterms)",
+          "date": "2026-05-04T11:11:28",
+          "professor": "Sarah Gertler",
+          "agreeCount": 3,
+          "disagreeCount": 0
+        },
+        {
+          "id": 86148,
+          "rating": 4,
+          "content": "Lectures were sometimes confusing, but he's overall a nice guy/helpful professor. The TA, Joel, is wonderful & hosts very helpful office hours. The problem sets are optional but very similar to the format of his in class quizzes & exams.",
+          "workload": "Midterm exam 30%, final exam 46%, quizzes 24% (4 grades at 6% each)",
+          "date": "2024-12-22T16:43:32",
+          "professor": "Miguel Casares",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 84946,
+          "rating": 2,
+          "content": "Overall I did not enjoy this course. He is not an engaging lecturer and is extremely repetitive. The one thing I will say is that the homework assignments prepare you well for the in class quizzes. However, they don't prepare you super well for the midterm or final. Both exams include multiple-choice sections and a \"discussion question\". He does not give any practice with the discussion questions throughout the course. ",
+          "workload": "Midterm exam 30%, final exam 46%, quizzes 24% (4 grades at 6% each) -- you take 5 quizzes and drop your lowest score. You get docked points if you get a multiple-choice question wrong, but you don't lose any points if you leave a question blank. Annoying policy he says is aimed to prevent people from blindly guessing. Just have to do the assignments (not graded, just practice problems) to prepare well for the quizzes. ",
+          "date": "2024-04-10T14:15:40",
+          "professor": "Miguel Casares",
+          "agreeCount": 2,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ECON BC3050": {
+      "ok": true,
+      "code": "ECON BC3050",
+      "courseId": 9472,
+      "courseName": "Health Economics",
+      "reviewCount": 2,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 85731,
+          "rating": 4,
+          "content": "I love Prof. Williams. Out of all the econ classes I have taken, this class has been the most engaging, and I got lucky as most people in my class were eager to participate. Since the class size is smaller, it feels easier to share thoughts during lecture. Although this class does not require econometrics, Prof. Williams shows slides about it somewhat frequently but still emphasizes that you don't need to know it so much (I don't think I ever applied it in assignments/exams). I really loved this class and recommend it! ",
+          "workload": "Assignments were like PSETs, and were graded mostly to completion. I think there was only 1 TA responsible for grading so I will say it took a while. It definitely helps to be an active participant in class as I feel that it improved my grade even though my exam results were just above average. ",
+          "date": "2024-11-22T02:29:25",
+          "professor": "Morgan Williams",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 85333,
+          "rating": 5,
+          "content": "To be honest, Health Econ would not be one of the electives that would come to mind when fulfilling the econ requirement, but let this be a sign for you to take it with Prof Williams. This is one of the easiest economics elective you'll find: light workload and easy content. Course content covers demand of health, the US insurance industry, race and medicine, algorithms in medicine, and more. The class is structured really well with clear and concise lecture slides as resource. PSets are also very doable, just refer to examples in slides/textbook. Got an A in this course despite spending less than half the time compared to other econ courses, while also learning so much on the economic side of the healthcare system.\n\nAll in all, Prof. Williams is just a kind soul, fun guy, and genuinely passionate in his field. His lectures are engaging and were very helpful in office hours. Highly recommend taking a class with him!",
+          "workload": "2 midterms (25% each, one of it is take-home), 20% group policy memo, 10% group presentation, 20% assignment (4 PSets, drop one). 3 hours max per week on assignments and readings - longer in the final few weeks when doing research for group presentation/policy memo.",
+          "date": "2024-05-24T08:31:36",
+          "professor": "Morgan Williams",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ECON BC3048": {
+      "ok": true,
+      "code": "ECON BC3048",
+      "courseId": 9473,
+      "courseName": "Introduction to Behavioral Economics",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 89867,
+          "rating": 5,
+          "content": "Genuinely the best! Take at least one class with him before you graduate. He is able to explain difficult concepts in a way that makes them seem easy and digestible. ",
+          "workload": "Homeworks were not counted for the grade but very helpful for exams. Reasonable workload just keep up with lectures and notes.",
+          "date": "2026-05-19T11:38:10",
+          "professor": "John Park",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ECON BC1017": {
+      "ok": true,
+      "code": "ECON BC1017",
+      "courseId": 9477,
+      "courseName": "Math Methods for Economics Recitation",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ECON BC3133": {
+      "ok": true,
+      "code": "ECON BC3133",
+      "courseId": 9484,
+      "courseName": "INTERMEDIATE MACRO-DIS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "SPAN UN3300": {
+      "ok": true,
+      "code": "SPAN UN3300",
+      "courseId": 7238,
+      "courseName": "Immigration and U.S. Education Policies",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 80525,
+          "rating": null,
+          "content": "Maria Lozano is the best. She's very knowledgable about immigration issues related to Latin America, and has a particular area of expertise in bilingual education, which is what the education policy portion of the class is about. I'd say what is best about Professor Lozano, however, is how supportive she is. It can be hard to learn a new language, and Professor Lozano is very encouraging for anyone who wants to learn, no matter their skill level, and she is always approachable during office hours. I'm going into continuing my spanish education with a level of optimism and confidence that is completely do to her. ",
+          "workload": "500 word essay every two weeks, but mainly graded on completion \r\nOne presentation \r\n7 page final paper",
+          "date": "2018-01-02T18:50:07",
+          "professor": "Maria Lozano",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "EDUC BC3052": {
+      "ok": true,
+      "code": "EDUC BC3052",
+      "courseId": 9488,
+      "courseName": "MATH & THE CITY",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
     "EDUC BC3152": {
       "ok": true,
       "code": "EDUC BC3152",
@@ -2512,35 +3043,14 @@
       "averageRating": null,
       "reviews": []
     },
-    "ENGL BC3134": {
+    "EDUC BC3055": {
       "ok": true,
-      "code": "ENGL BC3134",
-      "courseId": 7534,
-      "courseName": "Creative Non-Fiction",
-      "reviewCount": 2,
+      "code": "EDUC BC3055",
+      "courseId": 9500,
+      "courseName": "ARTS AND HUMANITIES IN THE CITY:CRITICAL",
+      "reviewCount": 0,
       "averageRating": null,
-      "reviews": [
-        {
-          "id": 84613,
-          "rating": 5,
-          "content": "Best class and best professor ever! Truly such an insightful and fun class - and Prof. Sharma is so kind and a great mentor. Most of the classes were discussions, based on readings we had (and they were all really interesting!!). Then we had workshop classes for the pieces we created. Highly recommend. ",
-          "workload": "Weekly readings, we did in-class writing exercises sometimes. \nThe biggest assignments were two pieces of creative non-fiction, the first one 5-10 pages, second 7-12 pages. Then for the final you revise one of them. So pretty doable",
-          "date": "2023-12-29T22:49:10",
-          "professor": "Nina Sharma",
-          "agreeCount": 0,
-          "disagreeCount": 0
-        },
-        {
-          "id": 81842,
-          "rating": 5,
-          "content": "Liana Finck is a wonderful and slightly odd professor. She started off the semester deeply shy and introductions were certainly awkward, but throughout the course fo the semester, as all the students got to know each other, the class grew to be my favorite. Liana (as she asked we call her) was incredibly thorough and thoughtful in her feedback. She was, I felt, very committed to giving honest but very kind feedback. She helped steer the workshop classroom atmosphere from competitive or critical (which workshops can certainly veer towards) to helpful and respectful. I found office hours with her to be some of my favorite conversations from first semester. I learned so much in this course and feel strongly that if you're willing to cringe a little and feel a bit vulnerable, this is an excellent class.",
-          "workload": "We submitted a one-page free-write every week, read 3 peer pieces for workshop (ranging from 3 to 15 pages each), as well as an assigned story. Each student submitted two drafts that evolved into 2 15-page pieces for the final submission. I found the workload pretty light and looked forward to it every week. ",
-          "date": "2020-01-21T21:19:28",
-          "professor": "Liana Finck",
-          "agreeCount": 0,
-          "disagreeCount": 0
-        }
-      ]
+      "reviews": []
     },
     "EESC BC3026": {
       "ok": true,
@@ -2561,6 +3071,604 @@
           "disagreeCount": 0
         }
       ]
+    },
+    "EESC BC3040": {
+      "ok": true,
+      "code": "EESC BC3040",
+      "courseId": 9819,
+      "courseName": "ENVIRONMENTAL LAW",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 85557,
+          "rating": 5,
+          "content": "I usually don't write reviews, but this class was truly an eye-opening experience. If you are interested in going into the legal field at all, even if non-environmental, I'd recommend this class. Dana is truly an amazing teacher. She cares about her students and wants everyone to become more engaged citizens. I became less apathetic and more inspired to utilize law in order to fight the climate crisis. We learned how to read and brief cases in a way that we'd learn in our first year at law school. We go through and analyze environmental law cases and how their decisions affect the outcomes of future cases. A large portion of the class is learning how to do legal research through legal databases. ",
+          "workload": "She has said that she is more interested in us learning than assigning grades, so I found the grading to be lenient. But, the more work that you put in, the more you will get out. She is always open to questions and OH appointments. She took us to Joe Coffee after class if we wanted to have follow-up discussions. The readings can be a lot some weeks, but reasonable considering we only meet once a week. There is a class project with check-points along the semester, where we can get feedback before the final is turned in. Exercises and midterms were reasonable and explained beforehand. Mock brief presentation to judges as the final. ",
+          "date": "2024-11-06T18:48:00",
+          "professor": "Dana Neacsu",
+          "agreeCount": 8,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "EESC BC3029": {
+      "ok": true,
+      "code": "EESC BC3029",
+      "courseId": 9822,
+      "courseName": "Bermuda: Case Studies in Environmental Sustainability",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "EESC BC3012": {
+      "ok": true,
+      "code": "EESC BC3012",
+      "courseId": 9823,
+      "courseName": "BROWNFIELDS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ENGL BC3180": {
+      "ok": true,
+      "code": "ENGL BC3180",
+      "courseId": 2683,
+      "courseName": "American Literature 1800-1870",
+      "reviewCount": 13,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 89535,
+          "rating": 5,
+          "content": "The only required text for this class was the Norton Anthology of American Literature 1820-1865, and I believe the bookstore had used copies to purchase. This was truly one of the most amazing classes I have taken at Barnard thus far. I took it at 8:40am and was expecting the content to be a bit dry (due to the nature of the readings) however it was anything but. Professor Zarour Zarzar showed up every morning excited about the readings and with a whole bunch of valuable knowledge to share. It takes a lot to get me out of bed for an 8:40 class, but I think I was only absent one time. Genuinely, this class made me feel like I could study English if I wanted and taught me a lot about a really significant era of history as well. Additionally, it was a lecture class but he always facilitated discussion while also keeping us moving pretty quick through content. Definitely recommend!!!",
+          "workload": "About 50-200 pages of reading a week. Some weeks where novels were assigned were responsible for the higher end of this range, but I think that is pretty typical of any English class. One group project video, one midterm, one essay, and one final project. Other than that everything was in-class. ",
+          "date": "2026-04-30T15:59:31",
+          "professor": "Victor Zarour Zarzar",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        },
+        {
+          "id": 85025,
+          "rating": 2,
+          "content": "I should start by saying that I think Professor Gordis is a kind, flexible, and dedicated professor. Her lectures and the course itself was incredibly thorough and it's very clear that she cares a lot about the readings and the students in the class. That being said, this class was miserable for me. Her lectures are tedious and difficult to get through. They consist of obscenely long powerpoints (like 60-80 slides per reading) with just giant blocks of quotes from the texts we had to read. She reads the quotes out in their entirety, which kind of defeats the purpose of struggling through the readings (of which there are MANY) and doesn't provide any visual aid for the complex topics that she's trying to illustrate. It's clear she's read reviews that complained about how she just lectures at us, so every couple of slides, she'll stop and ask the most unthoughtprovoking question ever: what does everyone think of this? This class would be a lot more bearable if it was a discussion but for some inexplicable reason she insists on lecturing at us. ",
+          "workload": "Professor Gordis also assigns the most absurd amount of readings that I've ever seen in a class. The course meets twice a week and you should expect to have at least 3 hours of difficult 19th century literature to get through for each class, sometimes more. I gave up trying to do the readings halfway through the course which made the class even more unbearable. It is a fairly easy class to do well in (although I haven't taken the cumulative, 3 hour long final). There's only one 6-8 page essay which is due at the end of the semester. She also uses a strange online platform called Yellowdig so that she can track everyone's response posts and participation in something she calls a commonplace book, which are basically just mini responses. Professor Gordis is nice and really dedicated -- I wish that I could read as much as she thought we could read. But this class was the bane of my existence this semester -- take it only if you are super into 19th century literature or need the literature before 1900 requirement for the English major. ",
+          "date": "2024-04-16T18:11:23",
+          "professor": "Lisa Gordis",
+          "agreeCount": 4,
+          "disagreeCount": 1
+        },
+        {
+          "id": 81577,
+          "rating": 4,
+          "content": "Have to disagree with those that believe Gordis to be cruel or overly-harsh; her tough grading (with always the offer of a thorough review if turned in a week early that can be rewritten and turned in!) improved my writing more than any other single class I have taken. She was always willing to discuss texts further outside of class, or make suggestions for outside research. If you are a serious Americanist, she will help you more than you know. Yes, she is not always easy to get ahold of, and may seem rigid in her scheduling, but she's crazy busy and simply expects students to respect her time.\r\n\r\nYes, the class is a lot of work, but the weekly writing etc helps you engage with often dense or less exciting texts--let's be honest, America doesn't begin its literary golden age until the end of the this course, and really, most of the great writers are in the 20th. Despite that, she provides a number of ways to approach the text and find meaning (except The Last of the Mohicans, fuck that book, I mean I get why its there but GOD I hate it). \r\n\r\nBasically, if you really care about understanding American lit, and why we are the way that we are, take a class with Gordis.",
+          "workload": "The most I've ever had--average 350 pages reading a week, 10 short blog posts over semester, two papers, intensive exam involving identification of works and short essays.",
+          "date": "2019-11-19T01:46:58",
+          "professor": "Lisa Gordis",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        },
+        {
+          "id": 78608,
+          "rating": 3,
+          "content": "I felt that this class was neither spectacular nor awful.  Professor Gordis is really sweet in class but her lectures are difficult to follow because they don't seem to have any logical progression from start to finish.  There's always a lot of flipping back in forth in really large texts and it's easy to get lost.  She'll also cite a page number and then immediately start reading from some undisclosed and random point on the page, so by the time you figure out where she's reading from she's already moved on to commentary and you've missed half of what she said.  I really enjoyed the blog element of this course.  There is no word count minimum for the blog posts (I think they tended to be about 200 words), so it's easy to get these done and the posts actually really helped to make the material more interesting and get people engaged.",
+          "workload": "Weekly reading, weekly blog posts (she provides \"provocations\" to which students respond), two 5-6 page papers, and final.",
+          "date": "2015-05-04T15:07:32",
+          "professor": "Lisa Gordis",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        },
+        {
+          "id": 29445,
+          "rating": 2,
+          "content": "Mean, sarcastic, arrogant, draconian, Harvard-obsessed, overly impressed with herself.\r\n\r\nProf. Gordis will shoot down comments in class because she disagrees with the strength of the adjectives one uses. Her lectures are clearly rehearsed and  it is difficult for her to deviate, as class discussions often necessitate. \r\n\r\nOffice hours are sparse and unworkable for a student schedule: she once offered me 8am on a Friday, take it or leave it. Go to office hours and she'll sit there with her arms crossed like a smug weasel. The only time she's nice is if you can get her talking about her undergrad days at Harvard, twenty-five years ago. \r\n\r\nI'm an English major, and I am glad that Gordis was not my first exposure to literature at Barnard. Absolutely terrible experience. ",
+          "workload": "Very heavy. I'm an English major so I expected this, but this class was ridiculous. Weekly blog posts plus comments and \"provocations\". Reading about 300 pages per class. Two six page essays (do-able, but do not expect to get above a B- on either). One absolutely absurd AP-style 3-hour final with two hour-long essay sections and quote identifications. Take another American Lit class, or take it at Columbia. ",
+          "date": "2014-05-10T17:03:52",
+          "professor": "Lisa Gordis",
+          "agreeCount": 5,
+          "disagreeCount": 5
+        }
+      ]
+    },
+    "ENGL BC3193": {
+      "ok": true,
+      "code": "ENGL BC3193",
+      "courseId": 3927,
+      "courseName": "Literary Criticism and Theory",
+      "reviewCount": 15,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 90048,
+          "rating": 3,
+          "content": "Had him for critical writing and lowk would not recommend if you want the normal version of this class. With him it was very chill and not a lot of work, especially considering it was a 4 credit class. Did not really learn anything new tbh. ",
+          "workload": "SOOO light. 3 essays. Readings include poems, one play (Macbeth by Shakespeare), and one novel (Jazz by Toni Morrison). ",
+          "date": "2026-06-08T19:56:10",
+          "professor": "Michael Dickman",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 84197,
+          "rating": 5,
+          "content": "My favorite professor so far. Just communicate with her and you should be fine grade-wise. I had a lot going on when I took her class and wasn't able to get assignments in on time etc but she was very kind about it and remained approachable. She's a bit strict in the sense that she will point out small errors but she also praises all the good parts of your essay; if you genuinely want to refine your writing (which you probably need in the long term for any discipline) I would highly recommend her course. The readings were all enjoyable and thought-provoking",
+          "workload": "Completely manageable, one discussion board post per week and 4 essays",
+          "date": "2023-11-01T19:18:51",
+          "professor": "Meredith Benjamin",
+          "agreeCount": 2,
+          "disagreeCount": 0
+        },
+        {
+          "id": 29264,
+          "rating": 2,
+          "content": "I'll be candid here... she is the most cynical and draconian grader I have ever had here at Barnard. If I hadn't taken other English courses I would be dissuaded from majoring in English because this lady has a way of discouraging students through her harsh grading style and \"reverse psychology\" method employed in class. You can tell she uses reading and work as an escapist activity from socializing with people, because she lacks the empathy and ability to connect with her students. If you are doing poorly, please remember that your proficiency as a writer is not reflected by the grades she gives out. She is an intellectual snob who is unhappy with the card she has been dealt with in life and takes it out on her students. ",
+          "workload": "HEAVY. Weekly reading responses... and they aren't casual, she expects an essay as well as 5 harshly graded papers. ",
+          "date": "2014-03-06T16:19:28",
+          "professor": "Lisa Gordis",
+          "agreeCount": 6,
+          "disagreeCount": 2
+        },
+        {
+          "id": 25335,
+          "rating": 2,
+          "content": "I started out loving this class but I DO NOT feel that way now!  Spiegel is unorganized.  While the other sections were reading literary favorites and writing essays, we were discussing memory the ENTIRE semester.  We read books, articles, and watched movies about memory and history.  It seems to be her expertise which she then applies to every course that she teachers - whether it is this course or a film course, I have a feeling that the syllabi are very similar.  \r\nWe were supposed to have weekly courseworks postings but she stopped those because she kept forgetting to put up prompts and questions for us to discuss. She didn't assign us any essays to write until halfway through the semester so we had to rush in 3 essays instead of having them spread out thanks to Spiegel's unorganized and chaotic nature.\r\nAnd then is the grading.  It took her a VERY long time to give us our grades for the first paper.  We were graded harshly and everyone in the class said that they were surprised by her harsh and rather rude comments and grades.  This could partly be because it was our first grade all semester and she told us that we were all doing better than we ended up doing on the paper.  On the same note, I asked her if I should rewrite a draft of my essay and she said it was not necessary and that  I would do very well on the paper.  Well, she lied.  I did not do very well and it is not just that I have oddly high standards.  I did not improve from the paper before - instead she gave me the same grade slash the grade one portion of a grade higher (ex. B/B+ or B+/A-).  \r\nIn the end, I DO NOT recommend this class because I am unhappy with the way Professor Spiegel handled the structure of the course and the grading.  She was fake, unorganized, and unnecessarily harsh.  If she wants us to improve and learned from our past assignments, space them out throughout the semester and not squish them into the last two months.  ",
+          "workload": "About a book or movie a week with the occasional article.  If you are smart and a good BSer, you can get away without completing a book or two.\r\nWeekly courseworks postings until she forgets to put up the question for too many weeks in a row\r\nEssays. We had 3 because she didn't assign us any until halfway through but I think she originially said she would assign 5.  They were other random written assignments on the syllabus that she did not assign us to do",
+          "date": "2011-01-04T22:21:54",
+          "professor": "Maura Spiegel",
+          "agreeCount": 2,
+          "disagreeCount": 1
+        },
+        {
+          "id": 24536,
+          "rating": 4,
+          "content": "This was one of the best classes I've taken so far. The syllabus is amazing. There's A LOT (too much) of reading for the class, but it's all really fundamental (Plato, Aristotle, Nietzsche, Shakespeare, Jane Austen, Marx, and a lot more). The works we read always seemed to be useful for all of my other classes.  After this class you just won't ever look at theory/ aesthetics the same way again.\r\n\r\nThe syllabus is challenging, but Stefan was a great guide. He was always patient in going over tough points (and incredibly generous when it came to office hours). His enthusiasm for the material was infectious: by the end of the semester I could barely believe I had done all the reading (well almost all of the reading).\r\n\r\nAfter this class you'll really feelmuch better prepared for your other English classes.  The syllabus and the professor are great!  ",
+          "workload": "Insane. But totally worthwhile. And from what I hear not that much more than other sections of the class.",
+          "date": "2010-05-23T20:27:00",
+          "professor": "Stefan Pedatella",
+          "agreeCount": 11,
+          "disagreeCount": 1
+        }
+      ]
+    },
+    "ENGL BC3160": {
+      "ok": true,
+      "code": "ENGL BC3160",
+      "courseId": 7422,
+      "courseName": "The English Colloquium: Enlightenment",
+      "reviewCount": 3,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 86592,
+          "rating": 5,
+          "content": "I’m writing to pay tribute to this incredible man. This class has been a mind-blowing, life-changing engagement with psychoanalytical theories, which are often stigmatized (alongside literary theories like Saussure). The course reexamines overused terms like ego, uncanny, castration, etc., within the contexts in which they were originally written, pushing you to grasp their nuanced meanings in psychoanalysis. \n\nMore than merely using psychoanalysis as a lens to understand literature, this class explored how the two disciplines inform and enrich each other. We specifically analyzed To the Lighthouse alongside the confluence and deviations between psychoanalysis and modernism. Other texts included Act III of Hamlet, The Sandman by E.T.A. Hoffmann, “Funes, His Memory” by Jorge Luis Borges, “A Farewell\" and \"The Widower\" by Arthur Schnitzler, A Report to an Academy and The Hunger Artist by Kafka, Ex Machina, “We Can Remember It For You Wholesale\" by Philip K. Dick, and “Going to Meet the Man” by James Baldwin.\n\nThe psychoanalytic texts we studied included Freud's Three Case Histories, Civilization and Its Discontents, The Interpretation of Dreams, Repression, and \"A Note Upon the ‘Mystic Writing-Pad’\"; Lacan's “The Mirror Stage as Formative of the I Function as Revealed in Psychoanalytic Experience” from Écrits; Powers of Horror by Julia Kristeva; and “When Our Lips Speak Together” by Luce Irigaray.\n\nI cannot express just how much I love Professor Gorelick. I’ve been in his classes since I was a sophomore, and he is the most intelligent, kind, and competent person I’ve ever met. It’s not just the scope and depth of his classes but also his eloquence in communicating and synthesizing complex, abstract ideas in logical, coherent, and seamless ways, which shows just how well he knows his stuff. I had to transcribe many of his lectures because they were downright brilliant. As I review my notes, the logic becomes clearer over time, simply because of how breathtakingly methodical his lectures were.\n\nAs an educator, his class objectives and standards are equally meticulous. The way he designs exams and his slideshow presentations (and if you’re an English major, you’ll understand how valuable and rare well-crafted slides are) always made me feel like I’ve precisely reached the class objectives at every phase. His dedication to providing thorough and thoughtful resources is unmatched.\n\nHe genuinely cares about his students, connects with their ideas efficiently. He is always open-minded, and welcomes refreshing and intellectual dialogues. Every time I visit his office hours, he has precise questions and insights that accurately pinpoint areas for improvement. I’m consistently amazed by his refined intellect and by how funny, approachable, and loving he is.\n\nThe intellectual load and amount of readings were manageable but demanded genuine engagement with the concepts and theories. Despite the complexity of the course materials, Professor Gorelick made the process very entertaining and enriching, so don't worry if the readings and theories seemed daunting at first glance. \n",
+          "workload": "A dream journal consisting of 12 dreams, with your own interpretations for 6 of them based on chain of associations; 5 discussion posts between 100–300 words; 2 exams; 3 pop reading quizzes (which require a general read-through of the readings. No difficult questions about concepts, just basic information provided by the texts). As long as you keep up with what is presented in class and maintain a general understanding of the readings, you'll do fine on the exams. They are more educational than evaluative.",
+          "date": "2025-02-12T15:51:15",
+          "professor": "Nathan Gorelick",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 84004,
+          "rating": 5,
+          "content": "Nathan maintains the best balance between academic rigorousness and having fun in class. As long as you really have something to say rather than trying to evade producing and engaging in good ideas, it's gonna be an easy A. He's still young in his thirties so he knows how to be witty and funny in class, and he cares and understands students and treats students like good friends. I'd highly recommend, he's just sooooooo nice and super chill. ",
+          "workload": "· 3~4 discussion posts, as long as you devote some effort and have decent ideas in them, he'll mark as A and complete\n· 3 concept paper (much like reflect papers),  2-3 page papers, demonstrate your efforts to understand some of the difficult ideas included in one of the readings in three of the modules. Each one worth 5 points, but the lowest he gives on those papers would be about 4.6\n· Salon discourse in which you prepare a staged conversation with one or two other students. As long as you reflect and discuss ideas talked about in class, easy A\n· 8-10 page final research paper (need two outside sources, engage in only one of the readings in any of the modules)",
+          "date": "2023-05-18T22:27:43",
+          "professor": "Nathan Gorelick",
+          "agreeCount": 12,
+          "disagreeCount": 0
+        },
+        {
+          "id": 81305,
+          "rating": null,
+          "content": "literally i think he works here just so he can fight students who he thinks arent as smart as him and feel good about himself",
+          "workload": "annoying",
+          "date": "2019-04-29T15:30:30",
+          "professor": "James Basker",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ENGL BC3243": {
+      "ok": true,
+      "code": "ENGL BC3243",
+      "courseId": 9612,
+      "courseName": "ABSENT MOTHERS, WICKED STEPMOTHERS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ENGL BC3207": {
+      "ok": true,
+      "code": "ENGL BC3207",
+      "courseId": 9616,
+      "courseName": "THE 'GLOBAL' NOVEL",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "ENGL BC3106": {
+      "ok": true,
+      "code": "ENGL BC3106",
+      "courseId": 9622,
+      "courseName": "FICTION & PERSONAL NARRATIVE",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 84690,
+          "rating": 5,
+          "content": "I didn't really know what to expect from this class since I hadn't taken a creative writing workshop before, but this class blew me away. Professor Batuman is incredibly smart, interesting, empathetic, and overall a lovely person, writer, and professor. She assigned readings to us each week based on what she specifically thought would be interesting and relevant for our writing. Every class we discussed the readings and workshopped two pieces by our peers.",
+          "workload": "The assignments were: weekly readings, preparing discussion questions about the readings for two weeks, two 8-15 page creative writing pieces (but the second could be a revision of the first), artist dates (doing something for your inner artist about every other week by yourself), and morning pages a few times a week (writing three pages without stopping)",
+          "date": "2024-01-07T19:00:24",
+          "professor": "Elif Batuman",
+          "agreeCount": 3,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ENGL BC3102": {
+      "ok": true,
+      "code": "ENGL BC3102",
+      "courseId": 9624,
+      "courseName": "ACADEMIC WRITING INTENSIVE",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8331": {
+      "ok": true,
+      "code": "FINC B8331",
+      "courseId": 10064,
+      "courseName": "Real Estate Finance",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8462": {
+      "ok": true,
+      "code": "FINC B8462",
+      "courseId": 10088,
+      "courseName": "An Introduction to Blockchain",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8396": {
+      "ok": true,
+      "code": "FINC B8396",
+      "courseId": 10100,
+      "courseName": "Alternative Assets in Institutional Portfolios",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8385": {
+      "ok": true,
+      "code": "FINC B8385",
+      "courseId": 10102,
+      "courseName": "VC Seminar",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8377": {
+      "ok": true,
+      "code": "FINC B8377",
+      "courseId": 10105,
+      "courseName": "Value Investing",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8373": {
+      "ok": true,
+      "code": "FINC B8373",
+      "courseId": 10107,
+      "courseName": "Applied Value Investing",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FINC B8334": {
+      "ok": true,
+      "code": "FINC B8334",
+      "courseId": 10113,
+      "courseName": "Real Estate Private Equity",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "FREN BC3037": {
+      "ok": true,
+      "code": "FREN BC3037",
+      "courseId": 10279,
+      "courseName": "BAUDELAIRE, RIMBAUD, MALLARME",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 85418,
+          "rating": 4,
+          "content": "Love the prof, first few classes were lectures to contextualize baudelaire/rimbaud and their respective literary work, then became analysis of selected poems by each author (1 by alphonse de lamartine, some by baudelaire, some by rimbaud, 1 on mallarme but didn't particularly get deep into his work). ",
+          "workload": "1 midterm paper, 1 final paper, 1 presentation\nre: the presentation --- about half way into the semester the class divides into groups of 1-2 students (mostly pairs, maybe 1 student alone iirc) and takes a day to a few days to analyze one of the given poems. expectations/ how you should present/analyse it is made pretty clear and basically mimics the first few weeks of group analysis\nmidterm paper was in class (2 prompts to choose from, pick 1, everyone must do the last prompt, all about baudelaire/his writing; 2 about his work more conceptually (e.g., ideas he pioneered/ him in literary context), 1 about 2 of the poems we analyzed in class)\n\noverall really easy. didn't really do any of the readings pre-class except for the presentation on my poem & prof is very forgiving time-wise. love her as a person too",
+          "date": "2024-08-07T03:04:16",
+          "professor": "Anne Boyman",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "FREN UN2122": {
+      "ok": true,
+      "code": "FREN UN2122",
+      "courseId": 7128,
+      "courseName": "Intermediate Conversation French II",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 80043,
+          "rating": 5,
+          "content": "I'm pretty sure Queuniet didn't like me all too much. I forgot to turn in a vocab sheet quite in time, and she was pretty obviously miffed. \r\n\r\nThat being said, I want to give her the highest possible recommendation! Sophie is a strong native speaker with an incredible vocabulary. She can call to memory random words, define them using only french, and still make it all interactive and fun. In a conversation class, you'd figure that there would be a lot of awkward silence, even from the professor, but it wasn't like that at all! She wasn't an overbearing, domineering professor that solely commanded the class. Nor was she a (pardon the French) laissez-faire professor, leaving it all to the students. Sophie was the excellent medium; she managed to steer conversations effortlessly from topic to topic, leaving all students satisfied. She brought in some french students to talk to, played \"Taboo\" with us, broadened our vocabulary immensely, and forced us to speak only in French. She was an excellently versatile professor, able to handle everything. \r\n\r\nThat being said, she was by NO means an easy-A professor. If you struggle with vocab every so often like I do, she can be pretty brutal on quizzes. I haven't heard of any other Conv. Fr. teacher that gives quizzes yet. She also judges your presentations pretty harshly, but makes excellent criticism points. She wasn't an easy teacher, but if you really, really wanna improve your French, she's the professor to do it. \r\n\r\nThe thing she did best was pronunciation - Sophie had a website that she would use to play little games to test our pronunciation. There were even some questions about it on our quizzes! My pronunciation was about a million times better at the end than it was at the beginning, and I'd considered myself fairly strong in that area. \r\n\r\nWhat a wonderful French teacher. To top it off, she brought us breakfast on the last day of class! Really cannot urge you enough: TAKE THIS DAMN CLASS.",
+          "workload": "Assiduité - 20%\r\nPetits Interros - 15% (really challenging!)\r\nListes de vocabulaire - 10%\r\nParticipation (orale en classe et devoirs) - 20%\r\nPrésentation finale - 10%\r\nPrésentations orales - 25%",
+          "date": "2017-05-16T03:50:24",
+          "professor": "Sophie Queuniet",
+          "agreeCount": 1,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "FREN BC3102": {
+      "ok": true,
+      "code": "FREN BC3102",
+      "courseId": 10281,
+      "courseName": "WOMEN OF THE LEFT BANK",
+      "reviewCount": 2,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 83891,
+          "rating": 4,
+          "content": "i really enjoyed this class a lot more than the french class i took in the previous semester (composition and conversation with karen santos da silva). professor suter doesn't force students to talk if they don't want to and makes an effort to keep people engaged by cracking some jokes and asking students what their ideas about the readings are. although i wasn't super interested in literary and artistic movements before this class, so i sometimes wouldn't know what my classmates were referencing, i think professor suter does a really good job in making sure that everyone is on the same page as well as making it interesting for people who had never had previous exposure to this type of information. i would recommend taking this class. it's def a more lecture style, which surprised me a bit since my other class was super conversational, but professor suter does have times where she makes you break off into groups to discuss the readings so you can also practice your speaking skills. ",
+          "workload": "a presentation about a woman writer/painter in left bank culture (you choose during the first few classes) and a written version of your presentation, participation (mostly based on attendance i think; she does take attendance each class and learns everyone's name pretty fast), an in class written midterm (prompt for my year was you meet a reporter and you have to tell them about what you've learned in the class so far and mention the contributions of 8 women in left bank culture and then propose an article idea), a final paper, and an explication de texte over a reading that you choose to do. some of the readings can be a bit dense but professor suter does a good job at summarizing them in class and talking about them enough that you don't need to understand everything when you read it. also, i think she gives most people A's for the writing assignments except for explication de texte and final papers where she varies the grades but generally I think she's a pretty easy grader. ",
+          "date": "2023-05-02T23:04:00",
+          "professor": "Hadley Suter",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 83772,
+          "rating": 5,
+          "content": "She is a phenomenal professor and this is a very interesting course. Mostly discussions with a little bit of lecturing, very interesting and mostly quick content. ",
+          "workload": "A 3 page analysis of a text, a presentation (written and visual) on an important historical figure from the period of your choice, one written exam and one end of the semester dissertation, plus weekly reading. \n\nThe reading is easy to get through, and although this sounds like a lot, it really isn't. Hadley is a fair grader and a very understanding person who will readily accommodate your needs. Take this class!!",
+          "date": "2023-04-19T20:36:06",
+          "professor": "Hadley Suter",
+          "agreeCount": 3,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "FREN BC3106": {
+      "ok": true,
+      "code": "FREN BC3106",
+      "courseId": 10285,
+      "courseName": "Transatlantic Translation",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 85203,
+          "rating": 4,
+          "content": "Postlewate is an incredible professor who really cares about her students. The work load was more than manageable throughout the semster, though she expects you to go back to your midterms during finals and continue to make edits which can feel a bit overwhelming. She’s incredibly flexible and really gave us the time we needed to get stuff in on our own time.  ",
+          "workload": "Two midterm translation projects with preface written by you. You're expected to come back to these midterms during finals period with another round of edits. Finals project is a personal translation project. ",
+          "date": "2024-05-02T13:16:44",
+          "professor": "Laurie Postlewate",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "ITAL UN1101": {
+      "ok": true,
+      "code": "ITAL UN1101",
+      "courseId": 7354,
+      "courseName": "Elementary Italian 1",
+      "reviewCount": 3,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 90344,
+          "rating": 5,
+          "content": "Going into class, I was nervous because I had 0 experience with Italian. Prof. Gozzi made me feel super comfortable and has really taught me a lot. The class is actually very fun; we do Kahoot, watch videos, and listen to songs. There are quizzes and writing assignments, but we are always very well prepared beforehand and always know exactly when the quiz will be and what the content on the quiz will be. If you want a fun, Italian class to take, absolutely sign up for Prof. Gozzi.",
+          "workload": "Attendance & Participation - 15%; Homework - 15%; Quizzes - 25%; Written production - 15%; Final Oral Exam - 10%; Final Written Exam - 20%.\nHomeworks are very straightforward. Quizzes are also pretty simple; she walks around during the quiz and corrects us as we work, which helps our grades. There is a lot of vocab and grammar to learn, but nothing insane--pretty standard for a language class. ",
+          "date": "2026-11-11T19:21:48",
+          "professor": "Maria Luisa Gozzi",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        },
+        {
+          "id": 86999,
+          "rating": 5,
+          "content": "Going into this class, I was scared because I knew basically 0 Italian. However, Professor Federica is the absolutely best teacher! She has been my favorite teacher at Columbia so far. Her lesson plans consist of slides and activities. The class is very engaging and we interact a lot with our classmates to help practice our Italian. She is extremely passionate and welcoming. She prioritizes learning and doesn't care or get mad when you make mistakes. Overall, I would highly recommend taking Italian if she is your professor. ",
+          "workload": "We had a couple of written homework assignments, but all very manageable and easy if you pay attention in class. As with any language, repetition is key. She uses an online platform and assigns a lot of small homework assignments on there, but they assigned early and are due the day before each quiz. Quizzes were every 2 weeks or so, not bad at all. Our final was a project that was fun to make and incorporated everything we learned. It was a pretty easy A for me. ",
+          "date": "2025-05-05T16:36:20",
+          "professor": "Federica Franze",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "IEOR E8100": {
+      "ok": true,
+      "code": "IEOR E8100",
+      "courseId": 10762,
+      "courseName": "ADVANCED TOPICS IN IEOR",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "IEOR E4900": {
+      "ok": true,
+      "code": "IEOR E4900",
+      "courseId": 10757,
+      "courseName": "MASTERS RESEARCH OR PROJECT",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "IEOR E4718": {
+      "ok": true,
+      "code": "IEOR E4718",
+      "courseId": 10769,
+      "courseName": "INTRO-IMPLIED VOLATILITY SMILE",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "IEOR E4703": {
+      "ok": true,
+      "code": "IEOR E4703",
+      "courseId": 10772,
+      "courseName": "MONTE CARLO SIMULATION METHODS",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "IEOR E4601": {
+      "ok": true,
+      "code": "IEOR E4601",
+      "courseId": 10773,
+      "courseName": "DYNAMIC PRICING/REVENUE MGMT",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "MATH UN1201": {
+      "ok": true,
+      "code": "MATH UN1201",
+      "courseId": 7059,
+      "courseName": "Calc III",
+      "reviewCount": 11,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 89930,
+          "rating": 5,
+          "content": "I was really looking forward to taking Calculus III and I was especially happy to take it with Professor Ivanov. He is phenomenal at teaching and explains all of the concepts thoroughly, making even difficult material much easier to understand. The lectures are fairly fast-paced. He always writes out the most important concepts separately, which is very helpful for preparing cheat sheets. He is always very helpful and is one of the best calculus professors I’ve had. ",
+          "workload": "Homework assignments and practice exams can be time-consuming but they are very useful in reinforcing the concepts and preparing for exams.",
+          "date": "2026-05-22T18:18:14",
+          "professor": "Cristian Iovanov",
+          "agreeCount": 0,
+          "disagreeCount": 3
+        },
+        {
+          "id": 88736,
+          "rating": 3,
+          "content": "This class was honestly not that bad at all. If you attend lecture and do the homeworks/excercises, you will be just fine and get a good grade. From what I have heard, Bhat is the easiest Calc 3 teacher. That being said, he is not a GOOD teacher. He is the kind of teacher that is very smart but does not realize that we are not all as smart. He writes things down on the board and just expects you to understand them. If you ask a clarifying question, he will just repeat what he said before, but louder. However, TAs and other math resources at Columbia were much more helpful. ",
+          "workload": "There is a homework each week that takes less than an hour. He drops the lowest two. There are two midterms that are 25% each and a final that is 30%. If your final grade is higher than either midterm it will replace that midterm. The tests are the exact same questions as hw/exercises/class examples with different numbers. You also get a cheat sheet for all of them.  ",
+          "date": "2026-01-02T18:20:10",
+          "professor": "Deeparaj Bhat",
+          "agreeCount": 3,
+          "disagreeCount": 1
+        },
+        {
+          "id": 88374,
+          "rating": 5,
+          "content": "I thought this was gonna be a hard class coming in as a freshman. De Silva was genuinely one of the best math teachers I've ever had. She's extremely nice and helpful, and she wants the best for all her students and wants to see everyone do well. Quizzes were literally like problems picked from the accuracy section of the HW, and she would tell you which problems to look at, and she wouldn't even change the numbers, so it was super easy. Midterms were harder than the practice ones, but like still not hard to do well on, same for the final. The only issue with this class would be the 8:40 timing, definitely worth it, but if you're like me and can barely wake up, it's kinda hard to get the content from the lecture if you don't go since it's all on the chalkboard and her notes are kinda hard to follow. I was able to not go to every lecture, and I have an A in the class (Possible A+). I believe she mentioned curving at the beginning of the semester, but I'm not sure.",
+          "workload": "15 homework problems a week (10 completion, 5 accuracy), and she tells u which are for accuracy sometimes. (10% of final grade)\n3 quizzes (10% of final grade) (1-2 questions pulled from the accuracy section of the homework). She cancelled the last quiz and just made one of the homeworks fully accuracy-based, though. \n2 midterms (Lowest score 15% of grade, Highest is 25%)\n1 Final (40% of final grade)",
+          "date": "2025-12-16T15:54:27",
+          "professor": "Daniela De Silva",
+          "agreeCount": 2,
+          "disagreeCount": 0
+        },
+        {
+          "id": 88313,
+          "rating": 2,
+          "content": "Mediocre instructor. Gets ahead of lecture sometimes and is very surprised why there's so many questions. Posted lecture notes is a game of deciphering Minecraft Enchanting Table language. ",
+          "workload": "I'm certain the problems he goes over in class are different than the ones he assigns for homework, which is different than the midterm practice problems, which is different than the actual exams. Problem is that what he goes over is trivially simple compared to the ones you do outside the classroom. Drops 1 HW (worth 20%), Final Exam (30%) replaces lowest Midterm 1 or 2 (25% each). You're better off reading the textbook than going to lecture.",
+          "date": "2025-12-14T17:51:31",
+          "professor": "Deeparaj Bhat",
+          "agreeCount": 10,
+          "disagreeCount": 0
+        },
+        {
+          "id": 88094,
+          "rating": 4,
+          "content": "Best Professor ever. In this school it's so difficult to find any professor without any minor annoyance, but Daniela is your exception. At the beginning of the semester I went to both her her and Piechnik's class just to see which one is better. I immediately dropped Piechnik's class and registered for De Silva's, for the obvious reasons. Despite her class being at 8:40am and throughout the semester it was always a life-and-death fight on the Monday/Weds mornings, I never once regretted taking this class cause her warming personality and caring to every student cure everything in me. I think one of the reasons she's so good is because her daughter is also a senior, so she knows exactly what level us freshmen are at. The contents are pretty OK, just what you would expect it to be: a little challenging but once you studied a little then it's fine. ",
+          "workload": "Psets every week except the week with midterms. For most times half are graded on accuracy half are graded on completion. Sometimes she tells you which are graded on accuracy sometimes she doesn't, but it's fine cause you can check the answers on your own as they are all available online. I'm personally a slow person with math cause I enjoy doing them and it's fine for me to spend a lot of time on them. Maybe takes like 3h for me to do them but i know most people finish them under 2. \nHW & Quizes(straight from the Psets) = 20%\nMidterm with better score 25%, other one 15%\nFinals 40% ",
+          "date": "2025-12-07T14:23:49",
+          "professor": "Daniela De Silva",
+          "agreeCount": 7,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "MUSI BC3140": {
+      "ok": true,
+      "code": "MUSI BC3140",
+      "courseId": 11685,
+      "courseName": "VOCAL REPERTOIRE, TECHNIQUE",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "MUSI BC1502": {
+      "ok": true,
+      "code": "MUSI BC1502",
+      "courseId": 11690,
+      "courseName": "VOICE INSTRUCTION",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": [
+        {
+          "id": 87905,
+          "rating": 5,
+          "content": "Jean Paul is the best ever! If you're lucky enough to have him as a voice teacher you're in for a real treat. My lessons with him are the highlight of my week, we have loads of fun and I learn so much. I have learned more about my voice and how to use it in my time with him than ever in my life (I've been taking voice lessons for most of it) and I have grown so much. He's so knowledgeable and finds such smart ways to imbue technical skills into technique through fun exercises. He's also super fun and great to chat with. I simply cannot recommend him enough, if an opportunity presents itself to you to work with him in any capacity, take it!\n",
+          "workload": "Nothing official, just practice whatever songs you're working on but he's very understanding about times when you're busy and can't practice as much as you'd like to. ",
+          "date": "2025-11-26T13:48:47",
+          "professor": "Jean-Paul Bjorlin",
+          "agreeCount": 0,
+          "disagreeCount": 0
+        }
+      ]
+    },
+    "NUTR G9011": {
+      "ok": true,
+      "code": "NUTR G9011",
+      "courseId": 10726,
+      "courseName": "DOCTORAL RESEARCH IN NUTRITION",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "POLS BC3801": {
+      "ok": true,
+      "code": "POLS BC3801",
+      "courseId": 12317,
+      "courseName": "COLL:POLITICS OF DEVELOPMENT",
+      "reviewCount": 1,
+      "averageRating": null,
+      "reviews": []
+    },
+    "PHYS BC3086": {
+      "ok": true,
+      "code": "PHYS BC3086",
+      "courseId": 12194,
+      "courseName": "QUANTUM PHYSICS LABORATORY",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
+    },
+    "PHYS BC2019": {
+      "ok": true,
+      "code": "PHYS BC2019",
+      "courseId": 12196,
+      "courseName": "ELECTRICITY&MAGNETISM-LAB ONLY",
+      "reviewCount": 0,
+      "averageRating": null,
+      "reviews": []
     },
     "PSYC BC2137": {
       "ok": true,
@@ -2622,33 +3730,53 @@
         }
       ]
     },
-    "SPAN UN2108": {
+    "PSYC BC1010": {
       "ok": true,
-      "code": "SPAN UN2108",
-      "courseId": 7078,
-      "courseName": "Spanish for Heritage Speakers ",
-      "reviewCount": 3,
+      "code": "PSYC BC1010",
+      "courseId": 12615,
+      "courseName": "INTRO LAB EXPERIMENTAL PSYCH",
+      "reviewCount": 4,
       "averageRating": null,
       "reviews": [
         {
-          "id": 85150,
+          "id": 86217,
           "rating": 4,
-          "content": "Jesus was a kind, understanding, and patient professor. He was very open to questions and willing to re-explain topics we were confused on. He also made class a very comfortable space where mistakes were welcome and learned from.",
-          "workload": "There was bit more homework at first but after receiving feedback from the class he shortened it to a more reasonable amount. He is a fair grader and is very clear about his feedback. I spent about 10-15 hours per week in this class (including class time). The workload consists of 3 in class essays (he lets you bring an outline and use word reference), 3 quizzes, HW, a final project, and engagement. The workload is manageable. ",
-          "date": "2024-04-25T13:32:29",
-          "professor": "Jesus Suarez-Garcia",
+          "content": "Prof Roberts is such an angel! She genuinely cares so deeply about her students inside and out of the classroom. Her classes can get pretty mundane and boring but it is all because she really aims to give everyone a base-level understanding of every assignment and concept, which often means going over pretty basic concepts a lot like defining a mean and median. ",
+          "workload": "Exceptionally light. Maybe an hour a week if that, until the last two or so classes when out \"final projects\" were due and their multiple stages of drafts (probably 2 hours a week for the last two weeks, but nothing remotely difficult). ",
+          "date": "2024-12-28T05:35:44",
+          "professor": "Mariel Roberts",
+          "agreeCount": 1,
+          "disagreeCount": 1
+        },
+        {
+          "id": 85941,
+          "rating": 4,
+          "content": "I love Professor Roberts! She is kind and clearly cares a lot about her class and students (in her own words this is her \"dream job\"). This class was a good mix of individual and group work and, as someone who often finds science intimidating, the class material was extremely approachable and felt very doable. The Excel analysis was probably the trickiest part, but I appreciate that we usually have class time to work on assignments and so it's easy to ask questions and know if \"you're doing it right\" rather than being stuck in confusion.",
+          "workload": "Very light workload. Typically able to finish assignments during class time. Only exceptions are that at the beginning of the semester, need to spend about an hour on data collection outside of class, and at the end of the semester there is a research proposal assignment that is written outside of class. \nNo tests, attendance tracked. ",
+          "date": "2024-12-10T12:32:09",
+          "professor": "Mariel Roberts",
           "agreeCount": 0,
           "disagreeCount": 0
         },
         {
-          "id": 79629,
+          "id": 84557,
           "rating": 4,
-          "content": "I took this class as a first-year my first semester of college. I can't say anything bad about Professor Suarez-Garcia; he is definietly deserving of a silver nugget. This class is specifically designed for heritage speakers, which means that the class is composed of Latinos and Hispanics. You will be required to speak Spanish during the entire hour and fifteen minutes, but since you would only be taking this course as a native Spanish speaker, speaking it fluently shouldn't be an issue. However, Professor Suarez-Garcia does not grade you based on how you speak the language, in fact, he openly states that even though he is from Spain, he does not believe that Spanish from Spain is best, which is incredibly comforting. The course itself is focused on grammar and learning how to perfect the language so that it is spoken \"formally\" instead of \"colloquially\". Even though grammar was a large part of the course, Professor Suarez-Garica also incorporated topics that had nothing to do with grammar, which was the basis of three short essays that we had to write. Throughout the entire semester, the Professor was always willing to answer our questions. He is also very flexible regarding due dates and grades. Overall, he was an amazing Professor and I would totally advise anyone who is willing to take this class to take it. ",
-          "workload": "3 short essays (1st 250 words/ 2nd 500/ 3rd 750) -- Gives you an opportunity to correct mistakes for a better grade after each one \r\n4 exams (3 \"midterms\" and one final) -- These are based on grammar \r\nDaily homework (doesn't take more than an hour and some of it can be skipped or put off) ",
-          "date": "2016-12-23T16:22:38",
-          "professor": "Jesus Suarez-Garcia",
+          "content": "Professor Roberts is so lovely! She's very very organized and speaks with so much clarity regarding material and course objectives. Since this an intro lab she does not expect proficient understanding of concepts; she's super understanding. Sometimes we got let out early, which is nice given that the course is 3 hours long. She gave us plenty of time to do assignments and is very knowledgeable! ",
+          "workload": "Behavioral observation assignment towards the beginning, other in-class group assignments using ANOVA tools, and a final research proposal project. Sometimes the workload felt a little more than what was appropriate for a 1.5 credit class, but it wasn't anything crazy.",
+          "date": "2023-12-20T16:22:06",
+          "professor": "Mariel Roberts",
+          "agreeCount": 2,
+          "disagreeCount": 2
+        },
+        {
+          "id": 83722,
+          "rating": 4,
+          "content": "Prof. Roberts is great! She's super kind and understanding, and always checked in with students to make sure the workload wasn't too much. Additionally, she kindly wrote me a rec letter and gave very little outside of lab work. ",
+          "workload": "Very straightforward work, def recommend it! The only issue I had was with one assignment that required excel, but I was able to figure it out relatively easily.",
+          "date": "2023-04-05T21:04:49",
+          "professor": "Mariel Roberts",
           "agreeCount": 0,
-          "disagreeCount": 0
+          "disagreeCount": 2
         }
       ]
     }
