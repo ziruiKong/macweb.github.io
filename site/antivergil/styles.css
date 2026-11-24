@@ -11200,3 +11200,41 @@ body.join-page-open {
   :is(.calendar-week-head, .calendar-all-day-row, .calendar-week-body) {
   grid-template-columns: clamp(46px, 8vw, 62px) minmax(0, 1fr);
 }
+/* Separate perforated paper stamps with a fine printed inner border. */
+#course-list,
+#search-results { gap: 18px; }
+
+:is(#course-list, #search-results) .course-card > .stamp-shape {
+  background: #fffdf6;
+  -webkit-mask:
+    radial-gradient(circle at 50% 0, transparent 3px, #000 3.5px) 0 0 / 12px 100% repeat-x,
+    radial-gradient(circle at 50% 100%, transparent 3px, #000 3.5px) 0 0 / 12px 100% repeat-x,
+    radial-gradient(circle at 0 50%, transparent 3px, #000 3.5px) 0 0 / 100% 12px repeat-y,
+    radial-gradient(circle at 100% 50%, transparent 3px, #000 3.5px) 0 0 / 100% 12px repeat-y;
+  -webkit-mask-composite: source-in;
+  mask:
+    radial-gradient(circle at 50% 0, transparent 3px, #000 3.5px) 0 0 / 12px 100% repeat-x,
+    radial-gradient(circle at 50% 100%, transparent 3px, #000 3.5px) 0 0 / 12px 100% repeat-x,
+    radial-gradient(circle at 0 50%, transparent 3px, #000 3.5px) 0 0 / 100% 12px repeat-y,
+    radial-gradient(circle at 100% 50%, transparent 3px, #000 3.5px) 0 0 / 100% 12px repeat-y;
+  mask-composite: intersect;
+  filter: drop-shadow(0 2px 2px rgba(36,36,34,.12));
+}
+
+:is(#course-list, #search-results) .course-card > .stamp-shape::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  border: 1px solid #b5afa0;
+  background: radial-gradient(rgba(88,74,48,.06) .5px, transparent .8px) 0 0 / 4px 4px;
+  border-radius: 0;
+}
+
+@media (max-width: 760px) {
+  #course-list, #search-results { gap: 14px; }
+  :is(#course-list, #search-results) > .course-card { padding: 22px; }
+  :is(#course-list, #search-results) .course-card > .cc-main > .cc-top {
+    margin: -22px -22px 0;
+    padding: 10px 22px 0;
+  }
+}
