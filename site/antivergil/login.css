@@ -30,6 +30,19 @@ button,
 a { -webkit-tap-highlight-color: transparent; }
 [hidden] { display: none !important; }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .login-shell {
   width: 100%;
   height: 100svh;
@@ -81,43 +94,16 @@ a { -webkit-tap-highlight-color: transparent; }
   overflow: hidden;
 }
 
-.login-title {
-  position: absolute;
-  top: clamp(8px, 2.5vh, 28px);
-  right: 0;
-  left: 0;
-  z-index: 1;
-  margin: 0;
-  color: var(--ink);
-  font-size: clamp(100px, 15.7vw, 245px);
-  font-weight: 900;
-  line-height: .79;
-  letter-spacing: -.09em;
-  text-align: center;
-  text-transform: uppercase;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-}
-
-.login-title .title-small {
-  display: block;
-  margin: 0 0 .16em;
-  font-size: .3em;
-  line-height: .9;
-  letter-spacing: -.075em;
-}
-
 .login-visual {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 2;
-  width: clamp(270px, 25vw, 390px);
-  height: clamp(330px, 33vw, 500px);
+  width: clamp(320px, min(39vw, 47vh), 470px);
+  aspect-ratio: 1;
   margin: 0;
   overflow: hidden;
-  transform: translate(-50%, -53%);
+  transform: translate(-50%, -52%);
   background: #c9c5b9;
 }
 
@@ -300,19 +286,9 @@ a { -webkit-tap-highlight-color: transparent; }
     padding: 17px 18px 0;
   }
 
-  .login-title {
-    top: 8px;
-    font-size: clamp(76px, 24.5vw, 150px);
-  }
-
-  .login-title .title-small {
-    margin-bottom: .14em;
-    font-size: .32em;
-  }
-
   .login-visual {
-    width: clamp(220px, 60vw, 310px);
-    height: clamp(280px, 76vw, 390px);
+    width: min(70vw, 47vh, 330px);
+    aspect-ratio: 1;
     transform: translate(-50%, -52%);
   }
 
@@ -328,15 +304,10 @@ a { -webkit-tap-highlight-color: transparent; }
     font-size: 17px;
   }
 
-  .login-title {
-    font-size: 24vw;
-  }
-
   .login-visual {
-    width: 58vw;
-    height: 73vw;
-    min-width: 210px;
-    min-height: 265px;
+    width: min(69vw, 44vh, 300px);
+    min-width: 0;
+    aspect-ratio: 1;
   }
 
   .google-login {
@@ -350,14 +321,9 @@ a { -webkit-tap-highlight-color: transparent; }
 @media (max-height: 700px) {
   .login-header { padding-top: 14px; }
 
-  .login-title {
-    top: 0;
-    font-size: clamp(82px, 13vw, 180px);
-  }
-
   .login-visual {
-    width: clamp(210px, 21vw, 300px);
-    height: clamp(250px, 27vw, 365px);
+    width: clamp(230px, min(30vw, 46vh), 360px);
+    aspect-ratio: 1;
     transform: translate(-50%, -51%);
   }
 
