@@ -11654,3 +11654,33 @@ body.join-page-open {
   text-align: center;
   padding: 4px 10px;
 }
+
+/* Align the schedule divider with the instructor cell above. */
+:is(#course-list, #search-results) .course-card .cc-meta {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .8fr) 38px;
+}
+:is(#course-list, #search-results) .course-card .cc-meta > .chip {
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+:is(#course-list, #search-results) .course-card .cc-days-row {
+  display: grid;
+  grid-template-columns: calc(72px + (100% - 110px) * .4375) minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+  align-items: stretch;
+}
+:is(#course-list, #search-results) .course-card .cc-days-row .day-strip {
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #b5b5ac;
+}
+:is(#course-list, #search-results) .course-card .cc-days-row .time-chip {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 3px 6px;
+  justify-content: center;
+  text-align: center;
+}
