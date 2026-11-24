@@ -2599,7 +2599,6 @@ function renderDepartmentProfile() {
     host.innerHTML = `
       <header class="dept-hero">
         <div class="dept-hero-main">
-          <button class="dept-back" type="button" data-dept-back>← Browse all courses</button>
           <span class="dept-kicker">Department dossier · ${esc(termShort(state.term))}</span>
           <h1>${esc(departmentCode)}</h1>
           <p>${esc(departmentName)}</p>
