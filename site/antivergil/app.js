@@ -512,7 +512,6 @@ const NAV = [
   ["planner", "Plan"],
   ["calendar", "Calendar"],
   ["map", "Map"],
-  ["me", "Profile"],
 ];
 
 const AUTH_REQUIRED_VIEWS = new Set(["rankings", "analysis", "history", "instructor", "department", "me"]);
