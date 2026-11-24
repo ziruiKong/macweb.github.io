@@ -51,15 +51,36 @@ for(const tile of gallery.children){
 }
 const originals=[...gallery.children];
 for(const tile of originals){const copy=tile.cloneNode(true);copy.tabIndex=-1;copy.setAttribute('aria-hidden','true');gallery.append(copy);}
-let previous=0,offset=0,lastManual=0;
-gallery.addEventListener('scroll',()=>{offset=gallery.scrollLeft}, {passive:true});
-for(const type of ['wheel','touchmove','pointerdown'])gallery.addEventListener(type,()=>lastManual=performance.now(),{passive:true});
-function drift(now){
-  const dt=Math.min(50,now-previous);previous=now;
-  if(!document.hidden&&!reduced.matches&&!gallery.matches(':hover,:focus-within')&&now-lastManual>1600){
-    const period=gallery.children[originals.length].offsetLeft-gallery.children[0].offsetLeft;
-    if(period>0){offset=(offset+dt*.032)%period;gallery.scrollLeft=Math.floor(offset);offset+=.5;}
-  }
-  requestAnimationFrame(drift);
+const track=document.createElement('div');
+track.className='gallery-track';
+track.append(...gallery.children);
+for(const tile of originals){const copy=tile.cloneNode(true);copy.tabIndex=-1;copy.setAttribute("aria-hidden","true");track.append(copy);}
+gallery.append(track);
+const motion=track.animate(
+  [{transform:'translate3d(0,0,0)'},{transform:'translate3d(-33.3333333333%,0,0)'}],
+  {duration:1000,iterations:Infinity,easing:'linear'}
+);
+function resizeTrack(){
+  const duration=track.getBoundingClientRect().width/3/32*1000;
+  if(duration>0)motion.effect.updateTiming({duration});
 }
-requestAnimationFrame(drift);
+new ResizeObserver(resizeTrack).observe(track);
+resizeTrack();
+let resumeTimer;
+function syncPlayback(){
+  clearTimeout(resumeTimer);
+  if(reduced.matches || document.hidden || gallery.matches(':hover,:focus-within'))motion.pause();
+  else motion.play();
+}
+for(const event of ['pointerenter','pointerleave','focusin'])gallery.addEventListener(event,syncPlayback);
+gallery.addEventListener('focusout',()=>requestAnimationFrame(syncPlayback));
+reduced.addEventListener('change',syncPlayback);
+document.addEventListener('visibilitychange',syncPlayback);
+gallery.addEventListener('scroll',()=>{
+  motion.pause();
+  const period=track.offsetWidth/3;
+  if(period && gallery.scrollLeft>=period)gallery.scrollLeft-=period;
+  clearTimeout(resumeTimer);
+  resumeTimer=setTimeout(syncPlayback,1400);
+},{passive:true});
+syncPlayback();
