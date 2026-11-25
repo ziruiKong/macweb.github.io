@@ -213,6 +213,7 @@ a { -webkit-tap-highlight-color: transparent; }
   min-height: 52px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 11px;
   padding: 8px 13px;
   border: 1.5px solid var(--ink);
@@ -241,19 +242,11 @@ a { -webkit-tap-highlight-color: transparent; }
   height: 16px;
 }
 
-.button-arrow {
-  margin-left: auto;
-  font-size: 19px;
-  font-weight: 400;
-  transition: transform 220ms ease;
-}
-
 .google-login:hover {
   background: var(--ink);
   color: var(--paper);
 }
 
-.google-login:hover .button-arrow { transform: translate(3px, -3px); }
 .google-login:hover .google-icon { transform: scale(1.08); }
 .google-login:active { transform: translateY(1px); }
 .google-login:disabled { opacity: .58; cursor: wait; }
