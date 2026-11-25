@@ -1,1 +1,0 @@
-window.ENROLL_HISTORY = {"term":"2021-Spring","updatedAt":"2026-11-22 17:55","registrationStart":"2021-06-16","classesStart":"2021-01-11","dropDeadline":"2021-02-15","lastDataDate":"2021-11-03","baseDate":"2021-06-16","latestDate":"2021-06-16","complete":false,"summary":[],"recent":[]};
