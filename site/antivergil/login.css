@@ -121,9 +121,10 @@ a { -webkit-tap-highlight-color: transparent; }
 .login-marquee-track {
   width: max-content;
   display: flex;
-  font-size: clamp(118px, 20vw, 290px);
+  font-size: clamp(98px, 16.5vw, 225px);
   font-weight: 500;
-  line-height: .78;
+  line-height: .96;
+  padding-block: .05em;
   letter-spacing: -.075em;
   white-space: nowrap;
   will-change: transform;
@@ -378,7 +379,7 @@ a { -webkit-tap-highlight-color: transparent; }
   }
 
   .login-marquee-track {
-    font-size: clamp(92px, 24vw, 160px);
+    font-size: clamp(80px, 19.5vw, 130px);
   }
 
   .login-panel {
