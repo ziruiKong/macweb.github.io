@@ -91,9 +91,9 @@ a { -webkit-tap-highlight-color: transparent; }
   justify-self: center;
   color: var(--ink);
   font-size: clamp(19px, 1.5vw, 22px);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: -.01em;
+  letter-spacing: -.035em;
   text-decoration: none;
   text-transform: lowercase;
 }
