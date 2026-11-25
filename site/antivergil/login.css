@@ -106,6 +106,36 @@ a { -webkit-tap-highlight-color: transparent; }
   overflow: hidden;
 }
 
+.login-marquee {
+  position: absolute;
+  top: 43%;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+  color: var(--ink);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.login-marquee-track {
+  width: max-content;
+  display: flex;
+  font-size: clamp(118px, 20vw, 290px);
+  font-weight: 500;
+  line-height: .78;
+  letter-spacing: -.075em;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee-scroll 24s linear infinite;
+}
+
+.login-marquee-track span {
+  flex: 0 0 auto;
+  padding-right: .22em;
+  text-transform: uppercase;
+}
+
 .login-visual {
   position: absolute;
   top: 43%;
@@ -320,6 +350,11 @@ a { -webkit-tap-highlight-color: transparent; }
   }
 }
 
+@keyframes marquee-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
 @keyframes panel-in {
   from {
     opacity: 0;
@@ -340,6 +375,10 @@ a { -webkit-tap-highlight-color: transparent; }
     width: min(59vw, 38vh, 285px);
     aspect-ratio: 1;
     transform: translate(-50%, -50%);
+  }
+
+  .login-marquee-track {
+    font-size: clamp(92px, 24vw, 160px);
   }
 
   .login-panel {
