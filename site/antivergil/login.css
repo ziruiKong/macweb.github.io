@@ -92,7 +92,7 @@ a { -webkit-tap-highlight-color: transparent; }
   color: var(--ink);
   font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
   text-decoration: none;
