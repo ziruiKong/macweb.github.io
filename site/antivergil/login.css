@@ -209,6 +209,7 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 .google-login {
+  position: relative;
   width: 100%;
   min-height: 52px;
   display: flex;
@@ -228,12 +229,15 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 .google-icon {
+  position: absolute;
+  top: 50%;
+  left: 13px;
   width: 21px;
   height: 21px;
-  flex: 0 0 21px;
   display: grid;
   place-items: center;
   background: transparent;
+  transform: translateY(-50%);
   transition: transform 220ms ease;
 }
 
@@ -247,7 +251,7 @@ a { -webkit-tap-highlight-color: transparent; }
   color: var(--paper);
 }
 
-.google-login:hover .google-icon { transform: scale(1.08); }
+.google-login:hover .google-icon { transform: translateY(-50%) scale(1.08); }
 .google-login:active { transform: translateY(1px); }
 .google-login:disabled { opacity: .58; cursor: wait; }
 
