@@ -107,7 +107,7 @@ a { -webkit-tap-highlight-color: transparent; }
 
 .login-marquee {
   position: absolute;
-  top: 43%;
+  top: 40%;
   right: 0;
   left: 0;
   z-index: 1;
