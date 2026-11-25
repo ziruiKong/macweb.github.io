@@ -12719,3 +12719,213 @@ body[data-view="search"] .topbar {
 }
 .prof-course-bar-stat > span { border-right: 1px solid var(--sa-soft-line); }
 .prof-course-bar-stat > span:last-child { border-right: 0; }
+
+/* ------------------------------------------------------------
+ * Mobile layout refinement
+ * Keep controls reachable, remove avoidable truncation, and let
+ * data-heavy pages use the full width of a phone.
+ * ---------------------------------------------------------- */
+@media (max-width: 760px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  main {
+    padding: 14px clamp(10px, 3.8vw, 16px)
+      max(28px, calc(env(safe-area-inset-bottom) + 18px));
+  }
+
+  .topbar {
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-inline: clamp(10px, 3.8vw, 16px);
+  }
+
+  .topbar-meta-row {
+    grid-template-columns: 40px minmax(0, 1fr) max-content;
+    column-gap: 8px;
+    min-height: 52px;
+  }
+
+  .topbar-meta-row > .mobile-nav-toggle {
+    gap: 6px;
+    overflow: visible;
+    font-size: clamp(14px, 3.8vw, 16px);
+    letter-spacing: -.025em;
+  }
+
+  .topbar-meta-row > .mobile-nav-toggle span {
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .topbar-meta-row > .topbar-term .term-menu-btn {
+    font-size: clamp(11px, 3.2vw, 13px);
+  }
+
+  .topbar-search {
+    padding-inline: 0;
+  }
+
+  .topbar-search .search {
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .filter-toggle {
+    padding-inline: 8px;
+    font-size: 13px;
+  }
+
+  #course-list,
+  #search-results {
+    padding-bottom: 20px;
+  }
+
+  :is(#course-list, #search-results) .course-card .cc-title {
+    padding-inline: 8px;
+    line-height: 1.22;
+  }
+
+  .calendar-view-switch button,
+  .calendar-today-btn,
+  .calendar-arrow-group button,
+  .calendar-toolbar-actions .calendar-icon-btn {
+    min-height: 44px;
+  }
+
+  .calendar-engine {
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .calendar-engine::-webkit-scrollbar {
+    display: none;
+  }
+
+  .calendar-agenda-shell {
+    padding: 12px 12px 28px;
+  }
+
+  .calendar-agenda-day {
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .calendar-agenda-event {
+    grid-template-columns: 56px minmax(0, 1fr);
+    min-height: 48px;
+    gap: 6px;
+    padding: 9px 10px;
+  }
+
+  .calendar-agenda-event small {
+    display: none;
+  }
+
+  .calendar-agenda-event b {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .campus-model-shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(340px, 56svh) auto;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .campus-model-main {
+    min-height: 0;
+  }
+
+  .campus-model-rail {
+    display: flex;
+    max-height: none;
+    overflow: visible;
+    padding: 16px;
+    border-top: 2px solid var(--sa-line);
+    border-left: 0;
+  }
+
+  .campus-model-rail-search {
+    min-height: 44px;
+  }
+
+  .campus-model-rail-search input {
+    font-size: 16px;
+  }
+
+  .campus-landmarks {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .cal-list.campus-model-course-list {
+    max-height: 250px;
+  }
+
+  .campus-model-links {
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .rankings-toolbar {
+    gap: 14px;
+  }
+
+  .rankings-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .rankings-search {
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .rankings-modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .rankings-modes button {
+    width: 100%;
+    min-width: 0;
+    height: 44px;
+    padding-inline: 5px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .rankings-hero h1 {
+    font-size: 13.7vw;
+    line-height: .88;
+    letter-spacing: -.075em;
+  }
+
+  .rankings-stats b {
+    font-size: 23px;
+  }
+
+  .calendar-agenda-event b {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    line-height: 1.3;
+  }
+}

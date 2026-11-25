@@ -114,7 +114,7 @@ const state = {
   departmentCode: "",
   departmentReturn: null,
   departmentInstructorsExpanded: false,
-  calendarView: "week",
+  calendarView: window.matchMedia("(max-width: 700px)").matches ? "agenda" : "week",
   rankingsMode: "score",
   rankingsQuery: "",
   rankingsLimit: 100,
@@ -6907,11 +6907,9 @@ const responsiveSearchField = document.querySelector("#search");
 if (responsiveSearchField) {
   const fullSearchPlaceholder = responsiveSearchField.getAttribute("placeholder") || "";
   const updateSearchPlaceholder = () => {
-    responsiveSearchField.placeholder = window.innerWidth <= 380
+    responsiveSearchField.placeholder = window.innerWidth <= 560
       ? "Search courses…"
-      : window.innerWidth <= 560
-        ? "Search courses, depts & instructors…"
-        : fullSearchPlaceholder;
+      : fullSearchPlaceholder;
   };
   updateSearchPlaceholder();
   window.addEventListener("resize", updateSearchPlaceholder, { passive: true });

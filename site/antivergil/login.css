@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "DM Mono";
+  src: url("assets/fonts/dm-mono-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Mono";
+  src: url("assets/fonts/dm-mono-medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
 :root {
   --paper: #eeeee6;
   --ink: #121212;
@@ -24,6 +40,8 @@ body {
   color: var(--ink);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  min-height: 100svh;
 }
 
 button,
@@ -48,6 +66,7 @@ a { -webkit-tap-highlight-color: transparent; }
 .login-shell {
   width: 100%;
   height: 100svh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -71,10 +90,11 @@ a { -webkit-tap-highlight-color: transparent; }
 .login-nav-link {
   width: fit-content;
   color: var(--ink);
+  font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -.01em;
+  letter-spacing: 0;
   text-decoration: none;
   transition: opacity 180ms ease;
 }
@@ -221,8 +241,10 @@ a { -webkit-tap-highlight-color: transparent; }
   border-radius: 0;
   background: transparent;
   color: var(--ink);
-  font-size: 13px;
-  font-weight: 700;
+  font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .015em;
   text-align: left;
   cursor: pointer;
   transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
@@ -291,6 +313,7 @@ a { -webkit-tap-highlight-color: transparent; }
   outline: 0;
   background: var(--paper);
   color: var(--ink);
+  font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 14px;
 }
 
@@ -313,8 +336,10 @@ a { -webkit-tap-highlight-color: transparent; }
   border-radius: 0;
   background: var(--ink);
   color: var(--paper);
-  font-size: 13px;
-  font-weight: 700;
+  font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .015em;
   text-align: left;
   cursor: pointer;
 }
@@ -330,6 +355,7 @@ a { -webkit-tap-highlight-color: transparent; }
   border: 1.5px solid var(--danger);
   background: var(--paper);
   color: var(--danger);
+  font-family: "DM Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
   font-size: 12px;
   line-height: 1.45;
   text-align: left;
@@ -369,7 +395,7 @@ a { -webkit-tap-highlight-color: transparent; }
 
 @media (max-width: 760px) {
   .login-header {
-    padding: 17px 18px 0;
+    padding: max(17px, env(safe-area-inset-top)) 18px 0;
   }
 
   .login-visual {
@@ -383,7 +409,7 @@ a { -webkit-tap-highlight-color: transparent; }
   }
 
   .login-panel {
-    bottom: 42px;
+    bottom: max(24px, calc(env(safe-area-inset-bottom) + 10px));
     width: min(340px, calc(100% - 32px));
   }
 }
