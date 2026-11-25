@@ -95,7 +95,6 @@ a { -webkit-tap-highlight-color: transparent; }
   line-height: 1;
   letter-spacing: -.035em;
   text-decoration: none;
-  text-transform: lowercase;
 }
 
 .login-main {
@@ -134,7 +133,6 @@ a { -webkit-tap-highlight-color: transparent; }
 .login-marquee-track span {
   flex: 0 0 auto;
   padding-right: .22em;
-  text-transform: uppercase;
 }
 
 .login-visual {
