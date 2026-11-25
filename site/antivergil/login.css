@@ -88,7 +88,7 @@ a { -webkit-tap-highlight-color: transparent; }
 }
 
 .login-brand {
-  width: clamp(106px, 9.8vw, 138px);
+  width: clamp(90px, 8vw, 112px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -397,7 +397,7 @@ a { -webkit-tap-highlight-color: transparent; }
   .login-nav-link { font-size: 12px; }
 
   .login-brand {
-    width: 96px;
+    width: 84px;
   }
 
   .login-visual {
